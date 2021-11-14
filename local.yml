@@ -1,0 +1,65 @@
+version: "3"
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+    volumes:
+      - ./nginx/local.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+      - database
+      - frontend
+    networks:
+      - net
+
+  backend:
+    container_name: backend
+    image: node:17-alpine
+    volumes:
+      - ./backend:/app/backend
+    working_dir: /app/backend
+    command: sh -c 'npm install && npx nodemon index.js'
+    ports:
+      - '3001:3001'
+    links:
+      - mongo
+    networks:
+      - net
+
+
+  mongo: 
+    container_name: mongo
+    image: mongo
+    ports: 
+      - '27017:27017'
+    volumes: 
+      - ./database/mongod.conf:/etc/mongod.conf
+      - mongo_db:/data/db
+      - mongo_configdb:/data/configdb 
+    networks:
+      - net
+
+  
+  frontend:
+    container_name: frontend
+    # stdin_open: true
+    image: node:17-alpine
+    volumes:
+      - ./room-booking-frontend:/app/frontend
+    working_dir: /app/frontend
+    command: sh -c 'npm install && npm start'
+    ports:
+      - '3000:3000'
+    links: 
+      - backend
+    networks:
+      - net
+
+volumes: 
+  mongo_db:
+  mongo_configdb:
+networks:
+  net:
