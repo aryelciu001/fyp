@@ -1,6 +1,7 @@
 const AuthRouter = require('express').Router()
+const AuthController = require('../controllers/auth')
 
-AuthRouter.get('/', function (req, res) {
+AuthRouter.get('/', AuthController.isAdmin, function (req, res) {
   return res.send({})
 })
 
