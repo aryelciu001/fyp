@@ -1,0 +1,21 @@
+@import '../../var.scss';
+
+.project-list-item {
+  width: 100%;
+  border-bottom: 2px solid $theme-red-darker;
+  .project-list-item-header {
+    color: white;
+    padding: $box-padding;
+    background-color: $theme-red;
+    cursor: pointer;
+  }
+  .project-list-item-body {
+    &.open {
+      display: block;
+    }
+    &.close {
+      display: none;
+    }
+    padding: $box-padding;
+  }
+}
