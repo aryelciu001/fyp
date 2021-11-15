@@ -8,6 +8,24 @@
     padding: $box-padding;
     background-color: $theme-red;
     cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .buttons {
+      button {
+        margin-left: $box-margin;
+        background-color: $theme-blue;
+        color: white;
+        font-size: $button-font-size;
+        transition: .1s;
+        &:hover {
+          background-color: $theme-blue-lighter;
+        }
+      }
+      position: absolute;
+      right: calc($box-padding);
+    }
   }
   .project-list-item-body {
     &.open {
