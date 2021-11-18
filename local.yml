@@ -39,6 +39,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=zP8c4eE8OcQX2Q6H
     volumes:
+      # script to be run on every container creation
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init-script.sql
       - fyp_mysql:/var/lib/mysql
     networks:
       - net
