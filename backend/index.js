@@ -1,4 +1,11 @@
 const app = (require("express"))()
+const connection = require('./db')
+
+try {
+  connection.connect()
+} catch (e) {
+  console.log(e)
+}
 
 // Routing
 app.get("/", (req, res) => {
