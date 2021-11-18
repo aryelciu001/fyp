@@ -1,33 +1,35 @@
 version: "3"
 services:
-  # fyp_nginx:
-  #   container_name: fyp_nginx
-  #   image: nginx:alpine
-  #   volumes:
-  #     - ./nginx/local.conf:/etc/nginx/nginx.conf
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #   depends_on:
-  #     - backend
-  #     - database
-  #     - frontend
-  #   networks:
-  #     - net
+  fyp_nginx:
+    container_name: fyp_nginx
+    image: nginx:alpine
+    volumes:
+      - ./nginx/local.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      # - fyp_backend
+      - fyp_db
+      # - fyp_frontend
+    networks:
+      - net
 
-  # fyp_backend:
-  #   container_name: fyp_backend
-  #   image: node:17-alpine
-  #   volumes:
-  #     - ./backend:/app/backend
-  #   working_dir: /app/backend
-  #   command: sh -c 'npm install && npx nodemon index.js'
-  #   ports:
-  #     - '3001:3001'
-  #   links:
-  #     - database
-  #   networks:
-  #     - net
+  fyp_backend:
+    container_name: fyp_backend
+    image: node:17-alpine
+    volumes:
+      - ./backend:/app/backend
+    working_dir: /app/backend
+    command: sh -c 'npm install && npm start'
+    ports:
+      - '3001:3001'
+    environment:
+      - PORT=3001
+    links:
+      - fyp_db
+    networks:
+      - net
 
 
   fyp_db: 
