@@ -9,9 +9,9 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
-      # - fyp_backend
+      - fyp_backend
       - fyp_db
-      # - fyp_frontend
+      - fyp_frontend
     networks:
       - net
 
@@ -50,20 +50,20 @@ services:
       - net
 
   
-  # fyp_frontend:
-  #   container_name: fyp_frontend
-  #   # stdin_open: true
-  #   image: node:17-alpine
-  #   volumes:
-  #     - ./room-booking-frontend:/app/frontend
-  #   working_dir: /app/frontend
-  #   command: sh -c 'npm install && npm start'
-  #   ports:
-  #     - '3000:3000'
-  #   links: 
-  #     - backend
-  #   networks:
-  #     - net
+  fyp_frontend:
+    container_name: fyp_frontend
+    # stdin_open: true
+    image: node:16-alpine
+    volumes:
+      - ./frontend:/app/frontend
+    working_dir: /app/frontend
+    command: sh -c 'npm install && npm start'
+    ports:
+      - '3000:3000'
+    depends_on:
+      - fyp_backend
+    networks:
+      - net
 
 volumes:
   fyp_mysql:
