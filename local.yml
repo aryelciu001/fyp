@@ -1,65 +1,66 @@
 version: "3"
 services:
-  nginx:
-    container_name: nginx
-    image: nginx:alpine
-    volumes:
-      - ./nginx/local.conf:/etc/nginx/nginx.conf
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - backend
-      - database
-      - frontend
-    networks:
-      - net
+  # fyp_nginx:
+  #   container_name: fyp_nginx
+  #   image: nginx:alpine
+  #   volumes:
+  #     - ./nginx/local.conf:/etc/nginx/nginx.conf
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   depends_on:
+  #     - backend
+  #     - database
+  #     - frontend
+  #   networks:
+  #     - net
 
-  backend:
-    container_name: backend
-    image: node:17-alpine
-    volumes:
-      - ./backend:/app/backend
-    working_dir: /app/backend
-    command: sh -c 'npm install && npx nodemon index.js'
-    ports:
-      - '3001:3001'
-    links:
-      - mongo
-    networks:
-      - net
+  # fyp_backend:
+  #   container_name: fyp_backend
+  #   image: node:17-alpine
+  #   volumes:
+  #     - ./backend:/app/backend
+  #   working_dir: /app/backend
+  #   command: sh -c 'npm install && npx nodemon index.js'
+  #   ports:
+  #     - '3001:3001'
+  #   links:
+  #     - database
+  #   networks:
+  #     - net
 
 
-  mongo: 
-    container_name: mongo
-    image: mongo
+  fyp_db: 
+    container_name: fyp_db
+    image: mysql:8.0
     ports: 
-      - '27017:27017'
-    volumes: 
-      - ./database/mongod.conf:/etc/mongod.conf
-      - mongo_db:/data/db
-      - mongo_configdb:/data/configdb 
+      - '3306:3306'
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=zP8c4eE8OcQX2Q6H
+    volumes:
+      - fyp_mysql:/var/lib/mysql
     networks:
       - net
 
   
-  frontend:
-    container_name: frontend
-    # stdin_open: true
-    image: node:17-alpine
-    volumes:
-      - ./room-booking-frontend:/app/frontend
-    working_dir: /app/frontend
-    command: sh -c 'npm install && npm start'
-    ports:
-      - '3000:3000'
-    links: 
-      - backend
-    networks:
-      - net
+  # fyp_frontend:
+  #   container_name: fyp_frontend
+  #   # stdin_open: true
+  #   image: node:17-alpine
+  #   volumes:
+  #     - ./room-booking-frontend:/app/frontend
+  #   working_dir: /app/frontend
+  #   command: sh -c 'npm install && npm start'
+  #   ports:
+  #     - '3000:3000'
+  #   links: 
+  #     - backend
+  #   networks:
+  #     - net
 
-volumes: 
-  mongo_db:
-  mongo_configdb:
+volumes:
+  fyp_mysql:
+
 networks:
   net:
