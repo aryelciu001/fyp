@@ -38,6 +38,7 @@ services:
     ports: 
       - "3306:3306"
     restart: always
+    # allow backend to connect to db
     command: --default-authentication-plugin=mysql_native_password
     environment:
       - MYSQL_ROOT_PASSWORD=zP8c4eE8OcQX2Q6H
