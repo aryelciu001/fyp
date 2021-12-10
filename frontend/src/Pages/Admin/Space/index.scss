@@ -1,0 +1,14 @@
+@import "../../../CSS/variables.scss";
+
+.space {
+  flex: 1;
+  margin-left: 20px;
+  text-align: left;
+  h3 {
+    padding: 5px 10px;
+    border-radius: $border-radius;
+    border: 2px solid $theme-blue;
+    width: fit-content;
+    color: $theme-blue;
+  }
+}

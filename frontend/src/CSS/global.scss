@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 body, html {
   width: 100%;
   margin: 0;
@@ -7,12 +9,14 @@ body, html {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: $theme-white;
 }
 
 #root {
   width: 100%;
   display: flex;
   justify-content: center;
+  color: $theme-black;
 }
 
 .App {
