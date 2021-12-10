@@ -1,4 +1,4 @@
-@import '../../var.scss';
+@import '../../../CSS/variables.scss';
 
 .project-list-item {
   width: 100%;
@@ -7,7 +7,6 @@
     color: white;
     padding: $box-padding;
     background-color: $theme-red;
-    cursor: pointer;
     position: relative;
     display: flex;
     flex-direction: row;

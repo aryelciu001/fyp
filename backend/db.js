@@ -1,9 +1,9 @@
 const mysql = require('mysql');
 const connection = mysql.createConnection({
-  host: 'fyp_db',
+  host: process.env.MYSQL_HOST,
   port: 3306,
-  user: 'root',
-  password: 'zP8c4eE8OcQX2Q6H',
-  database: 'fyp_lists_project'
+  user: process.env.MYSQL_USERNAME,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DB
 });
 module.exports = connection

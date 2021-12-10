@@ -5,7 +5,9 @@
   "dependencies": {
     "@emotion/react": "^11.6.0",
     "@emotion/styled": "^11.6.0",
-    "@mui/material": "^5.1.0",
+    "@mui/icons-material": "^5.2.1",
+    "@mui/material": "^5.2.3",
+    "@mui/system": "^5.2.3",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -13,10 +15,11 @@
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "sass": "^1.43.4",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "wouter": "*"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "FAST_REFRESH=false react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
