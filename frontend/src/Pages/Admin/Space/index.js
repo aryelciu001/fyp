@@ -6,7 +6,28 @@ export default function Space(props) {
   return (
     <div className="space">
       <h3>{props.selectedOption}</h3>
-      <Form></Form>
+      {
+        spaceGenerator(props.selectedOption)
+      }
     </div>
   )
+}
+
+function spaceGenerator (option) {
+  switch (option) {
+    case 'Add FYP':
+      return <Form option={option}></Form>
+    case 'Edit FYP':
+      return ""
+    case 'Add Student':
+      return <Form option={option}></Form>
+    case 'Edit Student':
+      return ""
+    case 'View Reservations':
+      return ""
+    case 'Generate Report':
+      return ""
+    default:
+      return ''
+  }
 }

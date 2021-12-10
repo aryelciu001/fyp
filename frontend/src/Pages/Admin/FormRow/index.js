@@ -1,7 +1,6 @@
 import React from 'react';
 import './index.scss';
-import TextArea from './TextArea';
-import TextField from './TextField';
+import { TextField } from '@mui/material';
 
 export default function FormRow (props) {
   return (
@@ -16,9 +15,28 @@ export default function FormRow (props) {
 function inputSelector (type, title) {
   switch (type) {
     case 'textarea':
-      return <TextArea title={title}></TextArea>
+      return <TextField
+        label={title}
+        multiline
+        rows={4}
+        />
     case 'textfield':
-      return <TextField title={title}></TextField>
+      return <TextField 
+        label={title} 
+        variant="outlined" 
+        />
+    case 'password':
+      return <TextField 
+        label={title} 
+        variant="outlined" 
+        type="password"
+        />
+    case 'email':
+      return <TextField 
+        label={title} 
+        variant="outlined" 
+        type="email"
+        />
     default:
       return ""
   }

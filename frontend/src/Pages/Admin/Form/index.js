@@ -3,7 +3,7 @@ import FormRow from '../FormRow';
 import Button from '@mui/material/Button';
 import './index.scss';
 
-const infoArrays = [
+const fypFields = [
   {
     title: "Project Title",
     type: "textfield"
@@ -26,15 +26,45 @@ const infoArrays = [
   },
 ]
 
+const studentFields = [
+  {
+    title: "Student Email",
+    type: "email"
+  },
+  {
+    title: "Student Matriculation Number",
+    type: "textfield"
+  },
+  {
+    title: "Password",
+    type: "password"
+  },
+]
+
 export default function Form (props) {
   return (
     <div className="form">
       {
-        infoArrays.map(info => (
-          <FormRow type={info.type} title={info.title}/>
-        ))
+        formSelector(props.option)
       }
-      <Button>Add FYP</Button>
+      <Button>{props.option}</Button>
     </div>
   )
+}
+
+function formSelector (option) {
+  switch (option) {
+    case 'Add FYP':
+      return fypFields.map(info => (
+          <FormRow key={info.title} type={info.type} title={info.title}/>
+        )
+      )
+    case 'Add Student':
+      return studentFields.map(info => (
+          <FormRow key={info.title} type={info.type} title={info.title}/>
+        )
+      )
+    default:
+      return ''
+  }
 }

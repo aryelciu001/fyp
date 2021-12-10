@@ -7,6 +7,7 @@ export default function Options (props) {
       {
         props.options.map(option => (
           <div
+            key={option}
             className={`admin-options-option 
               ${
                 props.selectedOption === option ? 
