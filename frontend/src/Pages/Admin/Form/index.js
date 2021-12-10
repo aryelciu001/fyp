@@ -1,45 +1,6 @@
 import React from 'react';
-import FormRow from '../FormRow';
-import Button from '@mui/material/Button';
+import AddFyp from './AddFyp';
 import './index.scss';
-
-const fypFields = [
-  {
-    title: "Project Title",
-    type: "textfield"
-  },
-  {
-    title: "Project ID",
-    type: "textfield"
-  },
-  {
-    title: "Project Information",
-    type: "textarea"
-  },
-  {
-    title: "Supervisor Name",
-    type: "textfield"
-  },
-  {
-    title: "Supervisor ID",
-    type: "textfield"
-  },
-]
-
-const studentFields = [
-  {
-    title: "Student Email",
-    type: "email"
-  },
-  {
-    title: "Student Matriculation Number",
-    type: "textfield"
-  },
-  {
-    title: "Password",
-    type: "password"
-  },
-]
 
 export default function Form (props) {
   return (
@@ -47,7 +8,6 @@ export default function Form (props) {
       {
         formSelector(props.option)
       }
-      <Button>{props.option}</Button>
     </div>
   )
 }
@@ -55,16 +15,28 @@ export default function Form (props) {
 function formSelector (option) {
   switch (option) {
     case 'Add FYP':
-      return fypFields.map(info => (
-          <FormRow key={info.title} type={info.type} title={info.title}/>
-        )
-      )
+      return <AddFyp></AddFyp>
     case 'Add Student':
-      return studentFields.map(info => (
-          <FormRow key={info.title} type={info.type} title={info.title}/>
-        )
-      )
+      // return studentFields.map(info => (
+      //     <FormRow key={info.title} type={info.type} title={info.title}/>
+      //   )
+      // )
     default:
       return ''
   }
 }
+
+// studentFields: [
+//   {
+//     title: "Student Email",
+//     type: "email"
+//   },
+//   {
+//     title: "Student Matriculation Number",
+//     type: "textfield"
+//   },
+//   {
+//     title: "Password",
+//     type: "password"
+//   },
+// ]
