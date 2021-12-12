@@ -1,4 +1,4 @@
-const { mysqlQuery } = require('./mysqlQuery')
+const { mysqlQuery } = require('../utils/mysqlQuery')
 
 const Project = {
   addFyp: function(projectTitle, projectId, projectInfo, supervisorName, supervisorId) {

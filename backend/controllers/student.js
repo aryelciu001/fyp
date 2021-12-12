@@ -1,4 +1,4 @@
-const { mysqlQuery } = require('./mysqlQuery')
+const { mysqlQuery } = require('../utils/mysqlQuery')
 
 module.exports = {
   addStudent: function(studentEmail, studentMatricNumber, password) {
