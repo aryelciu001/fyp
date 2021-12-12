@@ -10,5 +10,13 @@ module.exports = {
         .then(() => resolve())
         .catch((e) => reject(e))
     })
+  },
+  getStudent: function() {
+    const query = `SELECT * FROM student;`
+    return new Promise((resolve, reject) => {
+      mysqlQuery(query)
+        .then((student) => resolve(student))
+        .catch((e) => reject(e))
+    })
   }
 }
