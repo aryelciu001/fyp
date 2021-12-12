@@ -15,16 +15,30 @@ export default function (props) {
     const API = process.env.REACT_APP_API
     const url = `${API}/project` 
     const req = {
-      body: {
-        projectTitle,
-        projectId,
-        projectInfo,
-        supervisorName,
-        supervisorId,
-      }
+      projectTitle,
+      projectId,
+      projectInfo,
+      supervisorName,
+      supervisorId,
     }
-    axios.post(url, body)
-      .then((res) => console.log(res))
+    axios.post(url, req)
+      .then(() => {
+        alert('FYP Created!')
+        setProjectTitle('')
+        setProjectId('')
+        setProjectInfo('')
+        setSupervisorName('')
+        setSupervisorIde('')
+      })
+      .catch((e) => {
+        switch (e.response.data.code) {
+          case 'ER_DUP_ENTRY':
+            alert('Duplicate entry with the same ID')
+            break
+          default:
+            alert('Something is wrong')
+        }
+      })
   }
 
   return (

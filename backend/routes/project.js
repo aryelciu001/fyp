@@ -10,7 +10,7 @@ ProjectRouter.post('/', AuthController.isAdmin, function (req, res) {
   const { projectTitle, projectId, projectInfo, supervisorName, supervisorId } = req.body
   ProjectController.addFyp(projectTitle, projectId, projectInfo, supervisorName, supervisorId)
     .then(() => res.send({}))
-    .catch((e) => res.status(400).send({ error: e.code }))
+    .catch((e) => res.status(400).send({ code: e.code }))
 })
 
 module.exports = ProjectRouter
