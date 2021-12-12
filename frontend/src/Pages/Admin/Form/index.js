@@ -1,5 +1,6 @@
 import React from 'react';
 import AddFyp from './AddFyp';
+import AddStudent from './AddStudent';
 import './index.scss';
 
 export default function Form (props) {
@@ -17,26 +18,8 @@ function formSelector (option) {
     case 'Add FYP':
       return <AddFyp></AddFyp>
     case 'Add Student':
-      // return studentFields.map(info => (
-      //     <FormRow key={info.title} type={info.type} title={info.title}/>
-      //   )
-      // )
+      return <AddStudent></AddStudent>
     default:
       return ''
   }
 }
-
-// studentFields: [
-//   {
-//     title: "Student Email",
-//     type: "email"
-//   },
-//   {
-//     title: "Student Matriculation Number",
-//     type: "textfield"
-//   },
-//   {
-//     title: "Password",
-//     type: "password"
-//   },
-// ]
