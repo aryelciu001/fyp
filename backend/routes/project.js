@@ -3,7 +3,9 @@ const ProjectController = require('../controllers/project')
 const AuthController = require('../controllers/auth')
 
 ProjectRouter.get('/', function (req, res) {
-  return res.send({})
+  ProjectController.getFyp()
+    .then((fyp) => res.send(fyp))
+    .catch((e) => res.status(400).send({ code: e.code }))
 })
 
 ProjectRouter.post('/', AuthController.isAdmin, function (req, res) {

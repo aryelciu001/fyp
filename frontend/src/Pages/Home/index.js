@@ -1,9 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProjectList from './ProjectList'
-import Data from '../../Data/data'
+import axios from 'axios';
+const API = process.env.REACT_APP_API
 
 function App() {
-  const [projectList, setProjectList] = useState(Data.projectList)
+  const [projectList, setProjectList] = useState([])
+
+  useEffect(() => {
+    const url = `${API}/project`
+    axios.get(url)
+      .then(res => setProjectList(res.data))
+  }, [])
 
   return (
     <>

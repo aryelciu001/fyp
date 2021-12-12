@@ -10,6 +10,14 @@ const Project = {
         .then(() => resolve())
         .catch((e) => reject(e))
     })
+  },
+  getFyp: function() {
+    const query = `SELECT * FROM fyp;`
+    return new Promise((resolve, reject) => {
+      mysqlQuery(query)
+        .then((fyp) => resolve(fyp))
+        .catch((e) => reject(e))
+    })
   }
 }
 

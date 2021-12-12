@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
 import axios from 'axios';
+const API = process.env.REACT_APP_API
 
 export default function (props) {
 
@@ -12,7 +13,28 @@ export default function (props) {
   const [supervisorId, setSupervisorIde] = useState('')
 
   const submit = () => {
-    const API = process.env.REACT_APP_API
+
+    if (!projectTitle) {
+      alert("Project title is empty!")
+      return
+    }
+    if (!projectId) {
+      alert("Project ID is empty!")
+      return
+    }
+    if (!projectInfo) {
+      alert("Project info is empty!")
+      return
+    }
+    if (!supervisorName) {
+      alert("Supervisor name is empty!")
+      return
+    }
+    if (!supervisorId) {
+      alert("Supervisor ID is empty!")
+      return
+    }
+
     const url = `${API}/project` 
     const req = {
       projectTitle,
