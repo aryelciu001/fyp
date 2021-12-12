@@ -1,6 +1,6 @@
 import React from 'react';
 import AddFyp from './AddFyp';
-import AddStudent from './AddStudent';
+import AddUser from './AddUser';
 import './index.scss';
 
 export default function Form (props) {
@@ -17,8 +17,8 @@ function formSelector (option) {
   switch (option) {
     case 'Add FYP':
       return <AddFyp></AddFyp>
-    case 'Add Student':
-      return <AddStudent></AddStudent>
+    case 'Add User':
+      return <AddUser></AddUser>
     default:
       return ''
   }

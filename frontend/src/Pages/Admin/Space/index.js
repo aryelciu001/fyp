@@ -19,9 +19,9 @@ function spaceGenerator (option) {
       return <Form option={option}></Form>
     case 'Edit FYP':
       return ""
-    case 'Add Student':
+    case 'Add User':
       return <Form option={option}></Form>
-    case 'Edit Student':
+    case 'Edit User':
       return ""
     case 'View Reservations':
       return ""
