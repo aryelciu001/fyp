@@ -29,12 +29,12 @@ app.get("/", (req, res) => {
 const auth = require("./routes/auth")
 const admin = require("./routes/admin")
 const project = require("./routes/project")
-const student = require("./routes/student")
+const user = require("./routes/user")
 const supervisor = require("./routes/supervisor")
 app.use("/auth", auth)
 app.use("/admin", admin)
 app.use("/project", project)
-app.use("/student", student)
+app.use("/user", user)
 app.use("/supervisor", supervisor)
 
 // Spin up server
