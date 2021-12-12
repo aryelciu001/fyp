@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
 import axios from 'axios';
-const API = process.env.REACT_APP_API
+const API = process.env.REACT_APP_API;
 
 export default function (props) {
 

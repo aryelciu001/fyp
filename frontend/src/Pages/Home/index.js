@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import ProjectList from './ProjectList'
 import axios from 'axios';
-const API = process.env.REACT_APP_API
+const API = process.env.REACT_APP_API;
 
 function App() {
   const [projectList, setProjectList] = useState([])
