@@ -3,14 +3,14 @@ import Button from '@mui/material/Button';
 import { TextField, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import axios from 'axios';
 const API = process.env.REACT_APP_API;
-const roles = ['student', 'admin', 'supervisor']
+const roles = ['Student', 'Admin', 'Supervisor']
 
 export default function (props) {
 
   const [email, setEmail] = useState('')
   const [studentMatricNumber, setStudentMatricNumber] = useState('')
   const [password, setPassword] = useState('')
-  const [role, setRole] = useState('student')
+  const [role, setRole] = useState('Student')
 
   const submit = () => {
 
@@ -31,6 +31,7 @@ export default function (props) {
       return
     }
 
+    role = role.toLowerCase()
     const url = `${API}/user`
     const req = {
       email,
@@ -59,7 +60,7 @@ export default function (props) {
   return (
     <>
       {
-        role === 'student' ? <div className='form-row'>
+        role === 'Student' ? <div className='form-row'>
           <TextField 
             label='Student Matriculation Number'
             variant='outlined' 
@@ -93,7 +94,7 @@ export default function (props) {
             value={role}
             label='Role'
             onChange={(e)=>setRole(e.target.value)}
-          >
+            >
             {
               roles.map(role => <MenuItem key={role} value={role}>{role}</MenuItem>)
             }
