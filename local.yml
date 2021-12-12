@@ -57,6 +57,8 @@ services:
     volumes:
       - ./frontend:/app/frontend
     working_dir: /app/frontend
+    environment:
+      - REACT_APP_API=http://localhost/proxy/backend
     command: sh -c 'npm install && npm start'
     ports:
       - '3000:3000'

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
+import axios from 'axios';
 
 export default function (props) {
 
@@ -11,7 +12,19 @@ export default function (props) {
   const [supervisorId, setSupervisorIde] = useState('')
 
   const submit = () => {
-    console.log(supervisorName)
+    const API = process.env.REACT_APP_API
+    const url = `${API}/project` 
+    const req = {
+      body: {
+        projectTitle,
+        projectId,
+        projectInfo,
+        supervisorName,
+        supervisorId,
+      }
+    }
+    axios.post(url, body)
+      .then((res) => console.log(res))
   }
 
   return (

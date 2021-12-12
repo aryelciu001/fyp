@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS fyp (
   project_title varchar(256) NOT NULL,
   project_id varchar(256) NOT NULL,
   supervisor_id varchar(256) NOT NULL,
+  supervisor_name varchar(256) NOT NULL,
   student_matriculation_number varchar(20),
   is_reserved BOOLEAN,
   is_approved BOOLEAN,

@@ -4,6 +4,15 @@ require('dotenv').config()
 // Configure express server
 const app = (require("express"))()
 
+// Configure body parser
+const bodyParser = require('body-parser')
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
 // Connect to mysql db
 const connection = require('./db')
 
