@@ -1,5 +1,8 @@
 import React from 'react';
-import Form from '../Form';
+import Table from '../Table';
+import AddFyp from './AddFyp';
+import AddUser from './AddUser';
+import EditFyp from './EditFyp';
 import './index.scss';
 
 export default function Space(props) {
@@ -16,11 +19,11 @@ export default function Space(props) {
 function spaceGenerator (option) {
   switch (option) {
     case 'Add FYP':
-      return <Form option={option}></Form>
+      return <AddFyp></AddFyp>
     case 'Edit FYP':
-      return ""
+      return <EditFyp></EditFyp>
     case 'Add User':
-      return <Form option={option}></Form>
+      return <AddUser></AddUser>
     case 'Edit User':
       return ""
     case 'View Reservations':

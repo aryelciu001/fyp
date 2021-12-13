@@ -7,7 +7,7 @@ const options = ["Add FYP", "Edit FYP", "Add User", "Edit User", "View Reservati
 
 function App() {
 
-  const [selectedOption, setSelectedOption] = useState("Add User");
+  const [selectedOption, setSelectedOption] = useState("Edit FYP");
 
   return (
     <div className="admin">

@@ -58,7 +58,7 @@ export default function (props) {
   }
 
   return (
-    <>
+    <div className="form">
       {
         role === 'Student' ? <div className='form-row'>
           <TextField 
@@ -102,6 +102,6 @@ export default function (props) {
         </FormControl>
       </div>
       <Button onClick={submit}>Add User</Button>
-    </>
+    </div>
   )
 }

@@ -27,15 +27,11 @@ app.get("/", (req, res) => {
   res.send("Server is up")
 })
 const auth = require("./routes/auth")
-const admin = require("./routes/admin")
 const project = require("./routes/project")
 const user = require("./routes/user")
-const supervisor = require("./routes/supervisor")
 app.use("/auth", auth)
-app.use("/admin", admin)
 app.use("/project", project)
 app.use("/user", user)
-app.use("/supervisor", supervisor)
 
 // Spin up server
 const port = process.env.PORT || 3000

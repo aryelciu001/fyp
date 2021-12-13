@@ -64,7 +64,7 @@ export default function (props) {
   }
 
   return (
-    <>
+    <div className="form">
       <div className="form-row">
         <TextField 
           label="Project Title"
@@ -107,6 +107,6 @@ export default function (props) {
           />
       </div>
       <Button onClick={submit}>Add FYP</Button>
-    </>
+    </div>
   )
 }

@@ -11,4 +11,22 @@
     width: fit-content;
     color: $theme-blue;
   }
+  .form {
+    .form-row {
+      margin: 20px 0;
+      width: 100%;
+      div {
+        width: 100%;
+      }
+    }
+    button {
+      background-color: $theme-blue;
+      color: white;
+      font-size: $button-font-size;
+      transition: .1s;
+      &:hover {
+        background-color: $theme-blue-lighter;
+      }
+    }
+  }
 }

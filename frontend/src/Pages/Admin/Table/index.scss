@@ -1,0 +1,32 @@
+@import '../../../CSS/variables.scss';
+
+table {
+  border-collapse: collapse;
+  border-radius: $border-radius;
+  overflow: hidden;
+  margin: 20px 0;
+  td {
+    padding: $box-margin $box-padding;
+  }
+  thead {
+    tr {
+      background-color: $theme-blue;
+      color: $theme-white;
+      white-space: nowrap;
+    }
+  }
+  tbody {
+    tr {
+      &:nth-of-type(n) {
+        background-color: rgb(238, 238, 238);
+      }
+      &:nth-of-type(2n) {
+        background-color: rgb(223, 223, 223);
+      }
+    }
+  }
+  .editor {
+    padding: $box-margin $box-padding;
+    display: none;
+  }
+} 
