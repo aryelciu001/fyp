@@ -10,7 +10,7 @@ export default function (props) {
   const [email, setEmail] = useState('')
   const [studentMatricNumber, setStudentMatricNumber] = useState('')
   const [password, setPassword] = useState('')
-  const [role, setRole] = useState('Student')
+  let [role, setRole] = useState('Student')
 
   const submit = () => {
 
@@ -49,7 +49,7 @@ export default function (props) {
       .catch((e) => {
         switch (e.response.data.code) {
           case 'ER_DUP_ENTRY':
-            alert('Duplicate entry with the same matriculation number')
+            alert('Duplicate entry with the same email')
             break
           default:
             alert('Something is wrong')

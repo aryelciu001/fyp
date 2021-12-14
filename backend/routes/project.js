@@ -5,7 +5,7 @@ const AuthController = require('../controllers/auth')
 /**
  * @description get list of FYPs
  */
-ProjectRouter.get('/', function (req, res) {
+ProjectRouter.get('/', AuthController.isUser, function (req, res) {
   ProjectController.getFyp()
     .then((fyp) => res.send(fyp))
     .catch((e) => res.status(400).send({ code: e.code }))

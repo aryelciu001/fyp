@@ -20,7 +20,7 @@ UserRouter.get('/', AuthController.isAdmin, async function (req, res) {
  * - studentPassword
  * - role
  */
-UserRouter.post('/', AuthController.isAdmin, async function (req, res) {
+UserRouter.post('/', async function (req, res) {
   let { email, studentMatricNumber, password, role } = req.body
 
   // lowercase everything
