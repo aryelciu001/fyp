@@ -3,6 +3,7 @@ import Table from '../Table';
 import AddFyp from './AddFyp';
 import AddUser from './AddUser';
 import EditFyp from './EditFyp';
+import EditUser from './EditUser';
 import './index.scss';
 
 export default function Space(props) {
@@ -25,7 +26,7 @@ function spaceGenerator (option) {
     case 'Add User':
       return <AddUser></AddUser>
     case 'Edit User':
-      return ""
+      return <EditUser></EditUser>
     case 'View Reservations':
       return ""
     case 'Generate Report':

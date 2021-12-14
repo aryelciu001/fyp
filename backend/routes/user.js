@@ -6,9 +6,9 @@ const { encrypt, passwordIsCorrect } = require('../utils/bcrypt')
 /**
  * @description get list of students
  */
-UserRouter.get('/student', AuthController.isAdmin, async function (req, res) {
-  UserController.getUserBasedOnRole('student')
-    .then((student) => res.send(student))
+UserRouter.get('/', AuthController.isAdmin, async function (req, res) {
+  UserController.getAllUser()
+    .then((user) => res.send(user))
     .catch((e) => res.status(400).send({ code: e.code }))
 })
 

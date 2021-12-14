@@ -19,4 +19,12 @@ module.exports = {
         .catch((e) => reject(e))
     })
   },
+  getAllUser: function(role) {
+    const query = `SELECT * FROM user;`
+    return new Promise((resolve, reject) => {
+      mysqlQuery(query)
+        .then((user) => resolve(user))
+        .catch((e) => reject(e))
+    })
+  },
 }

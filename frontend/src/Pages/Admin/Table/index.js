@@ -1,4 +1,6 @@
 import React from 'react';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import './index.scss';
 
 export default function Table (props) {
@@ -23,8 +25,16 @@ export default function Table (props) {
                 <tr>
                   {
                     props.headers.map(header => {
-                      if (header.title === "Edit") return <td>Edit</td>
-                      else if (header.title === "Delete") return <td>Delete</td>
+                      if (header.title === "Edit") {
+                        return <td className="icon">
+                          <EditIcon/>
+                        </td>
+                      }
+                      else if (header.title === "Delete") {
+                        return <td className="icon delete">
+                          <DeleteForeverIcon/>
+                        </td>
+                      }
                       else return <td>{datum[header.key]}</td>
                     })
                   }

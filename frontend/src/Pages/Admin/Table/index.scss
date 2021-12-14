@@ -24,6 +24,16 @@ table {
         background-color: rgb(223, 223, 223);
       }
     }
+    .icon {
+      svg {
+        cursor: pointer;
+      }
+    }
+    .delete {
+      svg {
+        fill: red;
+      }
+    }
   }
   .editor {
     padding: $box-margin $box-padding;
