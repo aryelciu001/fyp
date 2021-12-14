@@ -1,10 +1,11 @@
 const UserRouter = require('express').Router()
 const UserController = require('../controllers/user')
 const AuthController = require('../controllers/auth')
-const { encrypt, passwordIsCorrect } = require('../utils/bcrypt')
+const { encrypt } = require('../utils/bcrypt')
 
 /**
  * @description get list of students
+ * @requires role:admin
  */
 UserRouter.get('/', AuthController.isAdmin, async function (req, res) {
   UserController.getAllUser()
@@ -14,13 +15,14 @@ UserRouter.get('/', AuthController.isAdmin, async function (req, res) {
 
 /**
  * @description add new user
+ * @requires role:admin
  * @requestBody
  * - email
  * - studentMatricNumber
  * - studentPassword
  * - role
  */
-UserRouter.post('/', async function (req, res) {
+UserRouter.post('/', AuthController.isAdmin, async function (req, res) {
   let { email, studentMatricNumber, password, role } = req.body
 
   // lowercase everything

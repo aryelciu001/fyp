@@ -1,6 +1,14 @@
 const { mysqlQuery } = require('../utils/mysqlQuery')
 
 const Project = {
+  /**
+   * @description function to insert project to db
+   * @param projectTitle 
+   * @param projectId 
+   * @param projectInfo 
+   * @param supervisorName 
+   * @param supervisorId 
+   */
   addFyp: function(projectTitle, projectId, projectInfo, supervisorName, supervisorId) {
     const query = `INSERT INTO fyp 
       (project_title, project_id, project_desc, supervisor_id, supervisor_name) 
@@ -11,6 +19,10 @@ const Project = {
         .catch((e) => reject(e))
     })
   },
+  /**
+   * @description function to read fyp[] from db
+   * @returns fyp[]
+   */
   getFyp: function() {
     const query = `SELECT * FROM fyp;`
     return new Promise((resolve, reject) => {

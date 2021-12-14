@@ -5,9 +5,8 @@ const { passwordIsCorrect } = require('../utils/bcrypt')
 module.exports =  {
   /**
    * @description express middleware to authenticate admin
-   * @requestHeaders {
-   *   authorization: jwt string
-   * }
+   * @requestHeaders
+   * - authorization: jwt string
    * @returns next function
    */
   isAdmin(req, res, next) {
@@ -19,9 +18,8 @@ module.exports =  {
   },
   /**
    * @description express middleware to authenticate user
-   * @requestHeaders {
-   *   authorization: jwt string
-   * }
+   * @requestHeaders
+   * - authorization: jwt string
    * @returns next function
    */
   isUser(req, res, next) {
@@ -36,10 +34,9 @@ module.exports =  {
   },
   /**
    * @description Login
-   * @requestBody {
-   *   email: string,
-   *   password: string
-   * }
+   * @requestBody
+   * - email: string,
+   * - password: string
    * @returns jwt string
    */
   login: function(email, password) {
