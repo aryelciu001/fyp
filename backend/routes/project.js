@@ -5,6 +5,7 @@ const AuthController = require('../controllers/auth')
 /**
  * @description get list of FYPs
  * @requires role:any
+ * @returns fyp[]
  */
 ProjectRouter.get('/', AuthController.isUser, function (req, res) {
   ProjectController.getFyp()
