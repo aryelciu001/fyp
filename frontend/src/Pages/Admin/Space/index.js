@@ -1,5 +1,4 @@
 import React from 'react';
-import Table from '../Table';
 import AddFyp from './AddFyp';
 import AddUser from './AddUser';
 import EditFyp from './EditFyp';
