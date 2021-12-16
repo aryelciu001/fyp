@@ -17,7 +17,7 @@ import './index.scss';
 const pages = ['Home', 'Admin'];
 const settings = ['Logout'];
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -35,6 +35,13 @@ const ResponsiveAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleSettingClick = (setting) => {
+    switch(setting.toLowerCase()) {
+      case 'logout':
+        props.logOut()
+    }
+  }
 
   return (
     <div className="navbar">
@@ -119,7 +126,12 @@ const ResponsiveAppBar = () => {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                    <Typography 
+                      textAlign="center" 
+                      onClick={()=>handleSettingClick(setting)}
+                      >
+                      {setting}
+                    </Typography>
                   </MenuItem>
                 ))}
               </Menu>

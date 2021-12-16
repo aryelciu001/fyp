@@ -1,5 +1,6 @@
 const AuthRouter = require('express').Router()
 const AuthController = require('../controllers/auth')
+const { verifyToken } = require('../utils/jwt')
 
 /**
  * @description login route
@@ -13,6 +14,21 @@ AuthRouter.post('/login', async function (req, res) {
   AuthController.login(email, password)
     .then(token => res.status(200).send({token}))
     .catch(e => res.status(401).send(e.code))
+})
+
+/**
+ * @description get user info from token
+ * @return user { email, role }
+ */
+AuthRouter.get('/:token', async function (req, res) {
+  let token = req.params.token
+  let user
+  try {
+    user = verifyToken(token)
+    return res.status(200).send({...user})
+  } catch (e) {
+    return res.status(401).send()
+  }
 })
 
 module.exports = AuthRouter
