@@ -1,19 +1,25 @@
 import { useState, useEffect } from 'react';
 import ProjectList from './ProjectList'
-import axios from 'axios';
-const API = process.env.REACT_APP_API;
+import api from '../../API'
+import { useSelector } from 'react-redux';
+import axios from 'axios'
 
-function Home(props) {
+function Home() {
   const [projectList, setProjectList] = useState([])
+  const token = useSelector(state => state.user.token)
 
   useEffect(() => {
-    const url = `${API}/project`
-    axios.get(url, {
-      headers: {
-        Authorization: props.token
-      }
-    })
-      .then(res => setProjectList(res.data))
+    let unmounted = false;
+    let source = axios.CancelToken.source();
+    api('GET_PROJECT_LIST', { token })
+      .then(res => {
+        if (unmounted) return
+        setProjectList(res.data)
+      })
+    return function () {
+      unmounted = true;
+      source.cancel("Cancelling in cleanup");
+    };
   }, [])
 
   return (

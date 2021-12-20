@@ -39,7 +39,7 @@ export default function (props) {
       password,
       role
     }
-    axios.post(url, req)
+    axios.post(url, req, { headers: { Authorization: props.token } })
       .then(() => {
         alert('Account Created!')
         setEmail('')

@@ -1,42 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Typography, Button } from '@mui/material';
-import axios from 'axios';
-import './index.scss';
-
-const API = process.env.REACT_APP_API;
+import React, { useState } from 'react'
+import { TextField, Typography, Button } from '@mui/material'
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import api from '../../API'
+import { login } from '../../Reducers/user'
+import './index.scss'
 
 export default function Login(props) {
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
-  useEffect(()=>{
-    if (error) setError('')
-  }, [email, password])
-
-  const login = () => {
-    let uri = `${API}/auth/login`
-    axios.post(uri, {
-      email, 
-      password
-    }).then(res => {
-      let token = res.data.token
-      props.saveToken(token)
-    }).catch(e => {
-      console.log(e)
-      switch (e.response.status) {
-        case (401):
-          setError("Email or password is incorrect")
-          break
-        case (500):
-          setError("Server fault")
-          break
-        default:
-          setError("Something is wrong")
-          break
-      }
-    })
+  const loginLocal = () => {
+    api('LOGIN', { email, password })
+      .then((res) => {
+        let user = res.data
+        dispatch(login(user))
+        navigate("/")
+      })
+      .catch(e => {
+        switch(e.response.status){
+          case 401: 
+            setError("Email or password is incorrect")
+            break
+          default:
+            setError("Something is wrong")
+            break
+        }
+      })
   }
 
   return (
@@ -65,7 +60,7 @@ export default function Login(props) {
         <div className="row">
           <Button 
             variant="contained"
-            onClick={login}
+            onClick={loginLocal}
             >
             Login
           </Button>

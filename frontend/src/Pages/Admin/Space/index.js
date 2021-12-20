@@ -10,22 +10,22 @@ export default function Space(props) {
     <div className="space">
       <h3>{props.selectedOption}</h3>
       {
-        spaceGenerator(props.selectedOption)
+        spaceGenerator(props.selectedOption, props.token)
       }
     </div>
   )
 }
 
-function spaceGenerator (option) {
+function spaceGenerator (option, token) {
   switch (option) {
     case 'Add FYP':
-      return <AddFyp></AddFyp>
+      return <AddFyp token={token}></AddFyp>
     case 'Edit FYP':
-      return <EditFyp></EditFyp>
+      return <EditFyp token={token}></EditFyp>
     case 'Add User':
-      return <AddUser></AddUser>
+      return <AddUser token={token}></AddUser>
     case 'Edit User':
-      return <EditUser></EditUser>
+      return <EditUser token={token}></EditUser>
     case 'View Reservations':
       return ""
     case 'Generate Report':

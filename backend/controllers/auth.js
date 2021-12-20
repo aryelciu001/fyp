@@ -49,7 +49,7 @@ module.exports =  {
           // compare password 
           if(await passwordIsCorrect(password, user.password)) {
             let token = generateToken({ email: user.email, role: user.role })
-            return resolve(token)
+            return resolve({ token, email: user.email, role: user.role })
           }
         })
         .catch(e => console.log(e.code))

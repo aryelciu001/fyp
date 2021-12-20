@@ -12,7 +12,7 @@ const { verifyToken } = require('../utils/jwt')
 AuthRouter.post('/login', async function (req, res) {
   const { email, password } = req.body
   AuthController.login(email, password)
-    .then(token => res.status(200).send({token}))
+    .then(user => res.status(200).send(user))
     .catch(e => res.status(401).send(e.code))
 })
 

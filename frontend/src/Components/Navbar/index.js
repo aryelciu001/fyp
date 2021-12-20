@@ -7,19 +7,25 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Link } from "wouter";
+import { Link, useNavigate } from "react-router-dom";
 import './index.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../Reducers/user';
 
-const pages = ['Home', 'Admin'];
+const pages = ['Home'];
 const settings = ['Logout'];
 
-const ResponsiveAppBar = (props) => {
+const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const userEmail = useSelector((state) => state.user.email)
+  const userRole = useSelector((state) => state.user.role)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -39,7 +45,8 @@ const ResponsiveAppBar = (props) => {
   const handleSettingClick = (setting) => {
     switch(setting.toLowerCase()) {
       case 'logout':
-        props.logOut()
+        dispatch(logout())
+        navigate('/login')
     }
   }
 
@@ -79,13 +86,30 @@ const ResponsiveAppBar = (props) => {
               >
                 {pages.map((page) => (
                   <MenuItem key={page}>
-                    <Link href={ page === 'Home' ? '/' : `/${page.toLowerCase()}`}>
+                    <Link to={ page === 'Home' ? '/' : `/${page.toLowerCase()}`}>
                       <Typography textAlign="center">
                         {page}
                       </Typography>
                     </Link>
                   </MenuItem>
                 ))}
+                {
+                  userEmail
+                  ? 
+                    (userRole.toLowerCase() === "admin" 
+                    ? 
+                    <MenuItem key={"Admin"}>
+                      <Link to="/admin">
+                        <Typography textAlign="center">
+                          Admin
+                        </Typography>
+                      </Link>
+                    </MenuItem>
+                    : 
+                    null)
+                  : 
+                  null
+                }
               </Menu>
             </Box>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -95,17 +119,26 @@ const ResponsiveAppBar = (props) => {
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
-                  <Link href={ page === 'Home' ? '/' : `/${page.toLowerCase()}`}>
+                  <Link to={ page === 'Home' ? '/' : `/${page.toLowerCase()}`}>
                     {page}
                   </Link>
                 </Button>
               ))}
+              <Button
+                key="Admin"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                <Link to="/admin">
+                  Admin
+                </Link>
+              </Button>
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, fontSize: '0.8em' }}>
+                  { userEmail }
                 </IconButton>
               </Tooltip>
               <Menu
