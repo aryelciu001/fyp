@@ -2,7 +2,8 @@
 
 .project-list-item {
   width: 100%;
-  border-bottom: 2px solid $theme-red-darker;
+  box-sizing: border-box;
+  border-bottom: 1px solid $theme-red-darker;
   .project-list-item-header {
     color: white;
     padding: $box-padding;
