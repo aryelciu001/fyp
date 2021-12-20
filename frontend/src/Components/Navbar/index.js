@@ -85,26 +85,26 @@ const ResponsiveAppBar = () => {
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page}>
-                    <Link to={ page === 'Home' ? '/' : `/${page.toLowerCase()}`}>
+                  <Link className="navbar-link" to={ page === 'Home' ? '/' : `/${page.toLowerCase()}`}>
+                    <MenuItem key={page}>
                       <Typography textAlign="center">
                         {page}
                       </Typography>
-                    </Link>
-                  </MenuItem>
+                    </MenuItem>
+                  </Link>
                 ))}
                 {
                   userEmail
                   ? 
                     (userRole.toLowerCase() === "admin" 
                     ? 
-                    <MenuItem key={"Admin"}>
-                      <Link to="/admin">
+                    <Link className="navbar-link" to="/admin">
+                      <MenuItem key={"Admin"}>
                         <Typography textAlign="center">
                           Admin
                         </Typography>
-                      </Link>
-                    </MenuItem>
+                      </MenuItem>
+                    </Link>
                     : 
                     null)
                   : 
@@ -114,25 +114,25 @@ const ResponsiveAppBar = () => {
             </Box>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
+                <Link className="navbar-link" to={ page === 'Home' ? '/' : `/${page.toLowerCase()}`}>
+                  <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
+                    {page}
+                  </Button> 
+                </Link>
+              ))}
+              <Link className="navbar-link" to="/admin">
                 <Button
-                  key={page}
+                  key="Admin"
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
-                  <Link to={ page === 'Home' ? '/' : `/${page.toLowerCase()}`}>
-                    {page}
-                  </Link>
-                </Button>
-              ))}
-              <Button
-                key="Admin"
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                <Link to="/admin">
                   Admin
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>

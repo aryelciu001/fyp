@@ -8,6 +8,12 @@
   z-index: 100;
   .css-hip9hq-MuiPaper-root-MuiAppBar-root {
     background-color: $theme-white;
+    .css-1pz7awu-MuiButtonBase-root-MuiIconButton-root {
+      color: $theme-black;
+    }
+  }
+  color: $theme-black;
+  .navbar-link {
     button {
       color: $theme-black !important;
     }
