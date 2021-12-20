@@ -37,7 +37,10 @@ module.exports =  {
    * @requestBody
    * - email: string,
    * - password: string
-   * @returns jwt string
+   * @returns Object
+   * - token
+   * - email
+   * - role
    */
   login: function(email, password) {
     return new Promise((resolve, reject) => {
