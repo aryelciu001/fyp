@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
+import { createBrowserHistory } from "history";
 import Navbar from './Components/Navbar'
 import Home from './Pages/Home'
 import Admin from './Pages/Admin'
@@ -21,12 +22,12 @@ function App() {
     let token = localStorage.getItem('token')
     if (!token) {
       setLoading(false)
+      navigate("/login");
     } else {
       api('GET_USER_INFO', { token })
         .then((res) => {
           dispatch(login({ email: res.data.email, role: res.data.role, token }))
           setLoading(false)
-          navigate("/");
         })
     }
   }, [])

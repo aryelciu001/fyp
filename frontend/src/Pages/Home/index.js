@@ -20,7 +20,7 @@ function Home() {
       unmounted = true;
       source.cancel("Cancelling in cleanup");
     };
-  }, [])
+  }, [token])
 
   return (
     <>

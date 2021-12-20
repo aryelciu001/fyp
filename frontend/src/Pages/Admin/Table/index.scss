@@ -24,6 +24,11 @@ table {
         background-color: rgb(223, 223, 223);
       }
     }
+    .editor {
+      height: 100px;
+      column-span: all;
+      display: none;
+    }
     .icon {
       svg {
         cursor: pointer;
@@ -34,9 +39,5 @@ table {
         fill: red;
       }
     }
-  }
-  .editor {
-    padding: $box-margin $box-padding;
-    display: none;
   }
 } 

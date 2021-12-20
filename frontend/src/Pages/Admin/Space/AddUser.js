@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import { TextField, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import axios from 'axios';
-const API = process.env.REACT_APP_API;
+import api from '../../../API'
+import { useSelector } from 'react-redux';
 const roles = ['Student', 'Admin', 'Supervisor']
 
-export default function (props) {
+export default function () {
 
   const [email, setEmail] = useState('')
   const [studentMatricNumber, setStudentMatricNumber] = useState('')
   const [password, setPassword] = useState('')
-  let [role, setRole] = useState('Student')
+  const [role, setRole] = useState('Student')
+  const token = useSelector(s => s.user.token)
 
   const submit = () => {
 
@@ -31,15 +32,14 @@ export default function (props) {
       return
     }
 
-    role = role.toLowerCase()
-    const url = `${API}/user`
-    const req = {
+    const payload = {
       email,
       studentMatricNumber,
       password,
-      role
+      role: role.toLowerCase(),
+      token
     }
-    axios.post(url, req, { headers: { Authorization: props.token } })
+    api('POST_USER', payload)
       .then(() => {
         alert('Account Created!')
         setEmail('')

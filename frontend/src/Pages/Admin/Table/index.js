@@ -4,6 +4,9 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import './index.scss';
 
 export default function Table (props) {
+
+
+
   return (
     <table>
       <thead>
@@ -39,7 +42,11 @@ export default function Table (props) {
                     })
                   }
                 </tr>
-                <div className="editor">Hello</div>
+                <tr className="editor">
+                  <td colSpan="100%">
+                    <div>Hello</div>
+                  </td>
+                </tr>
               </>
             )
           })

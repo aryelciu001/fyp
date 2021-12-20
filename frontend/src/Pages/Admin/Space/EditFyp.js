@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Table from '../Table';
-import axios from 'axios';
-const API = process.env.REACT_APP_API;
+import api from '../../../API'
+import { useSelector } from 'react-redux';
+
 const headers = [
   {
     title: "Edit"
@@ -33,10 +34,10 @@ const headers = [
 
 export default function EditFyp (props) {
   const [data, setData] = useState([])
+  const token = useSelector(s => s.user.token)
 
   useEffect(() => {
-    let url = `${API}/project`
-    return axios.get(url)
+    api('GET_PROJECT_LIST', { token })
       .then(response => setData(response.data))
       .catch(e => alert("Something is wrong"))
   }, [])

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
 import axios from 'axios';
-const API = process.env.REACT_APP_API;
+import { useSelector } from 'react-redux';
+import api from '../../../API'
 
 export default function (props) {
 
@@ -11,6 +12,7 @@ export default function (props) {
   const [projectInfo, setProjectInfo] = useState('')
   const [supervisorName, setSupervisorName] = useState('')
   const [supervisorId, setSupervisorIde] = useState('')
+  const token = useSelector(s => s.user.token)
 
   const submit = () => {
 
@@ -34,16 +36,17 @@ export default function (props) {
       alert("Supervisor ID is empty!")
       return
     }
-
-    const url = `${API}/project` 
-    const req = {
+    
+    const payload = {
       projectTitle,
       projectId,
       projectInfo,
       supervisorName,
       supervisorId,
+      token
     }
-    axios.post(url, req)
+
+    api('POST_FYP', payload)
       .then(() => {
         alert('FYP Created!')
         setProjectTitle('')
