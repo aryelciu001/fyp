@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Table from 'Pages/Admin/Table'
 import api from 'API'
 import { useSelector } from 'react-redux'
+import DialogForm from 'Pages/Admin/DialogForm'
 
 const headers = [
   {
@@ -35,10 +36,13 @@ export default function EditUser () {
   }, [token])
 
   return (
-    <Table 
-      headers={headers} 
-      data={data}
-      >
-    </Table>
+    <>
+      <Table 
+        headers={headers} 
+        data={data}
+        formType='editUser'
+        />
+      <DialogForm/>
+    </>
   )
 } 

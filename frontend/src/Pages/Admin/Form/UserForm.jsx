@@ -25,7 +25,7 @@ export default function AddUser (props) {
         setApiResponseString('User Created!')
         setButtonString("Add User")
         break
-      case 'addFyp':
+      case 'editUser':
         setApiRequestType('PUT_USER')
         setApiResponseString('User Edited!')
         setButtonString("Edit User")

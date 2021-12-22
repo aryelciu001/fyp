@@ -5,6 +5,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeDialogForm } from 'Reducers/dialogform'
 import FypForm from 'Pages/Admin/Form/FypForm'
+import UserForm from 'Pages/Admin/Form/UserForm'
 import './index.scss'
 
 export default function FormDialog() {
@@ -30,6 +31,8 @@ function getForm(type) {
   switch(type){
     case 'editFyp':
       return editFypForm()
+    case 'editUser':
+      return editUserForm()
     default:
       return ''
   }
@@ -38,5 +41,11 @@ function getForm(type) {
 function editFypForm() {
   return <FypForm 
     formType="editFyp"
+    />
+}
+
+function editUserForm() {
+  return <UserForm 
+    formType="editUser"
     />
 }

@@ -48,6 +48,7 @@ export default function EditFyp () {
       <Table 
         headers={headers} 
         data={data}
+        formType='editFyp'
         />
       <DialogForm/>
     </>

@@ -1,10 +1,10 @@
 import React from 'react'
-import User from 'Pages/Admin/Form/User'
+import UserForm from 'Pages/Admin/Form/UserForm'
 
-export default function AddFyp () {
+export default function AddUser () {
   return (
     <div className="form">
-      <User 
+      <UserForm 
         formType="addUser"
         />
     </div>

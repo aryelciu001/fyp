@@ -1,11 +1,13 @@
 import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { openDialogForm, closeDialogForm } from 'Reducers/dialogform'
+import { useDispatch } from 'react-redux';
 import './index.scss';
 
 export default function Table (props) {
 
-
+  const dispatch = useDispatch()
 
   return (
     <table>
@@ -30,7 +32,9 @@ export default function Table (props) {
                     props.headers.map((header, index) => {
                       if (header.title === "Edit") {
                         return <td key={index} className="icon">
-                          <EditIcon/>
+                          <EditIcon
+                            onClick={() => dispatch(openDialogForm({formType: props.formType, data: datum}))}
+                            />
                         </td>
                       }
                       else if (header.title === "Delete") {

@@ -3,19 +3,22 @@ import { createSlice } from '@reduxjs/toolkit'
 export const dialogFormSlice = createSlice({
   name: 'dialogform',
   initialState: {
-    formType: "editFyp"
+    formType: null,
+    data: null
   },
   reducers: {
     openDialogForm: (state, action) => {
       return {
         ...state,
+        data: action.payload.data,
         formType: action.payload.formType
       }
     },
     closeDialogForm: (state) => {
       return {
         ...state, 
-        formType: null
+        formType: null,
+        data: null
       }
     },
   }
