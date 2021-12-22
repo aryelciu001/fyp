@@ -10,8 +10,34 @@ import './index.scss'
 
 export default function FormDialog() {
   const formType = useSelector(s => s.dialogForm.formType)
+  const data = useSelector(s => s.dialogForm.data)
   const dispatch = useDispatch()
   const open = Boolean(formType)
+
+  const TheForm = () => {
+    switch(formType){
+      case 'editFyp':
+        return <EditFypForm/>
+      case 'editUser':
+        return <EditUserForm/>
+      default:
+        return ''
+    }
+  }
+  
+  function EditFypForm() {
+    return <FypForm 
+      data={data}
+      formType="editFyp"
+      />
+  }
+  
+  function EditUserForm() {
+    return <UserForm 
+      data={data}
+      formType="editUser"
+      />
+  }
 
   return (
     <div className="dialog-form">
@@ -19,33 +45,10 @@ export default function FormDialog() {
         <DialogTitle>Edit</DialogTitle>
         <DialogContent>
           <div className="form-content">
-            { getForm(formType) }
+            <TheForm></TheForm>
           </div>
         </DialogContent>
       </Dialog>
     </div>
   );
-}
-
-function getForm(type) {
-  switch(type){
-    case 'editFyp':
-      return editFypForm()
-    case 'editUser':
-      return editUserForm()
-    default:
-      return ''
-  }
-}
-
-function editFypForm() {
-  return <FypForm 
-    formType="editFyp"
-    />
-}
-
-function editUserForm() {
-  return <UserForm 
-    formType="editUser"
-    />
 }

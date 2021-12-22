@@ -5,12 +5,12 @@ import api from 'API'
 import './index.scss'
 
 export default function FypForm(props) {
-
-  const [projectTitle, setProjectTitle] = useState('')
-  const [projectId, setProjectId] = useState('')
-  const [projectInfo, setProjectInfo] = useState('')
-  const [supervisorName, setSupervisorName] = useState('')
-  const [supervisorId, setSupervisorIde] = useState('')
+  console.log(props.data)
+  const [projectTitle, setProjectTitle] = useState(props.data ? props.data.project_title : '')
+  const [projectId, setProjectId] = useState(props.data ? props.data.project_id : '')
+  const [projectInfo, setProjectInfo] = useState(props.data ? props.data.project_desc : '')
+  const [supervisorName, setSupervisorName] = useState(props.data ? props.data.supervisor_name : '')
+  const [supervisorId, setSupervisorIde] = useState(props.data ? props.data.supervisor_id : '')
   const [apiRequestType, setApiRequestType] = useState('')
   const [apiResponseString, setApiResponseString] = useState('')
   const [buttonString, setButtonString] = useState('')

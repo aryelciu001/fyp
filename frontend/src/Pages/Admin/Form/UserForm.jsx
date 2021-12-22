@@ -4,14 +4,13 @@ import { TextField, FormControl, InputLabel, MenuItem, Select } from '@mui/mater
 import api from 'API'
 import { useSelector } from 'react-redux'
 import './index.scss'
-const roles = ['Student', 'Admin', 'Supervisor']
+const roles = ['student', 'admin', 'supervisor']
 
 export default function AddUser (props) {
-
-  const [email, setEmail] = useState('')
-  const [studentMatricNumber, setStudentMatricNumber] = useState('')
+  const [email, setEmail] = useState(props.data ? props.data.email : '')
+  const [studentMatricNumber, setStudentMatricNumber] = useState(props.data ? props.data.matriculation_number : '')
   const [password, setPassword] = useState('')
-  const [role, setRole] = useState('Student')
+  const [role, setRole] = useState(props.data ? props.data.role : 'student')
   const [apiRequestType, setApiRequestType] = useState('')
   const [apiResponseString, setApiResponseString] = useState('')
   const [buttonString, setButtonString] = useState('')
@@ -45,7 +44,7 @@ export default function AddUser (props) {
       alert('Student matriculation number is empty!')
       return
     }
-    if (!password) {
+    if (!password && formType === "addUser") {
       alert('Password is empty!')
       return
     }
@@ -58,7 +57,7 @@ export default function AddUser (props) {
       email,
       studentMatricNumber,
       password,
-      role: role.toLowerCase(),
+      role,
       token
     }
     api(apiRequestType, payload)
@@ -82,7 +81,7 @@ export default function AddUser (props) {
   return (
     <div className="form-content">
       {
-        role === 'Student' ? <div className='form-content-row'>
+        role === 'student' ? <div className='form-content-row'>
           <TextField 
             label='Student Matriculation Number'
             variant='outlined' 
@@ -102,7 +101,7 @@ export default function AddUser (props) {
       </div>
       <div className='form-content-row'>
         <TextField 
-          label='Password'
+          label={formType === 'editUser' ? "Leave empty to leave password unchanged" : 'Password'}
           variant='outlined' 
           onChange={(e) => setPassword(e.target.value)}
           value={password}
