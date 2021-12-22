@@ -10,7 +10,10 @@ const AuthController = require('../controllers/auth')
 ProjectRouter.get('/', AuthController.isUser, function (req, res) {
   ProjectController.getFyp()
     .then((fyp) => res.send(fyp))
-    .catch((e) => res.status(500).send({ code: e.code }))
+    .catch((e) => {
+      logger.log({ level: 'error', message: e})
+      return res.status(500).send({ code: e.code })
+    })
 })
 
 /**
@@ -27,7 +30,10 @@ ProjectRouter.post('/', AuthController.isAdmin, function (req, res) {
   const { projectTitle, projectId, projectInfo, supervisorName, supervisorId } = req.body
   ProjectController.addFyp(projectTitle, projectId, projectInfo, supervisorName, supervisorId)
     .then(() => res.send({}))
-    .catch((e) => res.status(500).send({ code: e.code }))
+    .catch((e) => {
+      logger.log({ level: 'error', message: e})
+      return res.status(500).send({ code: e.code })
+    })
 })
 
 /**
@@ -45,8 +51,8 @@ ProjectRouter.post('/', AuthController.isAdmin, function (req, res) {
   ProjectController.editFyp(projectTitle, projectId, projectInfo, supervisorName, supervisorId)
     .then(() => res.send({}))
     .catch((e) => {
-      console.log(e)
-      res.status(500).send({ code: e.code })
+      logger.log({ level: 'error', message: e})
+      return res.status(500).send({ code: e.code })
     })
 })
 

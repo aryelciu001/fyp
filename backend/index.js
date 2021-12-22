@@ -16,6 +16,8 @@ app.use(bodyParser.json())
 // Connect to mysql db
 const connection = require('./db')
 
+const logger = require('./utils/logger')
+
 try {
   connection.connect(() => console.log("Connected to DB"))
 } catch (e) {
