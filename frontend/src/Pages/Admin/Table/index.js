@@ -1,7 +1,7 @@
 import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { openDialogForm, closeDialogForm } from 'Reducers/dialogform'
+import { openDialogForm } from 'Reducers/dialogform'
 import { useDispatch } from 'react-redux';
 import './index.scss';
 

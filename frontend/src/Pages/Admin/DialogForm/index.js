@@ -40,11 +40,11 @@ export default function FormDialog() {
   }
 
   return (
-    <div className="dialog-form">
+    <div>
       <Dialog open={open} onClose={() => dispatch(closeDialogForm())}>
         <DialogTitle>Edit</DialogTitle>
         <DialogContent>
-          <div className="form-content">
+          <div className="form-container">
             <TheForm></TheForm>
           </div>
         </DialogContent>
