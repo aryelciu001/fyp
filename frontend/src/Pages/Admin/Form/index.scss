@@ -1,0 +1,24 @@
+@import 'CSS/variables.scss';
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+  width: 100%;
+  // margin-top: 20px;
+  .form-content-row {
+    & > * {
+      width: 100%;
+    }
+    margin-bottom: 20px;
+  }
+  button {
+    background-color: $theme-blue;
+    color: white;
+    font-size: $button-font-size;
+    transition: .1s;
+    &:hover {
+      background-color: $theme-blue-lighter;
+    }
+  }
+}

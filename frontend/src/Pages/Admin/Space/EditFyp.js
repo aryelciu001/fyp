@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Table from 'Pages/Admin/Table'
+import DialogForm from 'Pages/Admin/DialogForm'
 import api from 'API'
 import { useSelector } from 'react-redux'
 
@@ -43,10 +44,12 @@ export default function EditFyp () {
   }, [token])
 
   return (
-    <Table 
-      headers={headers} 
-      data={data}
-      >
-    </Table>
+    <>
+      <Table 
+        headers={headers} 
+        data={data}
+        />
+      <DialogForm/>
+    </>
   )
 } 
