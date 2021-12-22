@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import ProjectList from './ProjectList'
-import api from '../../API'
+import ProjectList from 'Pages/Home/ProjectList'
+import api from 'API'
 import { useSelector } from 'react-redux';
 import axios from 'axios'
 

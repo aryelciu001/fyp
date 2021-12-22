@@ -1,8 +1,8 @@
 import React from 'react';
-import AddFyp from './AddFyp';
-import AddUser from './AddUser';
-import EditFyp from './EditFyp';
-import EditUser from './EditUser';
+import AddFyp from 'Pages/Admin/Space/AddFyp';
+import AddUser from 'Pages/Admin/Space/AddUser';
+import EditFyp from 'Pages/Admin/Space/EditFyp';
+import EditUser from 'Pages/Admin/Space/EditUser';
 import './index.scss';
 
 export default function Space(props) {

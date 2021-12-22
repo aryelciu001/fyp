@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { TextField, Typography, Button } from '@mui/material'
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux'
-import api from '../../API'
-import { login } from '../../Reducers/user'
+import api from 'API'
+import { login } from 'Reducers/user'
 import './index.scss'
 
 export default function Login(props) {

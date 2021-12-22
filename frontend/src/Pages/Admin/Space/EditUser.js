@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Table from '../Table'
-import api from '../../../API'
+import Table from 'Pages/Admin/Table'
+import api from 'API'
 import { useSelector } from 'react-redux'
 
 const headers = [

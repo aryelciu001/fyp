@@ -1,5 +1,5 @@
 import React from 'react';
-import ProjectListItem from '../ProjectListItem';
+import ProjectListItem from 'Pages/Home/ProjectListItem';
 import './index.scss';
 
 export default function ProjectList (props) {

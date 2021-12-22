@@ -11,9 +11,9 @@ import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import { Link, useNavigate } from "react-router-dom"
-import './index.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import { logout } from '../../Reducers/user'
+import { logout } from 'Reducers/user'
+import './index.scss'
 
 const pages = ['Home']
 const settings = ['Logout']

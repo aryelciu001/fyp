@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
-import Navbar from './Components/Navbar'
-import Home from './Pages/Home'
-import Admin from './Pages/Admin'
-import Login from './Pages/Login'
-import { login } from './Reducers/user'
-import api from './API'
+import Navbar from 'Components/Navbar'
+import Home from 'Pages/Home'
+import Admin from 'Pages/Admin'
+import Login from 'Pages/Login'
+import { login } from 'Reducers/user'
+import api from 'API'
 
 function App() {
 
