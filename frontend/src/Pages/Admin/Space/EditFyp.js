@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import Table from '../Table';
+import React, { useEffect, useState } from 'react'
+import Table from '../Table'
 import api from '../../../API'
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 
 const headers = [
   {
@@ -32,7 +32,7 @@ const headers = [
   },
 ]
 
-export default function EditFyp (props) {
+export default function EditFyp () {
   const [data, setData] = useState([])
   const token = useSelector(s => s.user.token)
 
@@ -40,7 +40,7 @@ export default function EditFyp (props) {
     api('GET_PROJECT_LIST', { token })
       .then(response => setData(response.data))
       .catch(e => alert("Something is wrong"))
-  }, [])
+  }, [token])
 
   return (
     <Table 

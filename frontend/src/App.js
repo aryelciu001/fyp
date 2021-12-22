@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
-import { createBrowserHistory } from "history";
 import Navbar from './Components/Navbar'
 import Home from './Pages/Home'
 import Admin from './Pages/Admin'
@@ -29,8 +28,12 @@ function App() {
           dispatch(login({ email: res.data.email, role: res.data.role, token }))
           setLoading(false)
         })
+        .catch(e => {
+          navigate("/login");
+          setLoading(false)
+        })
     }
-  }, [])
+  }, [dispatch, navigate])
 
   const RequireAuth = ({ children }) => {
     const userToken = useSelector(state => state.user.token)

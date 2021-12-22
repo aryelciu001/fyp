@@ -1,26 +1,26 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import { Link, useNavigate } from "react-router-dom";
-import './index.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../Reducers/user';
+import * as React from 'react'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import Menu from '@mui/material/Menu'
+import MenuIcon from '@mui/icons-material/Menu'
+import Container from '@mui/material/Container'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import MenuItem from '@mui/material/MenuItem'
+import { Link, useNavigate } from "react-router-dom"
+import './index.scss'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../../Reducers/user'
 
-const pages = ['Home'];
-const settings = ['Logout'];
+const pages = ['Home']
+const settings = ['Logout']
 
 const ResponsiveAppBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = React.useState(null)
+  const [anchorElUser, setAnchorElUser] = React.useState(null)
 
   const userEmail = useSelector((state) => state.user.email)
   const userRole = useSelector((state) => state.user.role)
@@ -28,25 +28,28 @@ const ResponsiveAppBar = () => {
   const navigate = useNavigate()
 
   const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+    setAnchorElNav(event.currentTarget)
+  }
   const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+    setAnchorElUser(event.currentTarget)
+  }
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+    setAnchorElNav(null)
+  }
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+    setAnchorElUser(null)
+  }
 
   const handleSettingClick = (setting) => {
     switch(setting.toLowerCase()) {
       case 'logout':
         dispatch(logout())
         navigate('/login')
+        break
+      default:
+        break
     }
   }
 
@@ -84,8 +87,8 @@ const ResponsiveAppBar = () => {
                   display: { xs: 'block', md: 'none' },
                 }}
               >
-                {pages.map((page) => (
-                  <Link className="navbar-link" to={ page === 'Home' ? '/' : `/${page.toLowerCase()}`}>
+                {pages.map((page, i) => (
+                  <Link key={i} className="navbar-link" to={ page === 'Home' ? '/' : `/${page.toLowerCase()}`}>
                     <MenuItem key={page}>
                       <Typography textAlign="center">
                         {page}
@@ -113,8 +116,8 @@ const ResponsiveAppBar = () => {
               </Menu>
             </Box>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
-                <Link className="navbar-link" to={ page === 'Home' ? '/' : `/${page.toLowerCase()}`}>
+              {pages.map((page, i) => (
+                <Link key={i} className="navbar-link" to={ page === 'Home' ? '/' : `/${page.toLowerCase()}`}>
                   <Button
                     key={page}
                     onClick={handleCloseNavMenu}
@@ -157,8 +160,8 @@ const ResponsiveAppBar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseNavMenu}>
+                {settings.map((setting, i) => (
+                  <MenuItem key={i} onClick={handleCloseNavMenu}>
                     <Typography 
                       textAlign="center" 
                       onClick={()=>handleSettingClick(setting)}
@@ -173,6 +176,6 @@ const ResponsiveAppBar = () => {
         </Container>
       </AppBar>
     </div>
-  );
-};
-export default ResponsiveAppBar;
+  )
+}
+export default ResponsiveAppBar

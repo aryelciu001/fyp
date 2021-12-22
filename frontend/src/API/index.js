@@ -1,7 +1,7 @@
 import axios from 'axios'
 const API = process.env.REACT_APP_API
 
-export default function (action, payload = null) {
+export default function api (action, payload = null) {
   switch(action) {
     case 'LOGIN': 
       return login(payload)
@@ -15,6 +15,8 @@ export default function (action, payload = null) {
       return postUser(payload)
     case 'GET_USER':
       return getUser(payload)
+    default:
+      return
   }
 }
 

@@ -12,9 +12,9 @@ export default function Table (props) {
       <thead>
         <tr>
           {
-            props.headers.map(header => {
+            props.headers.map((header, i) => {
               return (
-                <td>{header.title}</td>
+                <td key={i}>{header.title}</td>
               )
             })
           }
@@ -22,23 +22,23 @@ export default function Table (props) {
       </thead>
       <tbody>
         {
-          props.data.map(datum => {
+          props.data.map((datum, i) => {
             return (
-              <>
+              <React.Fragment key={i}>
                 <tr>
                   {
-                    props.headers.map(header => {
+                    props.headers.map((header, index) => {
                       if (header.title === "Edit") {
-                        return <td className="icon">
+                        return <td key={index} className="icon">
                           <EditIcon/>
                         </td>
                       }
                       else if (header.title === "Delete") {
-                        return <td className="icon delete">
+                        return <td key={index} className="icon delete">
                           <DeleteForeverIcon/>
                         </td>
                       }
-                      else return <td>{datum[header.key]}</td>
+                      else return <td key={index}>{datum[header.key]}</td>
                     })
                   }
                 </tr>
@@ -47,7 +47,7 @@ export default function Table (props) {
                     <div>Hello</div>
                   </td>
                 </tr>
-              </>
+              </React.Fragment>
             )
           })
         }

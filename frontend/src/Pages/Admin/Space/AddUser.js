@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import { TextField, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import React, { useState } from 'react'
+import Button from '@mui/material/Button'
+import { TextField, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import api from '../../../API'
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 const roles = ['Student', 'Admin', 'Supervisor']
 
-export default function () {
+export default function AddUser () {
 
   const [email, setEmail] = useState('')
   const [studentMatricNumber, setStudentMatricNumber] = useState('')

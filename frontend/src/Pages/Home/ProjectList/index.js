@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ProjectListItem from '../ProjectListItem';
 import './index.scss';
 

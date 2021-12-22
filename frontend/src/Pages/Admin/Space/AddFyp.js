@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import { TextField } from '@mui/material';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react'
+import Button from '@mui/material/Button'
+import { TextField } from '@mui/material'
+import { useSelector } from 'react-redux'
 import api from '../../../API'
 
-export default function (props) {
+export default function AddFyp () {
 
   const [projectTitle, setProjectTitle] = useState('')
   const [projectId, setProjectId] = useState('')
