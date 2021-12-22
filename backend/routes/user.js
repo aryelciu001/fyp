@@ -10,7 +10,7 @@ const { encrypt } = require('../utils/bcrypt')
 UserRouter.get('/', AuthController.isAdmin, async function (req, res) {
   UserController.getAllUser()
     .then((user) => res.send(user))
-    .catch((e) => res.status(400).send({ code: e.code }))
+    .catch((e) => res.status(500).send({ code: e.code }))
 })
 
 /**
@@ -34,7 +34,7 @@ UserRouter.post('/', AuthController.isAdmin, async function (req, res) {
 
   UserController.addUser(email, studentMatricNumber, password, role)
     .then(() => res.send({}))
-    .catch((e) => res.status(400).send({ code: e.code }))
+    .catch((e) => res.status(500).send({ code: e.code }))
 })
 
 module.exports = UserRouter

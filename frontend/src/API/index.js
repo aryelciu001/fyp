@@ -11,6 +11,8 @@ export default function api (action, payload = null) {
       return getProjectList(payload)
     case 'POST_FYP':
       return postFyp(payload)
+    case 'PUT_FYP':
+      return putFyp(payload)
     case 'POST_USER':
       return postUser(payload)
     case 'GET_USER':
@@ -100,4 +102,29 @@ function getUser(payload) {
     }
   }
   return axios.get(uri, config)
+}
+
+function putFyp(payload) {
+  const uri = `${API}/project`
+  const {
+    projectTitle,
+    projectId,
+    projectInfo,
+    supervisorName,
+    supervisorId,
+    token
+  } = payload
+  const body = {
+    projectTitle,
+    projectId,
+    projectInfo,
+    supervisorName,
+    supervisorId,
+  }
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
+  return axios.put(uri, body, config)
 }

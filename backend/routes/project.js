@@ -10,7 +10,7 @@ const AuthController = require('../controllers/auth')
 ProjectRouter.get('/', AuthController.isUser, function (req, res) {
   ProjectController.getFyp()
     .then((fyp) => res.send(fyp))
-    .catch((e) => res.status(400).send({ code: e.code }))
+    .catch((e) => res.status(500).send({ code: e.code }))
 })
 
 /**
@@ -27,7 +27,27 @@ ProjectRouter.post('/', AuthController.isAdmin, function (req, res) {
   const { projectTitle, projectId, projectInfo, supervisorName, supervisorId } = req.body
   ProjectController.addFyp(projectTitle, projectId, projectInfo, supervisorName, supervisorId)
     .then(() => res.send({}))
-    .catch((e) => res.status(400).send({ code: e.code }))
+    .catch((e) => res.status(500).send({ code: e.code }))
+})
+
+/**
+ * @description edit FYP
+ * @requires role:admin
+ * @requestBody
+ * - projectTitle
+ * - projectId
+ * - projectInfo
+ * - supervisorName
+ * - supervisorId
+ */
+ ProjectRouter.put('/', AuthController.isAdmin, function (req, res) {
+  const { projectTitle, projectId, projectInfo, supervisorName, supervisorId } = req.body
+  ProjectController.editFyp(projectTitle, projectId, projectInfo, supervisorName, supervisorId)
+    .then(() => res.send({}))
+    .catch((e) => {
+      console.log(e)
+      res.status(500).send({ code: e.code })
+    })
 })
 
 module.exports = ProjectRouter

@@ -30,6 +30,17 @@ const Project = {
         .then((fyp) => resolve(fyp))
         .catch((e) => reject(e))
     })
+  },
+  editFyp: function(projectTitle, projectId, projectInfo, supervisorName, supervisorId) {
+    const query = `UPDATE fyp 
+      SET project_title='${projectTitle}', project_id='${projectId}', project_desc='${projectInfo}', supervisor_id='${supervisorId}', supervisor_name='${supervisorName}'
+      WHERE project_id='${projectId}';
+    `
+    return new Promise((resolve, reject) => {
+      mysqlQuery(query)
+        .then(() => resolve())
+        .catch((e) => reject(e))
+    })
   }
 }
 
