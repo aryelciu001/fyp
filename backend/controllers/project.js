@@ -31,6 +31,14 @@ const Project = {
         .catch((e) => reject(e))
     })
   },
+  /**
+   * @description edit fyp
+   * @param projectTitle 
+   * @param projectId 
+   * @param projectInfo 
+   * @param supervisorName 
+   * @param supervisorId 
+   */
   editFyp: function(projectTitle, projectId, projectInfo, supervisorName, supervisorId) {
     const query = `UPDATE fyp 
       SET project_title='${projectTitle}', project_id='${projectId}', project_desc='${projectInfo}', supervisor_id='${supervisorId}', supervisor_name='${supervisorName}'
@@ -42,6 +50,10 @@ const Project = {
         .catch((e) => reject(e))
     })
   },
+  /**
+   * @description delete fyp
+   * @param projectId 
+   */
   deleteFyp: function(projectId) {
     const query = `DELETE FROM fyp 
       WHERE project_id='${projectId}';

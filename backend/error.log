@@ -8,3 +8,6 @@
 {"level":"error","message":{"code":"ER_DUP_ENTRY","errno":1062,"index":0,"sql":"INSERT INTO user \n      (email, matriculation_number, password, role) \n      VALUES ('teststudent@', 'teststudent', '$2b$08$Fl7HoQfNCNgIbmRCG9fiZ.cKrJSddJfyfznr.aGAJCek6fchDe7BS', 'student');","sqlMessage":"Duplicate entry 'teststudent@' for key 'user.PRIMARY'","sqlState":"23000"},"service":"user-service"}
 {"level":"error","message":{"code":"NOT_FOUND"},"service":"user-service"}
 {"level":"error","message":{"code":"UNAUTHORIZED"},"service":"user-service"}
+{"level":"error","message":{"code":"NOT_FOUND"},"service":"user-service"}
+{"level":"error","message":{"code":"NOT_FOUND"},"service":"user-service"}
+{"level":"error","message":{"code":"NOT_FOUND"},"service":"user-service"}

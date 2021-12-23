@@ -10,8 +10,7 @@ UserRouter.get('/', AuthController.isAdmin, async function (req, res) {
   UserController.getAllUser()
     .then((user) => res.send(user))
     .catch((e) => {
-      logger.log({ level: 'error', message: e})
-      return res.status(500).send({ code: e.code })
+      return res.status(500).send()
     })
 })
 
@@ -30,8 +29,7 @@ UserRouter.post('/', AuthController.isAdmin, async function (req, res) {
   UserController.addUser(email, studentMatricNumber, password, role)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.log({ level: 'error', message: e})
-      return res.status(500).send({ code: e.code })
+      return res.status(500).send()
     })
 })
 
@@ -50,16 +48,14 @@ UserRouter.post('/', AuthController.isAdmin, async function (req, res) {
   UserController.editUser(email, studentMatricNumber, password, role)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.log({ level: 'error', message: e})
-      return res.status(500).send({ code: e.code })
+      return res.status(500).send()
     })
 })
 
 /**
  * @description delete user
  * @requires role:admin
- * @params
- * - email
+ * @param email
  */
  UserRouter.delete('/:id', AuthController.isAdmin, async function (req, res) {
   let { id } = req.params
@@ -67,8 +63,7 @@ UserRouter.post('/', AuthController.isAdmin, async function (req, res) {
   UserController.deleteUser(id)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.log({ level: 'error', message: e})
-      return res.status(500).send({ code: e.code })
+      return res.status(500).send()
     })
 })
 

@@ -82,6 +82,10 @@ module.exports = {
         .catch((e) => reject(e))
     })
   },
+  /**
+   * @description delete user with specified email
+   * @param id (email for user)
+   */
   deleteUser: function(email) {
     const query = `DELETE FROM user 
       WHERE email='${email}';

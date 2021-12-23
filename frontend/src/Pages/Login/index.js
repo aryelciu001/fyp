@@ -23,14 +23,7 @@ export default function Login(props) {
         navigate("/")
       })
       .catch(e => {
-        switch(e.response.status){
-          case 401: 
-            setError("Email or password is incorrect")
-            break
-          default:
-            setError("Something is wrong")
-            break
-        }
+        setError("Email or password is incorrect")
       })
   }
 

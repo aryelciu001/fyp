@@ -14,8 +14,7 @@ AuthRouter.post('/login', async function (req, res) {
   AuthController.login(email, password)
     .then(user => res.status(200).send(user))
     .catch(e => {
-      logger.log({ level: 'error', message: e})
-      return res.status(401).send(e.code)
+      return res.status(401).send()
     })
 })
 
@@ -30,7 +29,6 @@ AuthRouter.get('/:token', async function (req, res) {
     user = verifyToken(token)
     return res.status(200).send({...user})
   } catch (e) {
-    logger.log({ level: 'error', message: e})
     return res.status(401).send()
   }
 })

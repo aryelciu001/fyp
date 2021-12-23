@@ -12,7 +12,7 @@ module.exports =  {
   isAdmin(req, res, next) {
     module.exports.isUser(req, res, () => {
       let admin = req.body.authenticatedUser
-      if (admin.role !== 'admin') return res.status(401).send({ msg: "UNAUTHORIZED" })
+      if (admin.role !== 'admin') return res.status(401).send()
       return next()
     })
   },
@@ -29,7 +29,7 @@ module.exports =  {
       req.body.authenticatedUser = user
       return next()
     } catch (e) {
-      return res.status(401).send({ code: "UNAUTHORIZED" })
+      return res.status(401).send()
     }
   },
   /**
@@ -54,11 +54,11 @@ module.exports =  {
             let token = generateToken({ email: user.email, role: user.role })
             return resolve({ token, email: user.email, role: user.role })
           } else {
-            reject({ code: "UNAUTHORIZED" })
+            reject({})
           }
         })
         .catch(e => {
-          reject({ code: "UNAUTHORIZED" })
+          reject({})
         })
     })
   },
