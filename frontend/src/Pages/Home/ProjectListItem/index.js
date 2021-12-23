@@ -19,7 +19,7 @@ export default function ProjectItemList (props) {
       key={props.project.project_id}
     >
       <div className="project-list-item-header">
-        <h2>{props.project.project_title}</h2>
+        <h4>{props.project.project_title}</h4>
         <div className="buttons">
           <Button onClick={()=>toggleDesc()} variant="contained">{openDesc ? "close" : "more"}</Button>
           <Button onClick={(e)=>reserve(e)} variant="contained">Reserve</Button>

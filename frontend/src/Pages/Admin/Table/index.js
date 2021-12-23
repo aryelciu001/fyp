@@ -52,7 +52,7 @@ export default function Table (props) {
                             />
                         </td>
                       }
-                      else return <td key={index}>{datum[header.key]}</td>
+                      else return <td key={index}>{datum[header.key].slice(0, 100)}</td>
                     })
                   }
                 </tr>
