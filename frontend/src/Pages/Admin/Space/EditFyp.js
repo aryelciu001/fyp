@@ -43,6 +43,18 @@ export default function EditFyp () {
       .catch(e => alert("Something is wrong"))
   }, [token])
 
+  const deleteItem = (data) => {
+    let apiRequestType = 'DELETE_FYP'
+    let dataHeader = 'project_id'
+    
+    api(apiRequestType, { id: data[dataHeader], token })
+      .then(() => {
+        fetchData()
+        alert('Deleted!')
+      })
+      .catch(e => alert('Something is wrong.'))
+  }
+
   useEffect(() => {
     fetchData()
   }, [fetchData])
@@ -55,8 +67,11 @@ export default function EditFyp () {
         formType='editFyp'
         datumKey="project_id"
         fetchData={fetchData}
+        deleteItem={deleteItem}
         />
-      <DialogForm/>
+      <DialogForm
+        fetchData={fetchData}
+        />
     </>
   )
 } 

@@ -35,6 +35,18 @@ export default function EditUser () {
       .catch(e => alert("Something is wrong"))
   }, [token])
 
+  const deleteItem = (data) => {
+    let apiRequestType = 'DELETE_USER'
+    let dataHeader = 'email'
+    
+    api(apiRequestType, { id: data[dataHeader], token })
+      .then(() => {
+        fetchData()
+        alert('Deleted!')
+      })
+      .catch(e => alert('Something is wrong.'))
+  }
+
   useEffect(() => {
     fetchData()
   }, [fetchData])
@@ -46,9 +58,11 @@ export default function EditUser () {
         data={data}
         formType='editUser'
         datumKey="email"
+        deleteItem={deleteItem}
+        />
+      <DialogForm
         fetchData={fetchData}
         />
-      <DialogForm/>
     </>
   )
 } 

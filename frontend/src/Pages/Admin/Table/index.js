@@ -2,37 +2,12 @@ import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { openDialogForm } from 'Reducers/dialogform'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import './index.scss';
-import api from 'API'
 
 export default function Table (props) {
 
   const dispatch = useDispatch()
-  const token = useSelector(s => s.user.token)
-
-  const deleteItem = (data) => {
-    let apiRequestType, dataHeader
-    switch(props.formType) {
-      case 'editFyp':
-        apiRequestType = 'DELETE_FYP'
-        dataHeader = 'project_id'
-        break
-      case 'editUser':
-        apiRequestType = 'DELETE_USER'
-        dataHeader = 'email'
-        break
-      default:
-        return
-    }
-    // console.log(apiRequestType, dataHeader)
-    api(apiRequestType, { id: data[dataHeader], token })
-      .then(() => {
-        props.fetchData()
-        alert('Deleted!')
-      })
-      .catch(e => alert('Something is wrong.'))
-  }
 
   const TdGenerator = ({ header, data }) => {
     switch(header.title) {
@@ -48,7 +23,7 @@ export default function Table (props) {
         return (
           <td className="icon delete">
             <DeleteForeverIcon
-              onClick={() => deleteItem(data)}
+              onClick={() => props.deleteItem(data)}
               />
           </td>
         )

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -8,11 +8,12 @@ import FypForm from 'Pages/Admin/Form/FypForm'
 import UserForm from 'Pages/Admin/Form/UserForm'
 import './index.scss'
 
-export default function FormDialog() {
+export default function FormDialog(props) {
   const formType = useSelector(s => s.dialogForm.formType)
   const data = useSelector(s => s.dialogForm.data)
   const dispatch = useDispatch()
   const open = Boolean(formType)
+  const { fetchData } = props
 
   const TheForm = () => {
     switch(formType){
@@ -38,6 +39,10 @@ export default function FormDialog() {
       formType="editUser"
       />
   }
+
+  useEffect(() => {
+    fetchData()
+  }, [open, fetchData])
 
   return (
     <div>
