@@ -53,9 +53,13 @@ module.exports =  {
           if(await passwordIsCorrect(password, user.password)) {
             let token = generateToken({ email: user.email, role: user.role })
             return resolve({ token, email: user.email, role: user.role })
+          } else {
+            reject({ code: "UNAUTHORIZED" })
           }
         })
-        .catch(e => console.log(e.code))
+        .catch(e => {
+          reject({ code: "UNAUTHORIZED" })
+        })
     })
   },
 }

@@ -127,15 +127,20 @@ const ResponsiveAppBar = () => {
                   </Button> 
                 </Link>
               ))}
-              <Link className="navbar-link" to="/admin">
-                <Button
-                  key="Admin"
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  Admin
-                </Button>
-              </Link>
+              {
+                userRole.toLowerCase() === "admin" ? 
+                <Link className="navbar-link" to="/admin">
+                  <Button
+                    key="Admin"
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
+                    Admin
+                  </Button>
+                </Link>
+                :
+                ""
+              }
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
