@@ -26,7 +26,10 @@ export default function Table (props) {
         return
     }
     api(apiRequestType, { id: data[dataHeader], token })
-      .then(() => alert('Deleted!'))
+      .then(() => {
+        props.fetchData()
+        alert('Deleted!')
+      })
       .catch(e => alert('Something is wrong.'))
   }
 

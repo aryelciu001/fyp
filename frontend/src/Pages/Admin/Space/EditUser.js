@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Table from 'Pages/Admin/Table'
 import api from 'API'
 import { useSelector } from 'react-redux'
@@ -29,11 +29,16 @@ export default function EditUser () {
   const [data, setData] = useState([])
   const token = useSelector(s => s.user.token)
 
-  useEffect(() => {
+  const fetchData = useCallback(() => {
+    console.log('test')
     api('GET_USER', { token })
       .then(response => setData(response.data))
       .catch(e => alert("Something is wrong"))
   }, [token])
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
 
   return (
     <>
@@ -42,6 +47,7 @@ export default function EditUser () {
         data={data}
         formType='editUser'
         datumKey="email"
+        fetchData={fetchData}
         />
       <DialogForm/>
     </>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Table from 'Pages/Admin/Table'
 import DialogForm from 'Pages/Admin/DialogForm'
 import api from 'API'
@@ -37,11 +37,15 @@ export default function EditFyp () {
   const [data, setData] = useState([])
   const token = useSelector(s => s.user.token)
 
-  useEffect(() => {
+  const fetchData = useCallback(() => {
     api('GET_PROJECT_LIST', { token })
       .then(response => setData(response.data))
       .catch(e => alert("Something is wrong"))
   }, [token])
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
 
   return (
     <>
@@ -50,6 +54,7 @@ export default function EditFyp () {
         data={data}
         formType='editFyp'
         datumKey="project_id"
+        fetchData={fetchData}
         />
       <DialogForm/>
     </>
