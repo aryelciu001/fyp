@@ -11,10 +11,48 @@ export default function Table (props) {
   const dispatch = useDispatch()
   const token = useSelector(s => s.user.token)
 
-  const deleteItem = (projectId) => {
-    api('DELETE_FYP', { id: projectId, token })
+  const deleteItem = (data) => {
+    let apiRequestType, dataHeader
+    switch(props.formType) {
+      case 'editFyp':
+        apiRequestType = 'DELETE_FYP'
+        dataHeader = 'project_id'
+        break
+      case 'editUser':
+        apiRequestType = 'DELETE_USER'
+        dataHeader = 'email'
+        break
+      default:
+        return
+    }
+    api(apiRequestType, { id: data[dataHeader], token })
       .then(() => alert('Deleted!'))
       .catch(e => alert('Something is wrong.'))
+  }
+
+  const TdGenerator = ({ header, data }) => {
+    switch(header.title) {
+      case 'Edit':
+        return (
+          <td className="icon">
+            <EditIcon
+              onClick={() => dispatch(openDialogForm({formType: props.formType, data}))}
+              />
+          </td>
+        )
+      case 'Delete':
+        return (
+          <td className="icon delete">
+            <DeleteForeverIcon
+              onClick={() => deleteItem(data)}
+              />
+          </td>
+        )
+      default:
+        return (
+          <td>{data[header.key].slice(0, 100)}</td>
+        )
+    }
   }
 
   return (
@@ -22,48 +60,19 @@ export default function Table (props) {
       <thead>
         <tr>
           {
-            props.headers.map((header, i) => {
-              return (
-                <td key={i}>{header.title}</td>
-              )
-            })
+            props.headers.map((header, i) => (
+              <td key={i}>{header.title}</td>
+            ))
           }
         </tr>
       </thead>
       <tbody>
         {
-          props.data.map((datum, i) => {
-            return (
-              <React.Fragment key={i}>
-                <tr>
-                  {
-                    props.headers.map((header, index) => {
-                      if (header.title === "Edit") {
-                        return <td key={index} className="icon">
-                          <EditIcon
-                            onClick={() => dispatch(openDialogForm({formType: props.formType, data: datum}))}
-                            />
-                        </td>
-                      }
-                      else if (header.title === "Delete") {
-                        return <td key={index} className="icon delete">
-                          <DeleteForeverIcon
-                            onClick={() => deleteItem(datum[props.datumKey])}
-                            />
-                        </td>
-                      }
-                      else return <td key={index}>{datum[header.key].slice(0, 100)}</td>
-                    })
-                  }
-                </tr>
-                <tr className="editor">
-                  <td colSpan="100%">
-                    <div>Hello</div>
-                  </td>
-                </tr>
-              </React.Fragment>
-            )
-          })
+          props.data.map((data, i) => (
+            <tr key={i}>
+              { props.headers.map((header, index) => <TdGenerator header={header} key={index} data={data}/>) }
+            </tr>
+          ))
         }
       </tbody>
     </table>
