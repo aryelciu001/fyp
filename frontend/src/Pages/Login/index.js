@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { TextField, Typography, Button } from '@mui/material'
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux'
@@ -14,6 +14,13 @@ export default function Login(props) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    let token = localStorage.getItem('token')
+    if (token) {
+      navigate("/")
+    }
+  }, [navigate])
 
   const loginLocal = () => {
     api('LOGIN', { email, password })
