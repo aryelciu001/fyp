@@ -55,4 +55,21 @@ UserRouter.post('/', AuthController.isAdmin, async function (req, res) {
     })
 })
 
+/**
+ * @description delete user
+ * @requires role:admin
+ * @params
+ * - email
+ */
+ UserRouter.delete('/:id', AuthController.isAdmin, async function (req, res) {
+  let { id } = req.params
+
+  UserController.deleteUser(id)
+    .then(() => res.send({}))
+    .catch((e) => {
+      logger.log({ level: 'error', message: e})
+      return res.status(500).send({ code: e.code })
+    })
+})
+
 module.exports = UserRouter

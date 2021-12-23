@@ -21,6 +21,8 @@ export default function api (action, payload = null) {
       return putUser(payload)
     case 'GET_USER':
       return getUser(payload)
+    case 'DELETE_USER':
+      return deleteUser(payload)
     default:
       return
   }
@@ -159,6 +161,17 @@ function putUser(payload) {
 function deleteFyp(payload) {
   const { id, token } = payload
   const uri = `${API}/project/${id}`
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
+  return axios.delete(uri, config)
+}
+
+function deleteUser(payload) {
+  const { id, token } = payload
+  const uri = `${API}/user/${id}`
   const config = {
     headers: {
       Authorization: token

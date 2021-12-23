@@ -25,6 +25,7 @@ export default function Table (props) {
       default:
         return
     }
+    // console.log(apiRequestType, dataHeader)
     api(apiRequestType, { id: data[dataHeader], token })
       .then(() => {
         props.fetchData()

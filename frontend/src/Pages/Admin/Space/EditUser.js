@@ -30,7 +30,6 @@ export default function EditUser () {
   const token = useSelector(s => s.user.token)
 
   const fetchData = useCallback(() => {
-    console.log('test')
     api('GET_USER', { token })
       .then(response => setData(response.data))
       .catch(e => alert("Something is wrong"))

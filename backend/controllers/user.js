@@ -82,4 +82,14 @@ module.exports = {
         .catch((e) => reject(e))
     })
   },
+  deleteUser: function(email) {
+    const query = `DELETE FROM user 
+      WHERE email='${email}';
+    `
+    return new Promise((resolve, reject) => {
+      mysqlQuery(query)
+        .then(() => resolve())
+        .catch((e) => reject(e))
+    })
+  }
 }
