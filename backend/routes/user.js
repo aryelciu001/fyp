@@ -1,7 +1,6 @@
 const UserRouter = require('express').Router()
 const UserController = require('../controllers/user')
 const AuthController = require('../controllers/auth')
-const { encrypt } = require('../utils/bcrypt')
 
 /**
  * @description get list of students
@@ -28,14 +27,27 @@ UserRouter.get('/', AuthController.isAdmin, async function (req, res) {
 UserRouter.post('/', AuthController.isAdmin, async function (req, res) {
   let { email, studentMatricNumber, password, role } = req.body
 
-  // lowercase everything
-  email = email.toLowerCase()
-  studentMatricNumber = studentMatricNumber.toLowerCase()
-
-  // hash password
-  password = await encrypt(password)
-
   UserController.addUser(email, studentMatricNumber, password, role)
+    .then(() => res.send({}))
+    .catch((e) => {
+      logger.log({ level: 'error', message: e})
+      return res.status(500).send({ code: e.code })
+    })
+})
+
+/**
+ * @description edit user
+ * @requires role:admin
+ * @requestBody
+ * - email
+ * - studentMatricNumber
+ * - studentPassword
+ * - role
+ */
+ UserRouter.put('/', AuthController.isAdmin, async function (req, res) {
+  let { email, studentMatricNumber, password, role } = req.body
+
+  UserController.editUser(email, studentMatricNumber, password, role)
     .then(() => res.send({}))
     .catch((e) => {
       logger.log({ level: 'error', message: e})

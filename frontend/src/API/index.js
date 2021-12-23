@@ -15,6 +15,8 @@ export default function api (action, payload = null) {
       return putFyp(payload)
     case 'POST_USER':
       return postUser(payload)
+    case 'PUT_USER':
+      return putUser(payload)
     case 'GET_USER':
       return getUser(payload)
     default:
@@ -120,6 +122,29 @@ function putFyp(payload) {
     projectInfo,
     supervisorName,
     supervisorId,
+  }
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
+  return axios.put(uri, body, config)
+}
+
+function putUser(payload) {
+  const uri = `${API}/user`
+  const {
+    email,
+    studentMatricNumber,
+    password,
+    role,
+    token
+  } = payload
+  const body = {
+    email,
+    studentMatricNumber,
+    password,
+    role
   }
   const config = {
     headers: {

@@ -1,4 +1,5 @@
 const { mysqlQuery } = require('../utils/mysqlQuery')
+const { encrypt } = require('../utils/bcrypt')
 
 module.exports = {
   /**
@@ -8,10 +9,48 @@ module.exports = {
    * @param password 
    * @param role 
    */
-  addUser: function(email, studentMatricNumber, password, role) {
+  addUser: async function(email, studentMatricNumber, password, role) {
+    
+    // lowercase everything
+    email = email.toLowerCase()
+    studentMatricNumber = studentMatricNumber.toLowerCase()
+
+    // hash password
+    password = await encrypt(password)
+
     const query = `INSERT INTO user 
       (email, matriculation_number, password, role) 
       VALUES ('${email}', '${studentMatricNumber}', '${password}', '${role}');`
+    return new Promise((resolve, reject) => {
+      mysqlQuery(query)
+        .then(() => resolve())
+        .catch((e) => reject(e))
+    })
+  },
+  /**
+   * @description edit user
+   * @param email 
+   * @param studentMatricNumber 
+   * @param password 
+   * @param role 
+   */
+  editUser: async function(email, studentMatricNumber, password, role) {
+    let query
+    // lowercase everything
+    email = email.toLowerCase()
+    studentMatricNumber = studentMatricNumber.toLowerCase()
+
+    if (!password.length) { // if no new password
+      query = `UPDATE user 
+        SET matriculation_number='${studentMatricNumber}', role='${role}'
+        WHERE email='${email}';`
+    } else { // if new password is inserted
+      // hash password
+      password = await encrypt(password)
+      query = `UPDATE user 
+        SET matriculation_number='${studentMatricNumber}', password='${password}', role='${role}'
+        WHERE email='${email}';`
+    }
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
