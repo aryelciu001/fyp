@@ -41,6 +41,7 @@ export default function EditUser () {
         headers={headers} 
         data={data}
         formType='editUser'
+        datumKey="email"
         />
       <DialogForm/>
     </>

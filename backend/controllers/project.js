@@ -41,6 +41,16 @@ const Project = {
         .then(() => resolve())
         .catch((e) => reject(e))
     })
+  },
+  deleteFyp: function(projectId) {
+    const query = `DELETE FROM fyp 
+      WHERE project_id='${projectId}';
+    `
+    return new Promise((resolve, reject) => {
+      mysqlQuery(query)
+        .then(() => resolve())
+        .catch((e) => reject(e))
+    })
   }
 }
 

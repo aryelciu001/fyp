@@ -56,4 +56,20 @@ ProjectRouter.post('/', AuthController.isAdmin, function (req, res) {
     })
 })
 
+/**
+ * @description delete FYP
+ * @requires role:admin
+ * @params 
+ * - projectId
+ */
+ ProjectRouter.delete('/:id', AuthController.isAdmin, function (req, res) {
+  const { id } = req.params
+  ProjectController.deleteFyp(id)
+    .then(() => res.send({}))
+    .catch((e) => {
+      logger.log({ level: 'error', message: e})
+      return res.status(500).send({ code: e.code })
+    })
+})
+
 module.exports = ProjectRouter

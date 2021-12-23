@@ -13,6 +13,8 @@ export default function api (action, payload = null) {
       return postFyp(payload)
     case 'PUT_FYP':
       return putFyp(payload)
+    case 'DELETE_FYP':
+      return deleteFyp(payload)
     case 'POST_USER':
       return postUser(payload)
     case 'PUT_USER':
@@ -152,4 +154,15 @@ function putUser(payload) {
     }
   }
   return axios.put(uri, body, config)
+}
+
+function deleteFyp(payload) {
+  const { id, token } = payload
+  const uri = `${API}/project/${id}`
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
+  return axios.delete(uri, config)
 }

@@ -49,6 +49,7 @@ export default function EditFyp () {
         headers={headers} 
         data={data}
         formType='editFyp'
+        datumKey="project_id"
         />
       <DialogForm/>
     </>

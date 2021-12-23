@@ -2,12 +2,20 @@ import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { openDialogForm } from 'Reducers/dialogform'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './index.scss';
+import api from 'API'
 
 export default function Table (props) {
 
   const dispatch = useDispatch()
+  const token = useSelector(s => s.user.token)
+
+  const deleteItem = (projectId) => {
+    api('DELETE_FYP', { id: projectId, token })
+      .then(() => alert('Deleted!'))
+      .catch(e => alert('Something is wrong.'))
+  }
 
   return (
     <table>
@@ -39,7 +47,9 @@ export default function Table (props) {
                       }
                       else if (header.title === "Delete") {
                         return <td key={index} className="icon delete">
-                          <DeleteForeverIcon/>
+                          <DeleteForeverIcon
+                            onClick={() => deleteItem(datum[props.datumKey])}
+                            />
                         </td>
                       }
                       else return <td key={index}>{datum[header.key]}</td>
