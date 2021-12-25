@@ -1,10 +1,13 @@
 import { useRef } from 'react'
 import { Button } from '@mui/material'
+import api from 'API'
+import { useSelector } from 'react-redux'
 import './index.scss'
 
 export default function FileInput() {
 
   const fileInput = useRef(null)
+  const token = useSelector(s => s.user.token)
 
   const handleUpload = () => {
 
@@ -22,6 +25,15 @@ export default function FileInput() {
       return
     }
 
+    const formData = new FormData();
+    formData.append(
+      "csvFile",
+      csvFile,
+      csvFile.name
+    );
+    
+    api('POST_FYP_MANY', { formData, token })
+      .then(() => alert('FYPs Added!'))
   }
 
   return (

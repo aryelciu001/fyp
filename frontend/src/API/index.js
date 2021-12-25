@@ -11,6 +11,8 @@ export default function api (action, payload = null) {
       return getProjectList(payload)
     case 'POST_FYP':
       return postFyp(payload)
+    case 'POST_FYP_MANY':
+      return postFypMany(payload)
     case 'PUT_FYP':
       return putFyp(payload)
     case 'DELETE_FYP':
@@ -178,4 +180,15 @@ function deleteUser(payload) {
     }
   }
   return axios.delete(uri, config)
+}
+
+function postFypMany(payload) {
+  const uri = `${API}/project/csv`
+  const { formData, token } = payload
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
+  return axios.post(uri, formData, config)
 }

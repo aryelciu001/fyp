@@ -37,7 +37,7 @@ function App() {
           setLoading(false)
         })
     }
-  }, [dispatch, navigate])
+  }, [dispatch, navigate, tokenState])
 
   const RequireAuth = ({ children }) => {
     const userToken = useSelector(state => state.user.token)
