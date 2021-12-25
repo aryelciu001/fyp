@@ -30,7 +30,7 @@ function App() {
         .then((res) => {
           dispatch(login({ email: res.data.email, role: res.data.role, token }))
           setLoading(false)
-          navigate("/");
+          navigate("/admin");
         })
         .catch(e => {
           navigate("/login");

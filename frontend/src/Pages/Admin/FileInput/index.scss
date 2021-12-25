@@ -1,0 +1,11 @@
+@import 'CSS/variables.scss';
+
+.file-input {
+  input {
+    height: 100%;
+  }
+  button {
+    background-color: $theme-blue;
+    margin-right: 20px;
+  }
+}
