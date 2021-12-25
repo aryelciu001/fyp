@@ -15,8 +15,11 @@ function App() {
 
   // local state
   const [loading, setLoading] = useState(true)
+  const tokenState = useSelector(s => s.user.token)
 
   useEffect(() => {
+    if (tokenState) return
+
     // check user token in localstorage
     let token = localStorage.getItem('token')
     if (!token) {
@@ -27,6 +30,7 @@ function App() {
         .then((res) => {
           dispatch(login({ email: res.data.email, role: res.data.role, token }))
           setLoading(false)
+          navigate("/");
         })
         .catch(e => {
           navigate("/login");
@@ -77,7 +81,6 @@ function App() {
         loading ? <h1>Loading</h1> : 
         <Routes>
           <Route path="/login" element={<Login/>}/>
-          <Route path="/test" element={<>hello</>}/>
           <Route path="/admin" element={<AdminRoute/>}/>
           <Route path="/" element={<HomeRoute/>}/>
         </Routes>

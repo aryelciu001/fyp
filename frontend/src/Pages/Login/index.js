@@ -15,12 +15,12 @@ export default function Login(props) {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
-  useEffect(() => {
-    let token = localStorage.getItem('token')
-    if (token) {
-      navigate("/")
-    }
-  }, [navigate])
+  // useEffect(() => {
+  //   let token = localStorage.getItem('token')
+  //   if (token) {
+  //     navigate("/")
+  //   }
+  // }, [navigate])
 
   const loginLocal = () => {
     api('LOGIN', { email, password })
