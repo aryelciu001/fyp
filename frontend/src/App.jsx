@@ -42,7 +42,7 @@ function App() {
   const RequireAuth = ({ children }) => {
     const userToken = useSelector((state) => state.user.token)
     if (!userToken) {
-      return <Navigate to="/login"/>
+      return <Navigate to='/login'/>
     } else {
       return children
     }
@@ -51,7 +51,7 @@ function App() {
   const RequireAdmin = ({ children }) => {
     const userRole = useSelector((state) => state.user.role)
     if (userRole.toLowerCase() !== 'admin') {
-      return <Navigate to="/"/>
+      return <Navigate to='/'/>
     } else {
       return children
     }
@@ -76,13 +76,13 @@ function App() {
   )
 
   return (
-    <div className="App">
+    <div className='App'>
       {
         loading ? <h1>Loading</h1> :
         <Routes>
-          <Route path="/login" element={<Login/>}/>
-          <Route path="/admin" element={<AdminRoute/>}/>
-          <Route path="/" element={<HomeRoute/>}/>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/admin' element={<AdminRoute/>}/>
+          <Route path='/' element={<HomeRoute/>}/>
         </Routes>
       }
     </div>

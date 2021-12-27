@@ -23,6 +23,7 @@ module.exports = {
     'valid-jsdoc': 'off',
     'require-jsdoc': 'off',
     'max-len': 'off',
-    'new-cap': 'off'
+    'new-cap': 'off',
+    'quotes': ['error', 'single']
   },
 };
