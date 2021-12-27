@@ -21,6 +21,8 @@ export default function api(action, payload = null) {
       return postUser(payload)
     case 'PUT_USER':
       return putUser(payload)
+    case 'POST_USER_MANY':
+      return postUserMany(payload)
     case 'GET_USER':
       return getUser(payload)
     case 'DELETE_USER':
@@ -184,6 +186,17 @@ function deleteUser(payload) {
 
 function postFypMany(payload) {
   const uri = `${API}/project/csv`
+  const { formData, token } = payload
+  const config = {
+    headers: {
+      Authorization: token,
+    },
+  }
+  return axios.post(uri, formData, config)
+}
+
+function postUserMany(payload) {
+  const uri = `${API}/user/csv`
   const { formData, token } = payload
   const config = {
     headers: {

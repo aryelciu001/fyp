@@ -5,7 +5,9 @@ import FypForm from 'Pages/Admin/Form/FypForm'
 export default function AddFyp() {
   return (
     <div className="form">
-      <FileInput></FileInput>
+      <FileInput
+        apiRequestType="POST_FYP_MANY"
+        />
       <FypForm
         formType="addFyp"
       />

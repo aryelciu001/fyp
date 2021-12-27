@@ -4,7 +4,8 @@ import api from 'API'
 import { useSelector } from 'react-redux'
 import './index.scss'
 
-export default function FileInput() {
+export default function FileInput(props) {
+  const { apiRequestType } = props
   const fileInput = useRef(null)
   const token = useSelector((s) => s.user.token)
 
@@ -25,13 +26,13 @@ export default function FileInput() {
 
     const formData = new FormData()
     formData.append(
-        'csvFile',
-        csvFile,
-        csvFile.name,
+      'csvFile',
+      csvFile,
+      csvFile.name,
     )
 
-    api('POST_FYP_MANY', { formData, token })
-        .then(() => alert('FYPs Added!'))
+    api(apiRequestType, { formData, token })
+      .then(() => alert('File Added!'))
   }
 
   return (
@@ -39,13 +40,13 @@ export default function FileInput() {
       <Button
         variant='contained'
         onClick={handleUpload}
-      >
+        >
         Upload CSV
       </Button>
       <input
         ref={fileInput}
         type='file'
-      />
+        />
     </div>
   )
 }

@@ -1,4 +1,7 @@
+const csv = require('csvtojson')
 const UserRouter = require('express').Router()
+const multer = require('multer')
+const upload = multer()
 const UserController = require('../controllers/user')
 const AuthController = require('../controllers/auth')
 
@@ -65,6 +68,26 @@ UserRouter.delete('/:id', AuthController.isAdmin, async function(req, res) {
       .catch((e) => {
         return res.status(500).send()
       })
+})
+
+/**
+ * @description add user via csv file
+ * @requires role:admin
+ * @requestBody
+ * - csv file
+ */
+ UserRouter.post('/csv', upload.single('csvFile'), AuthController.isAdmin, async function(req, res) {
+  const file = req.file.buffer
+  const data = file.toString()
+  const users = await csv().fromString(data)
+  const promises = []
+  let matricNumber = ''
+  users.forEach((user) => {
+    matricNumber = user['matric'] === "na" ? '' : user['matric']
+    promises.push(UserController.addUser(user['email'], matricNumber, user['password'], user['role']))
+  })
+  Promise.allSettled(promises)
+      .then(() => res.send())
 })
 
 module.exports = UserRouter
