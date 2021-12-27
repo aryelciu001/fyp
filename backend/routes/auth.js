@@ -9,25 +9,25 @@ const { verifyToken } = require('../utils/jwt')
  * - password: string
  * @returns jwt token
  */
-AuthRouter.post('/login', async function (req, res) {
+AuthRouter.post('/login', async function(req, res) {
   const { email, password } = req.body
   AuthController.login(email, password)
-    .then(user => res.status(200).send(user))
-    .catch(e => {
-      return res.status(401).send()
-    })
+      .then((user) => res.status(200).send(user))
+      .catch((e) => {
+        return res.status(401).send()
+      })
 })
 
 /**
  * @description get user info from token
  * @return user { email, role }
  */
-AuthRouter.get('/:token', async function (req, res) {
-  let token = req.params.token
+AuthRouter.get('/:token', async function(req, res) {
+  const token = req.params.token
   let user
   try {
     user = verifyToken(token)
-    return res.status(200).send({...user})
+    return res.status(200).send({ ...user })
   } catch (e) {
     return res.status(401).send()
   }

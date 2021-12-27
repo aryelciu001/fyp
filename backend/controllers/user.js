@@ -4,13 +4,12 @@ const { encrypt } = require('../utils/bcrypt')
 module.exports = {
   /**
    * @description add user to db
-   * @param email 
-   * @param studentMatricNumber 
-   * @param password 
-   * @param role 
+   * @param email
+   * @param studentMatricNumber
+   * @param password
+   * @param role
    */
   addUser: async function(email, studentMatricNumber, password, role) {
-    
     // lowercase everything
     email = email.toLowerCase()
     studentMatricNumber = studentMatricNumber.toLowerCase()
@@ -23,16 +22,16 @@ module.exports = {
       VALUES ('${email}', '${studentMatricNumber}', '${password}', '${role}');`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-        .then(() => resolve())
-        .catch((e) => reject(e))
+          .then(() => resolve())
+          .catch((e) => reject(e))
     })
   },
   /**
    * @description edit user
-   * @param email 
-   * @param studentMatricNumber 
-   * @param password 
-   * @param role 
+   * @param email
+   * @param studentMatricNumber
+   * @param password
+   * @param role
    */
   editUser: async function(email, studentMatricNumber, password, role) {
     let query
@@ -48,38 +47,40 @@ module.exports = {
       // hash password
       password = await encrypt(password)
       query = `UPDATE user 
-        SET matriculation_number='${studentMatricNumber}', password='${password}', role='${role}'
+        SET matriculation_number='${studentMatricNumber}', 
+        password='${password}', 
+        role='${role}'
         WHERE email='${email}';`
     }
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-        .then(() => resolve())
-        .catch((e) => reject(e))
+          .then(() => resolve())
+          .catch((e) => reject(e))
     })
   },
   /**
    * @description get user[] with a specific role
-   * @param role 
-   * @returns user[]
+   * @param role
+   * @return user[]
    */
   getUserBasedOnRole: function(role) {
     const query = `SELECT * FROM user WHERE role="${role}";`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-        .then((student) => resolve(student))
-        .catch((e) => reject(e))
+          .then((student) => resolve(student))
+          .catch((e) => reject(e))
     })
   },
   /**
    * @description get all user
-   * @returns user[]
+   * @return user[]
    */
   getAllUser: function() {
     const query = `SELECT * FROM user;`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-        .then((user) => resolve(user))
-        .catch((e) => reject(e))
+          .then((user) => resolve(user))
+          .catch((e) => reject(e))
     })
   },
   /**
@@ -92,8 +93,8 @@ module.exports = {
     `
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-        .then(() => resolve())
-        .catch((e) => reject(e))
+          .then(() => resolve())
+          .catch((e) => reject(e))
     })
-  }
+  },
 }

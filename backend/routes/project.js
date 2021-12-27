@@ -1,6 +1,5 @@
 const csv = require('csvtojson')
-const fs = require('fs')
-const multer  = require('multer')
+const multer = require('multer')
 const upload = multer()
 const ProjectRouter = require('express').Router()
 const ProjectController = require('../controllers/project')
@@ -11,12 +10,12 @@ const AuthController = require('../controllers/auth')
  * @requires role:any
  * @returns fyp[]
  */
-ProjectRouter.get('/', AuthController.isUser, function (req, res) {
+ProjectRouter.get('/', AuthController.isUser, function(req, res) {
   ProjectController.getFyp()
-    .then((fyp) => res.send(fyp))
-    .catch((e) => {
-      return res.status(500).send()
-    })
+      .then((fyp) => res.send(fyp))
+      .catch((e) => {
+        return res.status(500).send()
+      })
 })
 
 /**
@@ -29,13 +28,13 @@ ProjectRouter.get('/', AuthController.isUser, function (req, res) {
  * - supervisorName
  * - supervisorId
  */
-ProjectRouter.post('/', AuthController.isAdmin, function (req, res) {
+ProjectRouter.post('/', AuthController.isAdmin, function(req, res) {
   const { projectTitle, projectId, projectInfo, supervisorName, supervisorId } = req.body
   ProjectController.addFyp(projectTitle, projectId, projectInfo, supervisorName, supervisorId)
-    .then(() => res.send({}))
-    .catch((e) => {
-      return res.status(500).send()
-    })
+      .then(() => res.send({}))
+      .catch((e) => {
+        return res.status(500).send()
+      })
 })
 
 /**
@@ -48,13 +47,13 @@ ProjectRouter.post('/', AuthController.isAdmin, function (req, res) {
  * - supervisorName
  * - supervisorId
  */
-ProjectRouter.put('/', AuthController.isAdmin, function (req, res) {
+ProjectRouter.put('/', AuthController.isAdmin, function(req, res) {
   const { projectTitle, projectId, projectInfo, supervisorName, supervisorId } = req.body
   ProjectController.editFyp(projectTitle, projectId, projectInfo, supervisorName, supervisorId)
-    .then(() => res.send({}))
-    .catch((e) => {
-      return res.status(500).send()
-    })
+      .then(() => res.send({}))
+      .catch((e) => {
+        return res.status(500).send()
+      })
 })
 
 /**
@@ -62,13 +61,13 @@ ProjectRouter.put('/', AuthController.isAdmin, function (req, res) {
  * @requires role:admin
  * @param projectId
  */
-ProjectRouter.delete('/:id', AuthController.isAdmin, function (req, res) {
+ProjectRouter.delete('/:id', AuthController.isAdmin, function(req, res) {
   const { id } = req.params
   ProjectController.deleteFyp(id)
-    .then(() => res.send({}))
-    .catch((e) => {
-      return res.status(500).send()
-    })
+      .then(() => res.send({}))
+      .catch((e) => {
+        return res.status(500).send()
+      })
 })
 
 /**
@@ -77,16 +76,16 @@ ProjectRouter.delete('/:id', AuthController.isAdmin, function (req, res) {
  * @requestBody
  * - csv file
  */
- ProjectRouter.post('/csv', upload.single('csvFile'), AuthController.isAdmin, async function (req, res) {
-  let file = req.file.buffer
-  let data = file.toString()
-  let fyps = await csv().fromString(data);
-  let promises = []
-  fyps.forEach(fyp => {
+ProjectRouter.post('/csv', upload.single('csvFile'), AuthController.isAdmin, async function(req, res) {
+  const file = req.file.buffer
+  const data = file.toString()
+  const fyps = await csv().fromString(data)
+  const promises = []
+  fyps.forEach((fyp) => {
     promises.push(ProjectController.addFyp(fyp['Title'], fyp['Proj No'], fyp['Summary'], fyp['Supervisor'], fyp['Email']))
   })
   Promise.allSettled(promises)
-    .then(() => res.send())
+      .then(() => res.send())
 })
 
 module.exports = ProjectRouter

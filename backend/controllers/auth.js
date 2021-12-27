@@ -2,16 +2,16 @@ const { mysqlQuery } = require('../utils/mysqlQuery')
 const { generateToken, verifyToken } = require('../utils/jwt')
 const { passwordIsCorrect } = require('../utils/bcrypt')
 
-module.exports =  {
+module.exports = {
   /**
    * @description express middleware to authenticate admin
    * @requestHeaders
    * - authorization: jwt string
-   * @returns next function
+   * @return next function
    */
   isAdmin(req, res, next) {
     module.exports.isUser(req, res, () => {
-      let admin = req.body.authenticatedUser
+      const admin = req.body.authenticatedUser
       if (admin.role !== 'admin') return res.status(401).send()
       return next()
     })
@@ -20,12 +20,12 @@ module.exports =  {
    * @description express middleware to authenticate user
    * @requestHeaders
    * - authorization: jwt string
-   * @returns next function
+   * @return next function
    */
   isUser(req, res, next) {
-    let jwtToken = req.headers.authorization
+    const jwtToken = req.headers.authorization
     try {
-      let user = verifyToken(jwtToken)
+      const user = verifyToken(jwtToken)
       req.body.authenticatedUser = user
       return next()
     } catch (e) {
@@ -37,7 +37,7 @@ module.exports =  {
    * @requestBody
    * - email: string,
    * - password: string
-   * @returns Object
+   * @return Object
    * - token
    * - email
    * - role
@@ -46,20 +46,20 @@ module.exports =  {
     return new Promise((resolve, reject) => {
       const query = `SELECT * FROM user WHERE email="${email}"`
       mysqlQuery(query)
-        .then(async user => {
-          if (!user.length) return reject({code: 'NOT_FOUND'})
-          user = user[0]
-          // compare password 
-          if(await passwordIsCorrect(password, user.password)) {
-            let token = generateToken({ email: user.email, role: user.role })
-            return resolve({ token, email: user.email, role: user.role })
-          } else {
-            reject({})
-          }
-        })
-        .catch(e => {
-          reject({})
-        })
+          .then(async (user) => {
+            if (!user.length) return reject(new Error())
+            user = user[0]
+            // compare password
+            if (await passwordIsCorrect(password, user.password)) {
+              const token = generateToken({ email: user.email, role: user.role })
+              return resolve({ token, email: user.email, role: user.role })
+            } else {
+              reject(new Error())
+            }
+          })
+          .catch((e) => {
+            reject(new Error())
+          })
     })
   },
 }

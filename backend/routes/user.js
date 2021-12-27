@@ -6,12 +6,12 @@ const AuthController = require('../controllers/auth')
  * @description get list of students
  * @requires role:admin
  */
-UserRouter.get('/', AuthController.isAdmin, async function (req, res) {
+UserRouter.get('/', AuthController.isAdmin, async function(req, res) {
   UserController.getAllUser()
-    .then((user) => res.send(user))
-    .catch((e) => {
-      return res.status(500).send()
-    })
+      .then((user) => res.send(user))
+      .catch((e) => {
+        return res.status(500).send()
+      })
 })
 
 /**
@@ -23,14 +23,14 @@ UserRouter.get('/', AuthController.isAdmin, async function (req, res) {
  * - studentPassword
  * - role
  */
-UserRouter.post('/', AuthController.isAdmin, async function (req, res) {
-  let { email, studentMatricNumber, password, role } = req.body
+UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
+  const { email, studentMatricNumber, password, role } = req.body
 
   UserController.addUser(email, studentMatricNumber, password, role)
-    .then(() => res.send({}))
-    .catch((e) => {
-      return res.status(500).send()
-    })
+      .then(() => res.send({}))
+      .catch((e) => {
+        return res.status(500).send()
+      })
 })
 
 /**
@@ -42,14 +42,14 @@ UserRouter.post('/', AuthController.isAdmin, async function (req, res) {
  * - studentPassword
  * - role
  */
- UserRouter.put('/', AuthController.isAdmin, async function (req, res) {
-  let { email, studentMatricNumber, password, role } = req.body
+UserRouter.put('/', AuthController.isAdmin, async function(req, res) {
+  const { email, studentMatricNumber, password, role } = req.body
 
   UserController.editUser(email, studentMatricNumber, password, role)
-    .then(() => res.send({}))
-    .catch((e) => {
-      return res.status(500).send()
-    })
+      .then(() => res.send({}))
+      .catch((e) => {
+        return res.status(500).send()
+      })
 })
 
 /**
@@ -57,14 +57,14 @@ UserRouter.post('/', AuthController.isAdmin, async function (req, res) {
  * @requires role:admin
  * @param email
  */
- UserRouter.delete('/:id', AuthController.isAdmin, async function (req, res) {
-  let { id } = req.params
+UserRouter.delete('/:id', AuthController.isAdmin, async function(req, res) {
+  const { id } = req.params
 
   UserController.deleteUser(id)
-    .then(() => res.send({}))
-    .catch((e) => {
-      return res.status(500).send()
-    })
+      .then(() => res.send({}))
+      .catch((e) => {
+        return res.status(500).send()
+      })
 })
 
 module.exports = UserRouter

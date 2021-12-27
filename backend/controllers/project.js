@@ -3,11 +3,11 @@ const { mysqlQuery } = require('../utils/mysqlQuery')
 const Project = {
   /**
    * @description function to insert project to db
-   * @param projectTitle 
-   * @param projectId 
-   * @param projectInfo 
-   * @param supervisorName 
-   * @param supervisorId 
+   * @param projectTitle
+   * @param projectId
+   * @param projectInfo
+   * @param supervisorName
+   * @param supervisorId
    */
   addFyp: function(projectTitle, projectId, projectInfo, supervisorName, supervisorId) {
     const query = `INSERT INTO fyp 
@@ -15,29 +15,29 @@ const Project = {
       VALUES ('${projectTitle}', '${projectId}', '${projectInfo}', '${supervisorName}', '${supervisorId}');`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-        .then(() => resolve())
-        .catch((e) => reject(e))
+          .then(() => resolve())
+          .catch((e) => reject(e))
     })
   },
   /**
    * @description function to read fyp[] from db
-   * @returns fyp[]
+   * @return fyp[]
    */
   getFyp: function() {
     const query = `SELECT * FROM fyp;`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-        .then((fyp) => resolve(fyp))
-        .catch((e) => reject(e))
+          .then((fyp) => resolve(fyp))
+          .catch((e) => reject(e))
     })
   },
   /**
    * @description edit fyp
-   * @param projectTitle 
-   * @param projectId 
-   * @param projectInfo 
-   * @param supervisorName 
-   * @param supervisorId 
+   * @param projectTitle
+   * @param projectId
+   * @param projectInfo
+   * @param supervisorName
+   * @param supervisorId
    */
   editFyp: function(projectTitle, projectId, projectInfo, supervisorName, supervisorId) {
     const query = `UPDATE fyp 
@@ -46,13 +46,13 @@ const Project = {
     `
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-        .then(() => resolve())
-        .catch((e) => reject(e))
+          .then(() => resolve())
+          .catch((e) => reject(e))
     })
   },
   /**
    * @description delete fyp
-   * @param projectId 
+   * @param projectId
    */
   deleteFyp: function(projectId) {
     const query = `DELETE FROM fyp 
@@ -60,10 +60,10 @@ const Project = {
     `
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-        .then(() => resolve())
-        .catch((e) => reject(e))
+          .then(() => resolve())
+          .catch((e) => reject(e))
     })
-  }
+  },
 }
 
 module.exports = Project
