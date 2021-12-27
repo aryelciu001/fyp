@@ -22,15 +22,15 @@ ProjectRouter.get('/', AuthController.isUser, function(req, res) {
  * @description add new FYP
  * @requires role:admin
  * @requestBody
- * - projectTitle
- * - projectId
- * - projectInfo
- * - supervisorName
- * - supervisorId
+ * - title
+ * - projno
+ * - summary
+ * - supervisor
+ * - email
  */
 ProjectRouter.post('/', AuthController.isAdmin, function(req, res) {
-  const { projectTitle, projectId, projectInfo, supervisorName, supervisorId } = req.body
-  ProjectController.addFyp(projectTitle, projectId, projectInfo, supervisorName, supervisorId)
+  const { title, projno, summary, supervisor, email } = req.body
+  ProjectController.addFyp(title, projno, summary, supervisor, email)
       .then(() => res.send({}))
       .catch((e) => {
         return res.status(500).send()
@@ -41,15 +41,15 @@ ProjectRouter.post('/', AuthController.isAdmin, function(req, res) {
  * @description edit FYP
  * @requires role:admin
  * @requestBody
- * - projectTitle
- * - projectId
- * - projectInfo
- * - supervisorName
- * - supervisorId
+ * - title
+ * - projno
+ * - summary
+ * - supervisor
+ * - email
  */
 ProjectRouter.put('/', AuthController.isAdmin, function(req, res) {
-  const { projectTitle, projectId, projectInfo, supervisorName, supervisorId } = req.body
-  ProjectController.editFyp(projectTitle, projectId, projectInfo, supervisorName, supervisorId)
+  const { title, projno, summary, supervisor, email } = req.body
+  ProjectController.editFyp(title, projno, summary, supervisor, email)
       .then(() => res.send({}))
       .catch((e) => {
         return res.status(500).send()
@@ -59,7 +59,7 @@ ProjectRouter.put('/', AuthController.isAdmin, function(req, res) {
 /**
  * @description delete FYP
  * @requires role:admin
- * @param projectId
+ * @param projno
  */
 ProjectRouter.delete('/:id', AuthController.isAdmin, function(req, res) {
   const { id } = req.params

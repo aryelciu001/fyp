@@ -3,16 +3,16 @@ const { mysqlQuery } = require('../utils/mysqlQuery')
 const Project = {
   /**
    * @description function to insert project to db
-   * @param projectTitle
-   * @param projectId
-   * @param projectInfo
-   * @param supervisorName
-   * @param supervisorId
+   * @param title
+   * @param projno
+   * @param summary
+   * @param supervisor
+   * @param email
    */
-  addFyp: function(projectTitle, projectId, projectInfo, supervisorName, supervisorId) {
+  addFyp: function(title, projno, summary, supervisor, email) {
     const query = `INSERT INTO fyp 
-      (project_title, project_id, project_desc, supervisor_id, supervisor_name) 
-      VALUES ('${projectTitle}', '${projectId}', '${projectInfo}', '${supervisorName}', '${supervisorId}');`
+      (title, projno, summary, email, supervisor) 
+      VALUES ('${title}', '${projno}', '${summary}', '${email}', '${supervisor}');`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
           .then(() => resolve())
@@ -33,16 +33,16 @@ const Project = {
   },
   /**
    * @description edit fyp
-   * @param projectTitle
-   * @param projectId
-   * @param projectInfo
-   * @param supervisorName
-   * @param supervisorId
+   * @param title
+   * @param projno
+   * @param summary
+   * @param supervisor
+   * @param email
    */
-  editFyp: function(projectTitle, projectId, projectInfo, supervisorName, supervisorId) {
+  editFyp: function(title, projno, summary, supervisor, email) {
     const query = `UPDATE fyp 
-      SET project_title='${projectTitle}', project_id='${projectId}', project_desc='${projectInfo}', supervisor_id='${supervisorId}', supervisor_name='${supervisorName}'
-      WHERE project_id='${projectId}';
+      SET title='${title}', projno='${projno}', summary='${summary}', email='${email}', supervisor='${supervisor}'
+      WHERE projno='${projno}';
     `
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
@@ -52,11 +52,11 @@ const Project = {
   },
   /**
    * @description delete fyp
-   * @param projectId
+   * @param projno
    */
-  deleteFyp: function(projectId) {
+  deleteFyp: function(projno) {
     const query = `DELETE FROM fyp 
-      WHERE project_id='${projectId}';
+      WHERE projno='${projno}';
     `
     return new Promise((resolve, reject) => {
       mysqlQuery(query)

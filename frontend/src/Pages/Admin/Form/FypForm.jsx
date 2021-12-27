@@ -6,11 +6,11 @@ import api from 'API'
 import './index.scss'
 
 export default function FypForm(props) {
-  const [projectTitle, setProjectTitle] = useState(props.data ? props.data.project_title : '')
-  const [projectId, setProjectId] = useState(props.data ? props.data.project_id : '')
-  const [projectInfo, setProjectInfo] = useState(props.data ? props.data.project_desc : '')
-  const [supervisorName, setSupervisorName] = useState(props.data ? props.data.supervisor_name : '')
-  const [supervisorId, setSupervisorIde] = useState(props.data ? props.data.supervisor_id : '')
+  const [title, setTitle] = useState(props.data ? props.data.title : '')
+  const [projno, setProjno] = useState(props.data ? props.data.projno : '')
+  const [summary, setSummary] = useState(props.data ? props.data.summary : '')
+  const [supervisor, setSupervisor] = useState(props.data ? props.data.supervisor : '')
+  const [email, setEmail] = useState(props.data ? props.data.email : '')
   const [apiRequestType, setApiRequestType] = useState('')
   const [apiResponseString, setApiResponseString] = useState('')
   const [buttonString, setButtonString] = useState('')
@@ -35,44 +35,44 @@ export default function FypForm(props) {
   }, [formType])
 
   const submit = () => {
-    if (!projectTitle) {
+    if (!title) {
       alert('Project title is empty!')
       return
     }
-    if (!projectId) {
+    if (!projno) {
       alert('Project ID is empty!')
       return
     }
-    if (!projectInfo) {
+    if (!summary) {
       alert('Project info is empty!')
       return
     }
-    if (!supervisorName) {
+    if (!supervisor) {
       alert('Supervisor name is empty!')
       return
     }
-    if (!supervisorId) {
+    if (!email) {
       alert('Supervisor ID is empty!')
       return
     }
 
     const payload = {
-      projectTitle,
-      projectId,
-      projectInfo,
-      supervisorName,
-      supervisorId,
+      title,
+      projno,
+      summary,
+      supervisor,
+      email,
       token,
     }
 
     api(apiRequestType, payload)
         .then(() => {
           alert(apiResponseString)
-          setProjectTitle('')
-          setProjectId('')
-          setProjectInfo('')
-          setSupervisorName('')
-          setSupervisorIde('')
+          setTitle('')
+          setProjno('')
+          setSummary('')
+          setSupervisor('')
+          setEmail('')
         })
         .catch((e) => {
           switch (e.response.data.code) {
@@ -91,41 +91,41 @@ export default function FypForm(props) {
         <TextField
           label="Project Title"
           variant="outlined"
-          onChange={(e) => setProjectTitle(e.target.value)}
-          value={projectTitle}
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
         />
       </div>
       <div className="form-content-row">
         <TextField
-          label="Project ID"
+          label="Project Number"
           variant="outlined"
-          onChange={(e) => setProjectId(e.target.value)}
-          value={projectId}
+          onChange={(e) => setProjno(e.target.value)}
+          value={projno}
         />
       </div>
       <div className="form-content-row">
         <TextField
-          label="Project Information"
+          label="Project Summary"
           multiline
           rows={4}
-          onChange={(e) => setProjectInfo(e.target.value)}
-          value={projectInfo}
+          onChange={(e) => setSummary(e.target.value)}
+          value={summary}
         />
       </div>
       <div className="form-content-row">
         <TextField
           label="Supervisor Name"
           variant="outlined"
-          onChange={(e) => setSupervisorName(e.target.value)}
-          value={supervisorName}
+          onChange={(e) => setSupervisor(e.target.value)}
+          value={supervisor}
         />
       </div>
       <div className="form-content-row">
         <TextField
-          label="Supervisor ID"
+          label="Supervisor Email"
           variant="outlined"
-          onChange={(e) => setSupervisorIde(e.target.value)}
-          value={supervisorId}
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
         />
       </div>
       <div className="form-content-row">

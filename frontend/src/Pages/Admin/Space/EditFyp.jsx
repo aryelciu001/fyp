@@ -12,24 +12,24 @@ const headers = [
     title: 'Delete',
   },
   {
-    title: 'Project ID',
-    key: 'project_id',
+    title: 'Project Number',
+    key: 'projno',
   },
   {
     title: 'Project Title',
-    key: 'project_title',
+    key: 'title',
   },
   {
-    title: 'Project Description',
-    key: 'project_desc',
+    title: 'Project Summary',
+    key: 'summary',
   },
   {
-    title: 'Supervisor ID',
-    key: 'supervisor_id',
+    title: 'Supervisor Email',
+    key: 'email',
   },
   {
     title: 'Supervisor Name',
-    key: 'supervisor_name',
+    key: 'supervisor',
   },
 ]
 
@@ -45,7 +45,7 @@ export default function EditFyp() {
 
   const deleteItem = (data) => {
     const apiRequestType = 'DELETE_FYP'
-    const dataHeader = 'project_id'
+    const dataHeader = 'projno'
 
     api(apiRequestType, { id: data[dataHeader], token })
         .then(() => {
@@ -65,7 +65,7 @@ export default function EditFyp() {
         headers={headers}
         data={data}
         formType='editFyp'
-        datumKey="project_id"
+        datumKey="projno"
         fetchData={fetchData}
         deleteItem={deleteItem}
       />

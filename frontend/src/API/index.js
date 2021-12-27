@@ -57,19 +57,19 @@ function getProjectList(payload) {
 function postFyp(payload) {
   const uri = `${API}/project`
   const {
-    projectTitle,
-    projectId,
-    projectInfo,
-    supervisorName,
-    supervisorId,
+    title,
+    projno,
+    summary,
+    supervisor,
+    email,
     token,
   } = payload
   const body = {
-    projectTitle,
-    projectId,
-    projectInfo,
-    supervisorName,
-    supervisorId,
+    title,
+    projno,
+    summary,
+    supervisor,
+    email,
   }
   const config = {
     headers: {
@@ -115,19 +115,19 @@ function getUser(payload) {
 function putFyp(payload) {
   const uri = `${API}/project`
   const {
-    projectTitle,
-    projectId,
-    projectInfo,
-    supervisorName,
-    supervisorId,
+    title,
+    projno,
+    summary,
+    supervisor,
+    email,
     token,
   } = payload
   const body = {
-    projectTitle,
-    projectId,
-    projectInfo,
-    supervisorName,
-    supervisorId,
+    title,
+    projno,
+    summary,
+    supervisor,
+    email,
   }
   const config = {
     headers: {
