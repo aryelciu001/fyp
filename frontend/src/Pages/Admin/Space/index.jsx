@@ -1,9 +1,10 @@
-import React from 'react';
-import AddFyp from 'Pages/Admin/Space/AddFyp';
-import AddUser from 'Pages/Admin/Space/AddUser';
-import EditFyp from 'Pages/Admin/Space/EditFyp';
-import EditUser from 'Pages/Admin/Space/EditUser';
-import './index.scss';
+import React from 'react'
+import PropTypes from 'prop-types'
+import AddFyp from 'Pages/Admin/Space/AddFyp'
+import AddUser from 'Pages/Admin/Space/AddUser'
+import EditFyp from 'Pages/Admin/Space/EditFyp'
+import EditUser from 'Pages/Admin/Space/EditUser'
+import './index.scss'
 
 export default function Space(props) {
   return (
@@ -16,7 +17,7 @@ export default function Space(props) {
   )
 }
 
-function spaceGenerator (option, token) {
+function spaceGenerator(option, token) {
   switch (option) {
     case 'Add FYP':
       return <AddFyp token={token}></AddFyp>
@@ -27,10 +28,15 @@ function spaceGenerator (option, token) {
     case 'Edit User':
       return <EditUser token={token}></EditUser>
     case 'View Reservations':
-      return ""
+      return ''
     case 'Generate Report':
-      return ""
+      return ''
     default:
       return ''
   }
+}
+
+Space.propTypes = {
+  selectedOption: PropTypes.string,
+  token: PropTypes.string,
 }

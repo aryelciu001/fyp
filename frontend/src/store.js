@@ -6,5 +6,5 @@ export default configureStore({
   reducer: {
     user: UserReducer,
     dialogForm: DialogFormReducer,
-  }
+  },
 })

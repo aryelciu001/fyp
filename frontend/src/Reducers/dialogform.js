@@ -4,24 +4,24 @@ export const dialogFormSlice = createSlice({
   name: 'dialogform',
   initialState: {
     formType: null,
-    data: null
+    data: null,
   },
   reducers: {
     openDialogForm: (state, action) => {
       return {
         ...state,
         data: action.payload.data,
-        formType: action.payload.formType
+        formType: action.payload.formType,
       }
     },
     closeDialogForm: (state) => {
       return {
-        ...state, 
+        ...state,
         formType: null,
-        data: null
+        data: null,
       }
     },
-  }
+  },
 })
 
 export const { openDialogForm, closeDialogForm } = dialogFormSlice.actions

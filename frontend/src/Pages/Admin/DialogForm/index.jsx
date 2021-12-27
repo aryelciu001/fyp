@@ -1,22 +1,23 @@
-import React, { useEffect } from 'react';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
+import Dialog from '@mui/material/Dialog'
+import DialogContent from '@mui/material/DialogContent'
+import DialogTitle from '@mui/material/DialogTitle'
+import { useDispatch, useSelector } from 'react-redux'
 import { closeDialogForm } from 'Reducers/dialogform'
 import FypForm from 'Pages/Admin/Form/FypForm'
 import UserForm from 'Pages/Admin/Form/UserForm'
 import './index.scss'
 
-export default function FormDialog(props) {
-  const formType = useSelector(s => s.dialogForm.formType)
-  const data = useSelector(s => s.dialogForm.data)
+export default function DialogForm(props) {
+  const formType = useSelector((s) => s.dialogForm.formType)
+  const data = useSelector((s) => s.dialogForm.data)
   const dispatch = useDispatch()
   const open = Boolean(formType)
   const { fetchData } = props
 
   const TheForm = () => {
-    switch(formType){
+    switch (formType) {
       case 'editFyp':
         return <EditFypForm/>
       case 'editUser':
@@ -25,19 +26,19 @@ export default function FormDialog(props) {
         return ''
     }
   }
-  
+
   function EditFypForm() {
-    return <FypForm 
+    return <FypForm
       data={data}
       formType="editFyp"
-      />
+    />
   }
-  
+
   function EditUserForm() {
-    return <UserForm 
+    return <UserForm
       data={data}
       formType="editUser"
-      />
+    />
   }
 
   useEffect(() => {
@@ -55,5 +56,9 @@ export default function FormDialog(props) {
         </DialogContent>
       </Dialog>
     </div>
-  );
+  )
+}
+
+DialogForm.propTypes = {
+  fetchData: PropTypes.func,
 }

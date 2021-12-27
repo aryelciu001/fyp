@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import { TextField, Typography, Button } from '@mui/material'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import api from 'API'
 import { login } from 'Reducers/user'
 import './index.scss'
 
 export default function Login(props) {
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -24,14 +23,14 @@ export default function Login(props) {
 
   const loginLocal = () => {
     api('LOGIN', { email, password })
-      .then((res) => {
-        let user = res.data
-        dispatch(login(user))
-        navigate("/")
-      })
-      .catch(e => {
-        setError("Email or password is incorrect")
-      })
+        .then((res) => {
+          const user = res.data
+          dispatch(login(user))
+          navigate('/')
+        })
+        .catch((e) => {
+          setError('Email or password is incorrect')
+        })
   }
 
   return (
@@ -43,25 +42,25 @@ export default function Login(props) {
           </Typography>
         </div>
         <div className="row">
-          <TextField 
+          <TextField
             label="Email"
             variant="outlined"
             onChange={(e)=>setEmail(e.target.value)}
-            />
+          />
         </div>
         <div className="row">
-          <TextField 
+          <TextField
             label="Password"
             variant="outlined"
             type="password"
             onChange={(e)=>setPassword(e.target.value)}
-            />
+          />
         </div>
         <div className="row">
-          <Button 
+          <Button
             variant="contained"
             onClick={loginLocal}
-            >
+          >
             Login
           </Button>
         </div>

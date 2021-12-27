@@ -1,16 +1,14 @@
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 import { Button } from '@mui/material'
 import api from 'API'
 import { useSelector } from 'react-redux'
 import './index.scss'
 
 export default function FileInput() {
-
   const fileInput = useRef(null)
-  const token = useSelector(s => s.user.token)
+  const token = useSelector((s) => s.user.token)
 
   const handleUpload = () => {
-
     // check if there is a file
     if (!fileInput.current.files.length) {
       alert('No file chosen!')
@@ -25,29 +23,29 @@ export default function FileInput() {
       return
     }
 
-    const formData = new FormData();
+    const formData = new FormData()
     formData.append(
-      "csvFile",
-      csvFile,
-      csvFile.name
-    );
-    
+        'csvFile',
+        csvFile,
+        csvFile.name,
+    )
+
     api('POST_FYP_MANY', { formData, token })
-      .then(() => alert('FYPs Added!'))
+        .then(() => alert('FYPs Added!'))
   }
 
   return (
     <div className='file-input'>
-      <Button 
-        variant='contained' 
+      <Button
+        variant='contained'
         onClick={handleUpload}
-        >
+      >
         Upload CSV
       </Button>
-      <input 
-        ref={fileInput} 
+      <input
+        ref={fileInput}
         type='file'
-        />
+      />
     </div>
   )
 }

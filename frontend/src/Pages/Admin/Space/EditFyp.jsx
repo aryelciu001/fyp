@@ -6,53 +6,53 @@ import { useSelector } from 'react-redux'
 
 const headers = [
   {
-    title: "Edit"
+    title: 'Edit',
   },
   {
-    title: "Delete"
+    title: 'Delete',
   },
   {
-    title: "Project ID",
-    key: "project_id"
+    title: 'Project ID',
+    key: 'project_id',
   },
   {
-    title: "Project Title",
-    key: "project_title"
+    title: 'Project Title',
+    key: 'project_title',
   },
   {
-    title: "Project Description",
-    key: "project_desc"
+    title: 'Project Description',
+    key: 'project_desc',
   },
   {
-    title: "Supervisor ID",
-    key: "supervisor_id"
+    title: 'Supervisor ID',
+    key: 'supervisor_id',
   },
   {
-    title: "Supervisor Name",
-    key: "supervisor_name"
+    title: 'Supervisor Name',
+    key: 'supervisor_name',
   },
 ]
 
-export default function EditFyp () {
+export default function EditFyp() {
   const [data, setData] = useState([])
-  const token = useSelector(s => s.user.token)
+  const token = useSelector((s) => s.user.token)
 
   const fetchData = useCallback(() => {
     api('GET_PROJECT_LIST', { token })
-      .then(response => setData(response.data))
-      .catch(e => alert("Something is wrong"))
+        .then((response) => setData(response.data))
+        .catch((e) => alert('Something is wrong'))
   }, [token])
 
   const deleteItem = (data) => {
-    let apiRequestType = 'DELETE_FYP'
-    let dataHeader = 'project_id'
-    
+    const apiRequestType = 'DELETE_FYP'
+    const dataHeader = 'project_id'
+
     api(apiRequestType, { id: data[dataHeader], token })
-      .then(() => {
-        fetchData()
-        alert('Deleted!')
-      })
-      .catch(e => alert('Something is wrong.'))
+        .then(() => {
+          fetchData()
+          alert('Deleted!')
+        })
+        .catch((e) => alert('Something is wrong.'))
   }
 
   useEffect(() => {
@@ -61,17 +61,17 @@ export default function EditFyp () {
 
   return (
     <>
-      <Table 
-        headers={headers} 
+      <Table
+        headers={headers}
         data={data}
         formType='editFyp'
         datumKey="project_id"
         fetchData={fetchData}
         deleteItem={deleteItem}
-        />
+      />
       <DialogForm
         fetchData={fetchData}
-        />
+      />
     </>
   )
-} 
+}

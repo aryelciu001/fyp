@@ -1,22 +1,22 @@
-import React from 'react';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import React from 'react'
+import PropTypes from 'prop-types'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import { openDialogForm } from 'Reducers/dialogform'
-import { useDispatch } from 'react-redux';
-import './index.scss';
+import { useDispatch } from 'react-redux'
+import './index.scss'
 
-export default function Table (props) {
-
+export default function Table(props) {
   const dispatch = useDispatch()
 
   const TdGenerator = ({ header, data }) => {
-    switch(header.title) {
+    switch (header.title) {
       case 'Edit':
         return (
           <td className="icon">
             <EditIcon
-              onClick={() => dispatch(openDialogForm({formType: props.formType, data}))}
-              />
+              onClick={() => dispatch(openDialogForm({ formType: props.formType, data }))}
+            />
           </td>
         )
       case 'Delete':
@@ -24,7 +24,7 @@ export default function Table (props) {
           <td className="icon delete">
             <DeleteForeverIcon
               onClick={() => props.deleteItem(data)}
-              />
+            />
           </td>
         )
       default:
@@ -56,4 +56,12 @@ export default function Table (props) {
       </tbody>
     </table>
   )
+}
+
+Table.propTypes = {
+  headers: PropTypes.array,
+  header: PropTypes.object,
+  data: PropTypes.arrayOf(Object),
+  formType: PropTypes.string,
+  deleteItem: PropTypes.func,
 }

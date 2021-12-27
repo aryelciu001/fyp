@@ -6,45 +6,45 @@ import DialogForm from 'Pages/Admin/DialogForm'
 
 const headers = [
   {
-    title: "Edit"
+    title: 'Edit',
   },
   {
-    title: "Delete"
+    title: 'Delete',
   },
   {
-    title: "Email",
-    key: "email"
+    title: 'Email',
+    key: 'email',
   },
   {
-    title: "Role",
-    key: "role"
+    title: 'Role',
+    key: 'role',
   },
   {
-    title: "Matriculation Number",
-    key: "matriculation_number"
+    title: 'Matriculation Number',
+    key: 'matriculation_number',
   },
 ]
 
-export default function EditUser () {
+export default function EditUser() {
   const [data, setData] = useState([])
-  const token = useSelector(s => s.user.token)
+  const token = useSelector((s) => s.user.token)
 
   const fetchData = useCallback(() => {
     api('GET_USER', { token })
-      .then(response => setData(response.data))
-      .catch(e => alert("Something is wrong"))
+        .then((response) => setData(response.data))
+        .catch((e) => alert('Something is wrong'))
   }, [token])
 
   const deleteItem = (data) => {
-    let apiRequestType = 'DELETE_USER'
-    let dataHeader = 'email'
-    
+    const apiRequestType = 'DELETE_USER'
+    const dataHeader = 'email'
+
     api(apiRequestType, { id: data[dataHeader], token })
-      .then(() => {
-        fetchData()
-        alert('Deleted!')
-      })
-      .catch(e => alert('Something is wrong.'))
+        .then(() => {
+          fetchData()
+          alert('Deleted!')
+        })
+        .catch((e) => alert('Something is wrong.'))
   }
 
   useEffect(() => {
@@ -53,16 +53,16 @@ export default function EditUser () {
 
   return (
     <>
-      <Table 
-        headers={headers} 
+      <Table
+        headers={headers}
         data={data}
         formType='editUser'
         datumKey="email"
         deleteItem={deleteItem}
-        />
+      />
       <DialogForm
         fetchData={fetchData}
-        />
+      />
     </>
   )
-} 
+}

@@ -10,7 +10,7 @@ import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from 'Reducers/user'
 import './index.scss'
@@ -43,7 +43,7 @@ const ResponsiveAppBar = () => {
   }
 
   const handleSettingClick = (setting) => {
-    switch(setting.toLowerCase()) {
+    switch (setting.toLowerCase()) {
       case 'logout':
         dispatch(logout())
         navigate('/login')
@@ -97,20 +97,16 @@ const ResponsiveAppBar = () => {
                   </Link>
                 ))}
                 {
-                  userEmail
-                  ? 
-                    (userRole.toLowerCase() === "admin" 
-                    ? 
+                  userEmail ?
+                    (userRole.toLowerCase() === 'admin' ?
                     <Link className="navbar-link" to="/admin">
-                      <MenuItem key={"Admin"}>
+                      <MenuItem key={'Admin'}>
                         <Typography textAlign="center">
                           Admin
                         </Typography>
                       </MenuItem>
-                    </Link>
-                    : 
-                    null)
-                  : 
+                    </Link> :
+                    null) :
                   null
                 }
               </Menu>
@@ -124,11 +120,11 @@ const ResponsiveAppBar = () => {
                     sx={{ my: 2, color: 'white', display: 'block' }}
                   >
                     {page}
-                  </Button> 
+                  </Button>
                 </Link>
               ))}
               {
-                userRole.toLowerCase() === "admin" ? 
+                userRole.toLowerCase() === 'admin' ?
                 <Link className="navbar-link" to="/admin">
                   <Button
                     key="Admin"
@@ -137,9 +133,8 @@ const ResponsiveAppBar = () => {
                   >
                     Admin
                   </Button>
-                </Link>
-                :
-                ""
+                </Link> :
+                ''
               }
             </Box>
 
@@ -167,10 +162,10 @@ const ResponsiveAppBar = () => {
               >
                 {settings.map((setting, i) => (
                   <MenuItem key={i} onClick={handleCloseNavMenu}>
-                    <Typography 
-                      textAlign="center" 
+                    <Typography
+                      textAlign="center"
                       onClick={()=>handleSettingClick(setting)}
-                      >
+                    >
                       {setting}
                     </Typography>
                   </MenuItem>

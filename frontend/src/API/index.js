@@ -1,9 +1,9 @@
 import axios from 'axios'
 const API = process.env.REACT_APP_API
 
-export default function api (action, payload = null) {
-  switch(action) {
-    case 'LOGIN': 
+export default function api(action, payload = null) {
+  switch (action) {
+    case 'LOGIN':
       return login(payload)
     case 'GET_USER_INFO':
       return getUserInfo(payload)
@@ -30,11 +30,11 @@ export default function api (action, payload = null) {
   }
 }
 
-function login (payload) {
+function login(payload) {
   const uri = `${API}/auth/login`
-  const body = { 
-    email: payload.email, 
-    password: payload.password 
+  const body = {
+    email: payload.email,
+    password: payload.password,
   }
   return axios.post(uri, body)
 }
@@ -48,8 +48,8 @@ function getProjectList(payload) {
   const uri = `${API}/project`
   const config = {
     headers: {
-      Authorization: payload.token
-    }
+      Authorization: payload.token,
+    },
   }
   return axios.get(uri, config)
 }
@@ -62,7 +62,7 @@ function postFyp(payload) {
     projectInfo,
     supervisorName,
     supervisorId,
-    token
+    token,
   } = payload
   const body = {
     projectTitle,
@@ -73,8 +73,8 @@ function postFyp(payload) {
   }
   const config = {
     headers: {
-      Authorization: token
-    }
+      Authorization: token,
+    },
   }
   return axios.post(uri, body, config)
 }
@@ -86,18 +86,18 @@ function postUser(payload) {
     studentMatricNumber,
     password,
     role,
-    token
+    token,
   } = payload
   const body = {
     email,
     studentMatricNumber,
     password,
-    role
+    role,
   }
   const config = {
     headers: {
-      Authorization: token
-    }
+      Authorization: token,
+    },
   }
   return axios.post(uri, body, config)
 }
@@ -106,8 +106,8 @@ function getUser(payload) {
   const uri = `${API}/user`
   const config = {
     headers: {
-      Authorization: payload.token
-    }
+      Authorization: payload.token,
+    },
   }
   return axios.get(uri, config)
 }
@@ -120,7 +120,7 @@ function putFyp(payload) {
     projectInfo,
     supervisorName,
     supervisorId,
-    token
+    token,
   } = payload
   const body = {
     projectTitle,
@@ -131,8 +131,8 @@ function putFyp(payload) {
   }
   const config = {
     headers: {
-      Authorization: token
-    }
+      Authorization: token,
+    },
   }
   return axios.put(uri, body, config)
 }
@@ -144,18 +144,18 @@ function putUser(payload) {
     studentMatricNumber,
     password,
     role,
-    token
+    token,
   } = payload
   const body = {
     email,
     studentMatricNumber,
     password,
-    role
+    role,
   }
   const config = {
     headers: {
-      Authorization: token
-    }
+      Authorization: token,
+    },
   }
   return axios.put(uri, body, config)
 }
@@ -165,8 +165,8 @@ function deleteFyp(payload) {
   const uri = `${API}/project/${id}`
   const config = {
     headers: {
-      Authorization: token
-    }
+      Authorization: token,
+    },
   }
   return axios.delete(uri, config)
 }
@@ -176,8 +176,8 @@ function deleteUser(payload) {
   const uri = `${API}/user/${id}`
   const config = {
     headers: {
-      Authorization: token
-    }
+      Authorization: token,
+    },
   }
   return axios.delete(uri, config)
 }
@@ -187,8 +187,8 @@ function postFypMany(payload) {
   const { formData, token } = payload
   const config = {
     headers: {
-      Authorization: token
-    }
+      Authorization: token,
+    },
   }
   return axios.post(uri, formData, config)
 }
