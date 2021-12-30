@@ -7,7 +7,7 @@ export default function AddUser() {
     <div className="form">
       <FileInput
         apiRequestType="POST_USER_MANY"
-        />
+      />
       <UserForm
         formType="addUser"
       />

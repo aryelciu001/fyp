@@ -1,4 +1,5 @@
 import React, { useRef } from 'react'
+import PropTypes from 'prop-types'
 import { Button } from '@mui/material'
 import api from 'API'
 import { useSelector } from 'react-redux'
@@ -49,4 +50,8 @@ export default function FileInput(props) {
         />
     </div>
   )
+}
+
+FileInput.propTypes = {
+  apiRequestType: PropTypes.string,
 }

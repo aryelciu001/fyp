@@ -24,6 +24,7 @@ module.exports = {
     'require-jsdoc': 'off',
     'max-len': 'off',
     'new-cap': 'off',
-    'quotes': ['error', 'single']
+    'quotes': ['error', 'single'],
+    'indent': 'off'
   },
 };

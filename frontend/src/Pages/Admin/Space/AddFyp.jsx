@@ -7,7 +7,7 @@ export default function AddFyp() {
     <div className="form">
       <FileInput
         apiRequestType="POST_FYP_MANY"
-        />
+      />
       <FypForm
         formType="addFyp"
       />

@@ -64,6 +64,13 @@ const Project = {
           .catch((e) => reject(e))
     })
   },
+  /**
+   * @
+   * @param {*} projno 
+   */
+  reserveFyp: function(projno) {
+
+  },
 }
 
 module.exports = Project
