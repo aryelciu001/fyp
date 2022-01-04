@@ -129,6 +129,6 @@ export default function UserForm(props) {
 }
 
 UserForm.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.object,
   formType: PropTypes.string,
 }

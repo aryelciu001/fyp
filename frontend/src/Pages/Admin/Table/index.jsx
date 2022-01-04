@@ -29,7 +29,11 @@ export default function Table(props) {
         )
       default:
         return (
-          <td>{data[header.key].slice(0, 100)}</td>
+          <td>
+            {
+              data[header.key] ? data[header.key].slice(0, 100) : data[header.key]
+            }
+          </td>
         )
     }
   }

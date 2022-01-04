@@ -137,6 +137,6 @@ export default function FypForm(props) {
 }
 
 FypForm.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.object,
   formType: PropTypes.string,
 }

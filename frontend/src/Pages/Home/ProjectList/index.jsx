@@ -8,7 +8,7 @@ export default function ProjectList(props) {
     <div className="project-list">
       {
         props.projectList.map((project) => (
-          <ProjectListItem key={project.project_id} project={project}/>
+          <ProjectListItem key={project.projno} project={project}/>
         ))
       }
     </div>
