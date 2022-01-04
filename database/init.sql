@@ -10,15 +10,26 @@ CREATE TABLE IF NOT EXISTS user (
 );
 
 CREATE TABLE IF NOT EXISTS fyp (
-  project_title varchar(256) NOT NULL,
-  project_id varchar(256) NOT NULL,
-  supervisor_id varchar(256) NOT NULL,
-  supervisor_name varchar(256) NOT NULL,
-  student_matriculation_number varchar(20),
-  is_reserved BOOLEAN,
-  is_approved BOOLEAN,
-  project_desc TEXT,
+  title varchar(256) NOT NULL,
+  projno varchar(256) NOT NULL,
+  email varchar(256) NOT NULL,
+  supervisor varchar(256) NOT NULL,
+  summary TEXT,
   PRIMARY KEY (project_id)
+);
+
+CREATE TABLE IF NOT EXISTS fyp_user_reserve (
+  projno varchar(256) NOT NULL,
+  email varchar(256) NOT NULL,
+  FOREIGN KEY (projno) REFERENCES fyp(projno) ON DELETE CASCADE,
+  FOREIGN KEY (email) REFERENCES user(email) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS fyp_user_approved (
+  projno varchar(256) NOT NULL,
+  email varchar(256) NOT NULL,
+  FOREIGN KEY (projno) REFERENCES fyp(projno) ON DELETE CASCADE,
+  FOREIGN KEY (email) REFERENCES user(email) ON DELETE CASCADE
 );
 
 INSERT INTO user (email, password) VALUES ("admin@admin.com", "$2b$08$/Mkq.4iKSdqteL1CPYEBbusYvf3e7qtm.Ql3ZgBO/6.out.s4xUMq");
