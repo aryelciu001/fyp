@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { TextField, Button } from '@mui/material'
 import { useSelector } from 'react-redux'
 import api from 'API'
+import { ApiRequestType } from 'utils/constant'
 import './index.scss'
 
 export default function FypForm(props) {
@@ -20,12 +21,12 @@ export default function FypForm(props) {
   useEffect(() => {
     switch (formType) {
       case 'addFyp':
-        setApiRequestType('POST_FYP')
+        setApiRequestType(ApiRequestType.POST_FYP)
         setApiResponseString('FYP Created!')
         setButtonString('Add Fyp')
         break
       case 'editFyp':
-        setApiRequestType('PUT_FYP')
+        setApiRequestType(ApiRequestType.PUT_FYP)
         setApiResponseString('FYP Edited!')
         setButtonString('Edit Fyp')
         break
@@ -66,23 +67,23 @@ export default function FypForm(props) {
     }
 
     api(apiRequestType, payload)
-        .then(() => {
-          alert(apiResponseString)
-          setTitle('')
-          setProjno('')
-          setSummary('')
-          setSupervisor('')
-          setEmail('')
-        })
-        .catch((e) => {
-          switch (e.response.data.code) {
-            case 'ER_DUP_ENTRY':
-              alert('Duplicate entry with the same ID')
-              break
-            default:
-              alert('Something is wrong')
-          }
-        })
+      .then(() => {
+        alert(apiResponseString)
+        setTitle('')
+        setProjno('')
+        setSummary('')
+        setSupervisor('')
+        setEmail('')
+      })
+      .catch((e) => {
+        switch (e.response.data.code) {
+          case 'ER_DUP_ENTRY':
+            alert('Duplicate entry with the same ID')
+            break
+          default:
+            alert('Something is wrong')
+        }
+      })
   }
 
   return (

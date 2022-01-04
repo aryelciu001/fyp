@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ProjectList from 'Pages/Home/ProjectList'
 import api from 'API'
 import { useSelector } from 'react-redux'
+import { ApiRequestType } from 'utils/constant'
 import axios from 'axios'
 
 export default function Home() {
@@ -11,11 +12,11 @@ export default function Home() {
   useEffect(() => {
     let unmounted = false
     const source = axios.CancelToken.source()
-    api('GET_PROJECT_LIST', { token })
-        .then((res) => {
-          if (unmounted) return
-          setProjectList(res.data)
-        })
+    api(ApiRequestType.GET_PROJECT_LIST, { token })
+      .then((res) => {
+        if (unmounted) return
+        setProjectList(res.data)
+      })
     return function() {
       unmounted = true
       source.cancel('Cancelling in cleanup')

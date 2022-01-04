@@ -7,6 +7,7 @@ import Home from 'Pages/Home'
 import Admin from 'Pages/Admin'
 import Login from 'Pages/Login'
 import { login } from 'Reducers/user'
+import { ApiRequestType } from 'utils/constant'
 import api from 'API'
 
 function App() {
@@ -26,16 +27,16 @@ function App() {
       setLoading(false)
       navigate('/login')
     } else {
-      api('GET_USER_INFO', { token })
-          .then((res) => {
-            dispatch(login({ email: res.data.email, role: res.data.role, token }))
-            setLoading(false)
-            navigate('/admin')
-          })
-          .catch((e) => {
-            navigate('/login')
-            setLoading(false)
-          })
+      api(ApiRequestType.GET_USER_INFO, { token })
+        .then((res) => {
+          dispatch(login({ email: res.data.email, role: res.data.role, token }))
+          setLoading(false)
+          navigate('/admin')
+        })
+        .catch((e) => {
+          navigate('/login')
+          setLoading(false)
+        })
     }
   }, [dispatch, navigate, tokenState])
 

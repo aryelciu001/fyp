@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import Table from 'Pages/Admin/Table'
 import api from 'API'
 import { useSelector } from 'react-redux'
+import { ApiRequestType } from 'utils/constant'
 import DialogForm from 'Pages/Admin/DialogForm'
 
 const headers = [
@@ -30,21 +31,20 @@ export default function EditUser() {
   const token = useSelector((s) => s.user.token)
 
   const fetchData = useCallback(() => {
-    api('GET_USER', { token })
-        .then((response) => setData(response.data))
-        .catch((e) => alert('Something is wrong'))
+    api(ApiRequestType.GET_USER, { token })
+      .then((response) => setData(response.data))
+      .catch((e) => alert('Something is wrong'))
   }, [token])
 
   const deleteItem = (data) => {
-    const apiRequestType = 'DELETE_USER'
     const dataHeader = 'email'
 
-    api(apiRequestType, { id: data[dataHeader], token })
-        .then(() => {
-          fetchData()
-          alert('Deleted!')
-        })
-        .catch((e) => alert('Something is wrong.'))
+    api(ApiRequestType.DELETE_USER, { id: data[dataHeader], token })
+      .then(() => {
+        fetchData()
+        alert('Deleted!')
+      })
+      .catch((e) => alert('Something is wrong.'))
   }
 
   useEffect(() => {
