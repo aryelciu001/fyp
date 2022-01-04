@@ -10,7 +10,7 @@ export default function Table(props) {
   const dispatch = useDispatch()
 
   const TdGenerator = ({ header, data }) => {
-    switch (header.title) {
+    switch (header.text) {
       case 'Edit':
         return (
           <td className="icon">
@@ -40,7 +40,7 @@ export default function Table(props) {
         <tr>
           {
             props.headers.map((header, i) => (
-              <td key={i}>{header.title}</td>
+              <td key={i}>{header.text}</td>
             ))
           }
         </tr>

@@ -3,35 +3,17 @@ import Table from 'Pages/Admin/Table'
 import DialogForm from 'Pages/Admin/DialogForm'
 import api from 'API'
 import { ApiRequestType } from 'utils/constant'
+import { FypSchema } from 'utils/schema'
 import { useSelector } from 'react-redux'
 
 const headers = [
   {
-    title: 'Edit',
+    text: 'Edit',
   },
   {
-    title: 'Delete',
+    text: 'Delete',
   },
-  {
-    title: 'Project Number',
-    key: 'projno',
-  },
-  {
-    title: 'Project Title',
-    key: 'title',
-  },
-  {
-    title: 'Project Summary',
-    key: 'summary',
-  },
-  {
-    title: 'Supervisor Email',
-    key: 'email',
-  },
-  {
-    title: 'Supervisor Name',
-    key: 'supervisor',
-  },
+  ...FypSchema,
 ]
 
 export default function EditFyp() {

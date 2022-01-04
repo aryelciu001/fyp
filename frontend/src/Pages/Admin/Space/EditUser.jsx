@@ -4,6 +4,7 @@ import api from 'API'
 import { useSelector } from 'react-redux'
 import { ApiRequestType } from 'utils/constant'
 import DialogForm from 'Pages/Admin/DialogForm'
+import { UserSchema } from 'utils/schema'
 
 const headers = [
   {
@@ -12,18 +13,7 @@ const headers = [
   {
     title: 'Delete',
   },
-  {
-    title: 'Email',
-    key: 'email',
-  },
-  {
-    title: 'Role',
-    key: 'role',
-  },
-  {
-    title: 'Matriculation Number',
-    key: 'matriculation_number',
-  },
+  ...UserSchema,
 ]
 
 export default function EditUser() {
