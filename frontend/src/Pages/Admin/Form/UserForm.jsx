@@ -5,18 +5,19 @@ import { TextField, FormControl, InputLabel, MenuItem, Select } from '@mui/mater
 import api from 'API'
 import { useSelector } from 'react-redux'
 import './index.scss'
-const roles = ['student', 'admin', 'supervisor']
+import { UserType } from 'utils/constant'
 
 export default function UserForm(props) {
   const [email, setEmail] = useState(props.data ? props.data.email : '')
   const [studentMatricNumber, setStudentMatricNumber] = useState(props.data ? props.data.matriculation_number : '')
   const [password, setPassword] = useState('')
-  const [role, setRole] = useState(props.data ? props.data.role : 'student')
+  const [role, setRole] = useState(props.data ? props.data.role : UserType.STUDENT)
   const [apiRequestType, setApiRequestType] = useState('')
   const [apiResponseString, setApiResponseString] = useState('')
   const [buttonString, setButtonString] = useState('')
   const token = useSelector((s) => s.user.token)
   const { formType } = props
+  const roles = Object.keys(UserType).map((key) => UserType[key])
 
   useEffect(() => {
     switch (formType) {
@@ -40,7 +41,7 @@ export default function UserForm(props) {
       alert('email is empty')
       return
     }
-    if (!studentMatricNumber && role === 'student') {
+    if (!studentMatricNumber && role === UserType.STUDENT) {
       alert('Student matriculation number is empty!')
       return
     }

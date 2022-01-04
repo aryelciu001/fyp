@@ -14,6 +14,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from 'Reducers/user'
 import './index.scss'
+import { UserType } from 'utils/constant'
 
 const pages = ['Home']
 const settings = ['Logout']
@@ -98,7 +99,7 @@ const ResponsiveAppBar = () => {
                 ))}
                 {
                   userEmail ?
-                    (userRole.toLowerCase() === 'admin' ?
+                    (userRole.toLowerCase() === UserType.ADMIN ?
                     <Link className="navbar-link" to="/admin">
                       <MenuItem key={'Admin'}>
                         <Typography textAlign="center">
@@ -124,7 +125,7 @@ const ResponsiveAppBar = () => {
                 </Link>
               ))}
               {
-                userRole.toLowerCase() === 'admin' ?
+                userRole.toLowerCase() === UserType.ADMIN ?
                 <Link className="navbar-link" to="/admin">
                   <Button
                     key="Admin"

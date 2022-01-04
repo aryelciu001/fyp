@@ -7,7 +7,7 @@ import Home from 'Pages/Home'
 import Admin from 'Pages/Admin'
 import Login from 'Pages/Login'
 import { login } from 'Reducers/user'
-import { ApiRequestType } from 'utils/constant'
+import { ApiRequestType, UserType } from 'utils/constant'
 import api from 'API'
 
 function App() {
@@ -51,7 +51,7 @@ function App() {
 
   const RequireAdmin = ({ children }) => {
     const userRole = useSelector((state) => state.user.role)
-    if (userRole.toLowerCase() !== 'admin') {
+    if (userRole.toLowerCase() !== UserType.ADMIN) {
       return <Navigate to='/'/>
     } else {
       return children
