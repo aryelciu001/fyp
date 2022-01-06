@@ -13,7 +13,10 @@ UserRouter.get('/', AuthController.isAdmin, async function(req, res) {
   UserController.getAllUser()
       .then((user) => res.send(user))
       .catch((e) => {
-        return res.status(500).send()
+        return res.status(500).send({
+          statusCode: 500,
+          message: "Something went wrong"
+        })
       })
 })
 
@@ -32,7 +35,10 @@ UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
   UserController.addUser(email, studentMatricNumber, password, role)
       .then(() => res.send({}))
       .catch((e) => {
-        return res.status(500).send()
+        return res.status(500).send({
+          statusCode: 500,
+          message: "Something went wrong"
+        })
       })
 })
 
@@ -51,7 +57,10 @@ UserRouter.put('/', AuthController.isAdmin, async function(req, res) {
   UserController.editUser(email, studentMatricNumber, password, role)
       .then(() => res.send({}))
       .catch((e) => {
-        return res.status(500).send()
+        return res.status(500).send({
+          statusCode: 500,
+          message: "Something went wrong"
+        })
       })
 })
 
@@ -66,7 +75,10 @@ UserRouter.delete('/:id', AuthController.isAdmin, async function(req, res) {
   UserController.deleteUser(id)
       .then(() => res.send({}))
       .catch((e) => {
-        return res.status(500).send()
+        return res.status(500).send({
+          statusCode: 500,
+          message: "Something went wrong"
+        })
       })
 })
 
@@ -88,6 +100,12 @@ UserRouter.delete('/:id', AuthController.isAdmin, async function(req, res) {
   })
   Promise.allSettled(promises)
       .then(() => res.send())
+      .catch(() => {
+        return res.status(500).send({
+          statusCode: 500,
+          message: "Something went wrong"
+        })
+      })
 })
 
 module.exports = UserRouter

@@ -14,7 +14,10 @@ ProjectRouter.get('/', AuthController.isUser, function(req, res) {
   ProjectController.getFyp()
       .then((fyp) => res.send(fyp))
       .catch((e) => {
-        return res.status(500).send()
+        return res.status(500).send({
+          statusCode: 500,
+          message: "Something went wrong"
+        })
       })
 })
 
@@ -33,7 +36,10 @@ ProjectRouter.post('/', AuthController.isAdmin, function(req, res) {
   ProjectController.addFyp(title, projno, summary, supervisor, email)
       .then(() => res.send({}))
       .catch((e) => {
-        return res.status(500).send()
+        return res.status(500).send({
+          statusCode: 500,
+          message: "Something went wrong"
+        })
       })
 })
 
@@ -52,7 +58,10 @@ ProjectRouter.put('/', AuthController.isAdmin, function(req, res) {
   ProjectController.editFyp(title, projno, summary, supervisor, email)
       .then(() => res.send({}))
       .catch((e) => {
-        return res.status(500).send()
+        return res.status(500).send({
+          statusCode: 500,
+          message: "Something went wrong"
+        })
       })
 })
 
@@ -66,7 +75,10 @@ ProjectRouter.delete('/:id', AuthController.isAdmin, function(req, res) {
   ProjectController.deleteFyp(id)
       .then(() => res.send({}))
       .catch((e) => {
-        return res.status(500).send()
+        return res.status(500).send({
+          statusCode: 500,
+          message: "Something went wrong"
+        })
       })
 })
 
@@ -85,7 +97,13 @@ ProjectRouter.post('/csv', upload.single('csvFile'), AuthController.isAdmin, asy
     promises.push(ProjectController.addFyp(fyp['Title'], fyp['Proj No'], fyp['Summary'], fyp['Supervisor'], fyp['Email']))
   })
   Promise.allSettled(promises)
-      .then(() => res.send())
+    .then(() => res.send())
+    .catch(e => {
+      return res.status(500).send({
+        statusCode: 500,
+        message: "Something went wrong"
+      })
+    })
 })
 
 module.exports = ProjectRouter
