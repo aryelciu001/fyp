@@ -1,6 +1,7 @@
 const { mysqlQuery } = require('../utils/mysqlQuery')
 const { generateToken, verifyToken } = require('../utils/jwt')
 const { passwordIsCorrect } = require('../utils/bcrypt')
+const Interface = require('../utils/interface')
 
 module.exports = {
   /**
@@ -12,7 +13,7 @@ module.exports = {
   isAdmin(req, res, next) {
     module.exports.isUser(req, res, () => {
       const admin = req.body.authenticatedUser
-      if (admin.role !== 'admin') return res.status(401).send()
+      if (admin.role !== Interface.UserType.ADMIN) return res.status(401).send()
       return next()
     })
   },
