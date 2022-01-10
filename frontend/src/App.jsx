@@ -29,7 +29,7 @@ function App() {
     } else {
       api(ApiRequestType.GET_USER_INFO, { token })
         .then((res) => {
-          dispatch(login({ email: res.data.email, role: res.data.role, token }))
+          dispatch(login({ email: res.data.email, role: res.data.role, token, eligible: res.data.eligible }))
           setLoading(false)
           navigate('/')
         })
