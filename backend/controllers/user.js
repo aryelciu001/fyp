@@ -9,7 +9,7 @@ module.exports = {
    * @param password
    * @param role
    */
-  addUser: async function(email, studentMatricNumber, password, role) {
+  addUser: async function(email, studentMatricNumber, password, role, eligible) {
     // lowercase everything
     email = email.toLowerCase()
     studentMatricNumber = studentMatricNumber.toLowerCase()
@@ -18,8 +18,8 @@ module.exports = {
     password = await encrypt(password)
 
     const query = `INSERT INTO user 
-      (email, matriculation_number, password, role) 
-      VALUES ('${email}', '${studentMatricNumber}', '${password}', '${role}');`
+      (email, matriculation_number, password, role, eligible) 
+      VALUES ('${email}', '${studentMatricNumber}', '${password}', '${role}', ${eligible});`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
           .then(() => resolve())

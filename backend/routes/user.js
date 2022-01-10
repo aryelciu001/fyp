@@ -30,9 +30,9 @@ UserRouter.get('/', AuthController.isAdmin, async function(req, res) {
  * - role
  */
 UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
-  const { email, studentMatricNumber, password, role } = req.body
+  const { email, studentMatricNumber, password, role, eligible } = req.body
 
-  UserController.addUser(email, studentMatricNumber, password, role)
+  UserController.addUser(email, studentMatricNumber, password, role, eligible)
       .then(() => res.send({}))
       .catch((e) => {
         return res.status(500).send({
@@ -96,7 +96,7 @@ UserRouter.delete('/:id', AuthController.isAdmin, async function(req, res) {
   let matricNumber = ''
   users.forEach((user) => {
     matricNumber = user['matric'] === "na" ? '' : user['matric']
-    promises.push(UserController.addUser(user['email'], matricNumber, user['password'], user['role']))
+    promises.push(UserController.addUser(user['email'], matricNumber, user['password'], user['role'], user['eligible']))
   })
   Promise.allSettled(promises)
       .then(() => res.send())
