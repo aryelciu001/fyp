@@ -14,7 +14,7 @@ module.exports = {
   },
   deleteReservation: function(email, projno) {
     const query = `DELETE FROM reservation 
-      WHERE email='${email}' AND projno='${projno};
+      WHERE email='${email}' AND projno='${projno}';
     `
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
