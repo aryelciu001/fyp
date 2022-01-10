@@ -17,9 +17,11 @@ app.get('/', (req, res) => {
   res.send('Server is up')
 })
 const auth = require('./routes/auth')
+const reservation = require('./routes/reservation')
 const project = require('./routes/project')
 const user = require('./routes/user')
 app.use('/auth', auth)
+app.use('/reservation', reservation)
 app.use('/project', project)
 app.use('/user', user)
 
