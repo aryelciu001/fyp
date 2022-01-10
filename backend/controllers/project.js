@@ -33,6 +33,18 @@ const Project = {
     })
   },
   /**
+   * @description get one project
+   * @return project[]
+   */
+   getOneProject: function(projno) {
+    const query = `SELECT * FROM project WHERE projno='${projno}';`
+    return new Promise((resolve, reject) => {
+      mysqlQuery(query)
+          .then((project) => resolve(project))
+          .catch((e) => reject(e))
+    })
+  },
+  /**
    * @description edit project
    * @param title
    * @param projno
@@ -64,13 +76,6 @@ const Project = {
           .then(() => resolve())
           .catch((e) => reject(e))
     })
-  },
-  /**
-   * @
-   * @param {*} projno 
-   */
-  reserveProject: function(projno) {
-
   },
 }
 

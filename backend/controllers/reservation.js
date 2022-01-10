@@ -32,4 +32,17 @@ module.exports = {
         .catch((e) => reject(e))
     })
   },
+  /**
+   * @description get user's reservation
+   * @param {*} email 
+   * @returns reservations
+   */
+  getReservation: function(email) {
+    const query = `SELECT * FROM reservation WHERE email='${email}';`
+    return new Promise((resolve, reject) => {
+      mysqlQuery(query)
+        .then((reservations) => resolve(reservations))
+        .catch((e) => reject(e))
+    })
+  }
 }
