@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS user (
   PRIMARY KEY (email)
 );
 
-CREATE TABLE IF NOT EXISTS fyp (
+CREATE TABLE IF NOT EXISTS project (
   title varchar(256) NOT NULL,
   projno varchar(256) NOT NULL,
   email varchar(256) NOT NULL,
@@ -19,14 +19,14 @@ CREATE TABLE IF NOT EXISTS fyp (
   PRIMARY KEY (project_id)
 );
 
-CREATE TABLE IF NOT EXISTS fyp_user_reserve (
+CREATE TABLE IF NOT EXISTS reservation (
   projno varchar(256) NOT NULL,
   email varchar(256) NOT NULL,
   FOREIGN KEY (projno) REFERENCES fyp(projno) ON DELETE CASCADE,
   FOREIGN KEY (email) REFERENCES user(email) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS fyp_user_approved (
+CREATE TABLE IF NOT EXISTS approval (
   projno varchar(256) NOT NULL,
   email varchar(256) NOT NULL,
   FOREIGN KEY (projno) REFERENCES fyp(projno) ON DELETE CASCADE,
