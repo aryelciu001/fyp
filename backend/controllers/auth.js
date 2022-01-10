@@ -54,13 +54,13 @@ module.exports = {
             // compare password
             if (await passwordIsCorrect(password, user.password)) {
               const token = generateToken({ email: user.email, role: user.role })
-              return resolve({ token, email: user.email, role: user.role })
+              return resolve({ token, email: user.email, role: user.role, eligible: user.eligible })
             } else {
-              reject(new Error())
+              reject(new Error(e))
             }
           })
           .catch((e) => {
-            reject(new Error())
+            reject(new Error(e))
           })
     })
   },
