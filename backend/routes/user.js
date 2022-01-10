@@ -57,7 +57,6 @@ UserRouter.put('/', AuthController.isAdmin, async function(req, res) {
   UserController.editUser(email, studentMatricNumber, password, role, eligible,)
       .then(() => res.send({}))
       .catch((e) => {
-        console.log(e)
         return res.status(500).send({
           statusCode: 500,
           message: "Something went wrong"

@@ -8,7 +8,6 @@ import './index.scss'
 import { UserType } from 'utils/constant'
 
 export default function UserForm(props) {
-  console.log(props.data)
   const [email, setEmail] = useState(props.data ? props.data.email : '')
   const [studentMatricNumber, setStudentMatricNumber] = useState(props.data ? props.data.matriculation_number : '')
   const [password, setPassword] = useState('')
