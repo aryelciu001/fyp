@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS user (
   password varchar(256),
   matriculation_number varchar(20),
   role varchar (20) NOT NULL,
+  eligible boolean default false,
   PRIMARY KEY (email)
 );
 
