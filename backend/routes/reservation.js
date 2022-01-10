@@ -28,7 +28,7 @@ const AuthController = require('../controllers/auth')
 })
 
 /**
- * @description add new reservation
+ * @description delete reservation
  * @requires role: eligible student
  * @parameters
  * - email

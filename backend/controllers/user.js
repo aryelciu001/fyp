@@ -99,6 +99,11 @@ module.exports = {
           .catch((e) => reject(e))
     })
   },
+  /**
+   * @description get a user using primary key (email)
+   * @param {*} email 
+   * @returns user
+   */
   getUser: function(email) {
     const query = `SELECT * FROM user 
       WHERE email='${email}';
