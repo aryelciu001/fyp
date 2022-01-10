@@ -6,7 +6,7 @@ import './index.scss'
 
 export default function ProjectItemList(props) {
   const [openDesc, setOpenDesc] = useState(false)
-  const { title, projno, summary } = props.project
+  const { title, projno, summary, supervisor, email } = props.project
   const eligible = useSelector((state) => state.user.eligible)
 
   const toggleDesc = () => {
@@ -30,6 +30,8 @@ export default function ProjectItemList(props) {
         </div>
       </div>
       <div className={`project-list-item-body ${openDesc ? 'open' : 'close'}`}>
+        <p>Supervisor: {supervisor}</p><br/>
+        <p>Email: {email}</p><br/>
         <p>{summary}</p>
       </div>
     </div>
