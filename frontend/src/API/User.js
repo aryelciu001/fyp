@@ -13,6 +13,7 @@ export function postUser(payload) {
     studentMatricNumber,
     password,
     role,
+    eligible,
     token,
   } = payload
   const body = {
@@ -20,6 +21,7 @@ export function postUser(payload) {
     studentMatricNumber,
     password,
     role,
+    eligible,
   }
   const config = {
     headers: {
@@ -46,6 +48,7 @@ export function putUser(payload) {
     studentMatricNumber,
     password,
     role,
+    eligible,
     token,
   } = payload
   const body = {
@@ -53,6 +56,7 @@ export function putUser(payload) {
     studentMatricNumber,
     password,
     role,
+    eligible,
   }
   const config = {
     headers: {

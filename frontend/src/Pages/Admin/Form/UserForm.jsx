@@ -8,10 +8,12 @@ import './index.scss'
 import { UserType } from 'utils/constant'
 
 export default function UserForm(props) {
+  console.log(props.data)
   const [email, setEmail] = useState(props.data ? props.data.email : '')
   const [studentMatricNumber, setStudentMatricNumber] = useState(props.data ? props.data.matriculation_number : '')
   const [password, setPassword] = useState('')
   const [role, setRole] = useState(props.data ? props.data.role : UserType.STUDENT)
+  const [eligible, setEligible] = useState(props.data ? props.data.eligible : 0)
   const [apiRequestType, setApiRequestType] = useState('')
   const [apiResponseString, setApiResponseString] = useState('')
   const [buttonString, setButtonString] = useState('')
@@ -59,6 +61,7 @@ export default function UserForm(props) {
       studentMatricNumber,
       password,
       role,
+      eligible,
       token,
     }
     api(apiRequestType, payload)
@@ -120,6 +123,19 @@ export default function UserForm(props) {
             {
               roles.map((role) => <MenuItem key={role} value={role}>{role}</MenuItem>)
             }
+          </Select>
+        </FormControl>
+      </div>
+      <div className='form-content-row'>
+        <FormControl fullWidth>
+          <InputLabel>Eligible to reserve</InputLabel>
+          <Select
+            value={eligible}
+            label='Eligible to reserve'
+            onChange={(e)=>setEligible(e.target.value)}
+          >
+            <MenuItem value={1}>true</MenuItem>
+            <MenuItem value={0}>false</MenuItem>
           </Select>
         </FormControl>
       </div>
