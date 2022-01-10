@@ -23,14 +23,16 @@ CREATE TABLE IF NOT EXISTS reservation (
   projno varchar(256) NOT NULL,
   email varchar(256) NOT NULL,
   FOREIGN KEY (projno) REFERENCES fyp(projno) ON DELETE CASCADE,
-  FOREIGN KEY (email) REFERENCES user(email) ON DELETE CASCADE
+  FOREIGN KEY (email) REFERENCES user(email) ON DELETE CASCADE,
+  PRIMARY KEY (email, projno)
 );
 
 CREATE TABLE IF NOT EXISTS approval (
   projno varchar(256) NOT NULL,
   email varchar(256) NOT NULL,
   FOREIGN KEY (projno) REFERENCES fyp(projno) ON DELETE CASCADE,
-  FOREIGN KEY (email) REFERENCES user(email) ON DELETE CASCADE
+  FOREIGN KEY (email) REFERENCES user(email) ON DELETE CASCADE,
+  PRIMARY KEY (email, projno)
 );
 
 INSERT INTO user (email, password) VALUES ("admin@admin.com", "$2b$08$/Mkq.4iKSdqteL1CPYEBbusYvf3e7qtm.Ql3ZgBO/6.out.s4xUMq");
