@@ -21,12 +21,23 @@ export function postReservation(payload) {
 }
 
 export function deleteReservation(payload) {
-  const { email, projno } = payload
-  const uri = `${API}/project/${email}&${projno}`
+  const { email, projno, token } = payload
+  const uri = `${API}/reservation/${email}&${projno}`
   const config = {
     headers: {
       Authorization: token,
     },
   }
   return axios.delete(uri, config)
+}
+
+export function getReservation(payload) {
+  const { token } = payload
+  const uri = `${API}/reservation`
+  const config = {
+    headers: {
+      Authorization: token,
+    },
+  }
+  return axios.get(uri, config)
 }

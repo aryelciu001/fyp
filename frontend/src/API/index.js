@@ -34,6 +34,8 @@ export default function api(action, payload = null) {
       return Reservation.postReservation(payload)
     case ApiRequestType.DELETE_RESERVATION:
       return Reservation.deleteReservation(payload)
+    case ApiRequestType.GET_RESERVATION:
+      return Reservation.getReservation(payload)
     default:
       return
   }
