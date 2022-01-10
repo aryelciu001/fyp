@@ -3,6 +3,8 @@ const { mysqlQuery } = require('../utils/mysqlQuery')
 const { generateToken, verifyToken } = require('../utils/jwt')
 const { passwordIsCorrect } = require('../utils/bcrypt')
 const Interface = require('../utils/interface')
+const UserController = require('./user')
+const user = require('./user')
 
 module.exports = {
   /**
@@ -14,14 +16,27 @@ module.exports = {
   isAdmin(req, res, next) {
     module.exports.isUser(req, res, () => {
       const admin = req.body.authenticatedUser
-      if (admin.role !== Interface.UserType.ADMIN) return res.status(401).send()
+      if (admin.role !== Interface.UserType.ADMIN) return res.status(401).send({
+        statusCode: 401,
+        message: 'unauthorized'
+      })
       return next()
     })
   },
+  /**
+   * @description express middleware to authenticate eligible student
+   * @requestHeaders
+   * - authorization: jwt string
+   * @return next function
+   */
   isEligibleStudent(req, res, next) {
-    module.exports.isUser(req, res, () => {
-      const user = req.body.authenticatedUser
-      if (!user.eligible) return res.status(401).send()
+    module.exports.isUser(req, res, async () => {
+      let user = req.body.authenticatedUser
+      user = await UserController.getUser(user.email)
+      if (user.role !== Interface.UserType.STUDENT || !user.eligible) return res.status(401).send({
+        statusCode: 401,
+        message: 'unauthorized'
+      })
       return next()
     })
   },
