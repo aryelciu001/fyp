@@ -1,3 +1,4 @@
+const logger = require('../utils/logger')
 const { mysqlQuery } = require('../utils/mysqlQuery')
 const { generateToken, verifyToken } = require('../utils/jwt')
 const { passwordIsCorrect } = require('../utils/bcrypt')

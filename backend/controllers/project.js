@@ -1,3 +1,4 @@
+const logger = require('../utils/logger')
 const { mysqlQuery } = require('../utils/mysqlQuery')
 
 const Project = {

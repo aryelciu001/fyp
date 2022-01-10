@@ -1,3 +1,4 @@
+const logger = require('../utils/logger')
 const csv = require('csvtojson')
 const multer = require('multer')
 const upload = multer()
@@ -14,6 +15,10 @@ ProjectRouter.get('/', AuthController.isUser, function(req, res) {
   ProjectController.getFyp()
       .then((fyp) => res.send(fyp))
       .catch((e) => {
+        logger.log({
+          level: 'error',
+          message: e
+        })
         return res.status(500).send({
           statusCode: 500,
           message: "Something went wrong"
@@ -36,6 +41,10 @@ ProjectRouter.post('/', AuthController.isAdmin, function(req, res) {
   ProjectController.addFyp(title, projno, summary, supervisor, email)
       .then(() => res.send({}))
       .catch((e) => {
+        logger.log({
+          level: 'error',
+          message: e
+        })
         return res.status(500).send({
           statusCode: 500,
           message: "Something went wrong"
@@ -58,6 +67,10 @@ ProjectRouter.put('/', AuthController.isAdmin, function(req, res) {
   ProjectController.editFyp(title, projno, summary, supervisor, email)
       .then(() => res.send({}))
       .catch((e) => {
+        logger.log({
+          level: 'error',
+          message: e
+        })
         return res.status(500).send({
           statusCode: 500,
           message: "Something went wrong"
@@ -75,6 +88,10 @@ ProjectRouter.delete('/:id', AuthController.isAdmin, function(req, res) {
   ProjectController.deleteFyp(id)
       .then(() => res.send({}))
       .catch((e) => {
+        logger.log({
+          level: 'error',
+          message: e
+        })
         return res.status(500).send({
           statusCode: 500,
           message: "Something went wrong"
@@ -99,6 +116,10 @@ ProjectRouter.post('/csv', upload.single('csvFile'), AuthController.isAdmin, asy
   Promise.allSettled(promises)
     .then(() => res.send())
     .catch(e => {
+      logger.log({
+        level: 'error',
+        message: e
+      })
       return res.status(500).send({
         statusCode: 500,
         message: "Something went wrong"

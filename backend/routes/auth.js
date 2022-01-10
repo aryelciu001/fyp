@@ -1,3 +1,4 @@
+const logger = require('../utils/logger')
 const AuthRouter = require('express').Router()
 const AuthController = require('../controllers/auth')
 const { verifyToken } = require('../utils/jwt')
@@ -14,6 +15,10 @@ AuthRouter.post('/login', async function(req, res) {
   AuthController.login(email, password)
     .then((user) => res.status(200).send(user))
     .catch((e) => {
+      logger.log({
+        level: 'error',
+        message: e
+      })
       return res.status(401).send({
         statusCode: 401,
         message: "Incorrect email or password"
@@ -32,6 +37,10 @@ AuthRouter.get('/:token', async function(req, res) {
     user = verifyToken(token)
     return res.status(200).send({ ...user })
   } catch (e) {
+    logger.log({
+      level: 'error',
+      message: e
+    })
     return res.status(401).send({
       statusCode: 401,
       body: "Invalid token"
