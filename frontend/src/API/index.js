@@ -2,6 +2,7 @@ import { ApiRequestType } from 'utils/constant'
 import * as Auth from './Auth'
 import * as User from './User'
 import * as Fyp from './Fyp'
+import * as Reservation from './Reservation'
 
 export default function api(action, payload = null) {
   switch (action) {
@@ -29,6 +30,10 @@ export default function api(action, payload = null) {
       return User.getUser(payload)
     case ApiRequestType.DELETE_USER:
       return User.deleteUser(payload)
+    case ApiRequestType.POST_RESERVATION:
+      return Reservation.postReservation(payload)
+    case ApiRequestType.DELETE_RESERVATION:
+      return Reservation.deleteReservation(payload)
     default:
       return
   }
