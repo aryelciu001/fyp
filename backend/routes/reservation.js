@@ -20,10 +20,18 @@ const AuthController = require('../controllers/auth')
         level: 'error',
         message: e
       })
-      return res.status(500).send({
-        statusCode: 500,
-        message: "Something went wrong"
-      })
+      switch (e.code) {
+        case 'ER_DUP_ENTRY':
+          return res.status(409).send({
+            statusCode: 409,
+            message: "Duplicate entry"
+          })
+        default: 
+          return res.status(500).send({
+            statusCode: 500,
+            message: "Something went wrong"
+          })
+      }
     })
 })
 
