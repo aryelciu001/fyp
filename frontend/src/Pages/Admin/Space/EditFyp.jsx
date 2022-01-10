@@ -9,9 +9,11 @@ import { useSelector } from 'react-redux'
 const headers = [
   {
     text: 'Edit',
+    type: 'edit',
   },
   {
     text: 'Delete',
+    type: 'delete',
   },
   ...FypSchema,
 ]

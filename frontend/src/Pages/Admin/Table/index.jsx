@@ -10,8 +10,8 @@ export default function Table(props) {
   const dispatch = useDispatch()
 
   const TdGenerator = ({ header, data }) => {
-    switch (header.text) {
-      case 'Edit':
+    switch (header.type) {
+      case 'edit':
         return (
           <td className="icon">
             <EditIcon
@@ -19,7 +19,7 @@ export default function Table(props) {
             />
           </td>
         )
-      case 'Delete':
+      case 'delete':
         return (
           <td className="icon delete">
             <DeleteForeverIcon
@@ -27,12 +27,16 @@ export default function Table(props) {
             />
           </td>
         )
+      case 'boolean':
+        return (
+          <td>
+            { data[header.key] ? 'true' : 'false' }
+          </td>
+        )
       default:
         return (
           <td>
-            {
-              data[header.key] ? data[header.key].slice(0, 100) : data[header.key]
-            }
+            { data[header.key].length ? data[header.key].slice(0, 100) : data[header.key]}
           </td>
         )
     }

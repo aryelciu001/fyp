@@ -9,9 +9,11 @@ import { UserSchema } from 'utils/schema'
 const headers = [
   {
     text: 'Edit',
+    type: 'edit',
   },
   {
     text: 'Delete',
+    type: 'delete',
   },
   ...UserSchema,
 ]
