@@ -6,6 +6,7 @@ import Navbar from 'Components/Navbar'
 import Home from 'Pages/Home'
 import Admin from 'Pages/Admin'
 import Login from 'Pages/Login'
+import Reservation from 'Pages/Reservation'
 import { login } from 'Reducers/user'
 import { ApiRequestType, UserType } from 'utils/constant'
 import api from 'API'
@@ -29,7 +30,6 @@ function App() {
     } else {
       api(ApiRequestType.GET_USER_INFO, { token })
         .then((res) => {
-          console.log(res.data)
           dispatch(login({ email: res.data.email, role: res.data.role, token, eligible: res.data.eligible }))
           setLoading(false)
           navigate('/')
@@ -67,6 +67,14 @@ function App() {
     </RequireAuth>
   )
 
+  const ReservationRoute = () => (
+    <RequireAuth>
+      <Navbar/>
+      <h1>FYP Selection Platform</h1>
+      <Reservation/>
+    </RequireAuth>
+  )
+
   const AdminRoute = () => (
     <RequireAuth>
       <RequireAdmin>
@@ -84,6 +92,7 @@ function App() {
         <Routes>
           <Route path='/login' element={<Login/>}/>
           <Route path='/admin' element={<AdminRoute/>}/>
+          <Route path='/reservation' element={<ReservationRoute/>}/>
           <Route path='/' element={<HomeRoute/>}/>
         </Routes>
       }
