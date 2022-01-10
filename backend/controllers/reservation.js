@@ -10,7 +10,7 @@ module.exports = {
   addReservation: function(email, projno) {
     const query = `INSERT INTO reservation 
       (email, projno) 
-      VALUES ('${email}', '${projno}';`
+      VALUES ('${email}', '${projno}');`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
