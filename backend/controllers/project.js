@@ -24,7 +24,7 @@ const Project = {
    * @description function to read project[] from db
    * @return project[]
    */
-  deleteProject: function() {
+  getProject: function() {
     const query = `SELECT * FROM project;`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)

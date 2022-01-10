@@ -18,6 +18,13 @@ module.exports = {
       return next()
     })
   },
+  isEligibleStudent(req, res, next) {
+    module.exports.isUser(req, res, () => {
+      const user = req.body.authenticatedUser
+      if (!user.eligible) return res.status(401).send()
+      return next()
+    })
+  },
   /**
    * @description express middleware to authenticate user
    * @requestHeaders
@@ -31,7 +38,10 @@ module.exports = {
       req.body.authenticatedUser = user
       return next()
     } catch (e) {
-      return res.status(401).send()
+      return res.status(401).send({
+        statusCode: 401,
+        message: 'unauthorized'
+      })
     }
   },
   /**
