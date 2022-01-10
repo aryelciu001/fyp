@@ -1,0 +1,40 @@
+@import '../../../CSS/variables.scss';
+
+.project-list-item {
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid $theme-red-darker;
+  .project-list-item-header {
+    color: white;
+    padding: $box-padding;
+    background-color: $theme-red;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .buttons {
+      button {
+        margin-left: $box-margin;
+        background-color: $theme-blue;
+        color: white;
+        font-size: $button-font-size;
+        transition: .1s;
+        &:hover {
+          background-color: $theme-blue-lighter;
+        }
+      }
+      position: absolute;
+      right: calc($box-padding);
+    }
+  }
+  .project-list-item-body {
+    text-align: left;
+    &.open {
+      display: block;
+    }
+    &.close {
+      display: none;
+    }
+    padding: $box-padding;
+  }
+}
