@@ -52,11 +52,12 @@ UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
  * - role
  */
 UserRouter.put('/', AuthController.isAdmin, async function(req, res) {
-  const { email, studentMatricNumber, password, role } = req.body
+  const { email, studentMatricNumber, password, role, eligible } = req.body
 
-  UserController.editUser(email, studentMatricNumber, password, role)
+  UserController.editUser(email, studentMatricNumber, password, role, eligible,)
       .then(() => res.send({}))
       .catch((e) => {
+        console.log(e)
         return res.status(500).send({
           statusCode: 500,
           message: "Something went wrong"

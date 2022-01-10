@@ -33,7 +33,7 @@ module.exports = {
    * @param password
    * @param role
    */
-  editUser: async function(email, studentMatricNumber, password, role) {
+  editUser: async function(email, studentMatricNumber, password, role, eligible,) {
     let query
     // lowercase everything
     email = email.toLowerCase()
@@ -41,7 +41,7 @@ module.exports = {
 
     if (!password.length) { // if no new password
       query = `UPDATE user 
-        SET matriculation_number='${studentMatricNumber}', role='${role}'
+        SET matriculation_number='${studentMatricNumber}', role='${role}', eligible=${eligible}
         WHERE email='${email}';`
     } else { // if new password is inserted
       // hash password
@@ -49,7 +49,8 @@ module.exports = {
       query = `UPDATE user 
         SET matriculation_number='${studentMatricNumber}', 
         password='${password}', 
-        role='${role}'
+        role='${role}',
+        eligible=${eligible}
         WHERE email='${email}';`
     }
     return new Promise((resolve, reject) => {
