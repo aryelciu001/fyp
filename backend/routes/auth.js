@@ -1,6 +1,7 @@
 const logger = require('../utils/logger')
 const AuthRouter = require('express').Router()
 const AuthController = require('../controllers/auth')
+const UserController = require('../controllers/user')
 const { verifyToken } = require('../utils/jwt')
 
 /**
@@ -35,7 +36,8 @@ AuthRouter.get('/:token', async function(req, res) {
   let user
   try {
     user = verifyToken(token)
-    return res.status(200).send({ ...user })
+    user = await UserController.getUser(user.email)
+    return res.status(200).send(user)
   } catch (e) {
     logger.log({
       level: 'error',

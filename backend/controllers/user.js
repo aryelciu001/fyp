@@ -99,4 +99,14 @@ module.exports = {
           .catch((e) => reject(e))
     })
   },
+  getUser: function(email) {
+    const query = `SELECT * FROM user 
+      WHERE email='${email}';
+    `
+    return new Promise((resolve, reject) => {
+      mysqlQuery(query)
+        .then((users) => resolve(users[0]))
+        .catch((e) => reject(e))
+    })
+  }
 }
