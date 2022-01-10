@@ -7,13 +7,13 @@ const ProjectController = require('../controllers/project')
 const AuthController = require('../controllers/auth')
 
 /**
- * @description get list of FYPs
+ * @description get list of Projects
  * @requires role:any
- * @returns fyp[]
+ * @returns project[]
  */
 ProjectRouter.get('/', AuthController.isUser, function(req, res) {
-  ProjectController.getFyp()
-      .then((fyp) => res.send(fyp))
+  ProjectController.getProject()
+      .then((project) => res.send(project))
       .catch((e) => {
         logger.log({
           level: 'error',
@@ -27,7 +27,7 @@ ProjectRouter.get('/', AuthController.isUser, function(req, res) {
 })
 
 /**
- * @description add new FYP
+ * @description add new Project
  * @requires role:admin
  * @requestBody
  * - title
@@ -38,7 +38,7 @@ ProjectRouter.get('/', AuthController.isUser, function(req, res) {
  */
 ProjectRouter.post('/', AuthController.isAdmin, function(req, res) {
   const { title, projno, summary, supervisor, email } = req.body
-  ProjectController.addFyp(title, projno, summary, supervisor, email)
+  ProjectController.addProject(title, projno, summary, supervisor, email)
       .then(() => res.send({}))
       .catch((e) => {
         logger.log({
@@ -53,7 +53,7 @@ ProjectRouter.post('/', AuthController.isAdmin, function(req, res) {
 })
 
 /**
- * @description edit FYP
+ * @description edit Project
  * @requires role:admin
  * @requestBody
  * - title
@@ -64,7 +64,7 @@ ProjectRouter.post('/', AuthController.isAdmin, function(req, res) {
  */
 ProjectRouter.put('/', AuthController.isAdmin, function(req, res) {
   const { title, projno, summary, supervisor, email } = req.body
-  ProjectController.editFyp(title, projno, summary, supervisor, email)
+  ProjectController.editProject(title, projno, summary, supervisor, email)
       .then(() => res.send({}))
       .catch((e) => {
         logger.log({
@@ -79,13 +79,13 @@ ProjectRouter.put('/', AuthController.isAdmin, function(req, res) {
 })
 
 /**
- * @description delete FYP
+ * @description delete Project
  * @requires role:admin
  * @param projno
  */
 ProjectRouter.delete('/:id', AuthController.isAdmin, function(req, res) {
   const { id } = req.params
-  ProjectController.deleteFyp(id)
+  ProjectController.deleteProject(id)
       .then(() => res.send({}))
       .catch((e) => {
         logger.log({
@@ -108,10 +108,10 @@ ProjectRouter.delete('/:id', AuthController.isAdmin, function(req, res) {
 ProjectRouter.post('/csv', upload.single('csvFile'), AuthController.isAdmin, async function(req, res) {
   const file = req.file.buffer
   const data = file.toString()
-  const fyps = await csv().fromString(data)
+  const projects = await csv().fromString(data)
   const promises = []
-  fyps.forEach((fyp) => {
-    promises.push(ProjectController.addFyp(fyp['Title'], fyp['Proj No'], fyp['Summary'], fyp['Supervisor'], fyp['Email']))
+  projects.forEach((project) => {
+    promises.push(ProjectController.addProject(project['Title'], project['Proj No'], project['Summary'], project['Supervisor'], project['Email']))
   })
   Promise.allSettled(promises)
     .then(() => res.send())

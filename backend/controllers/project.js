@@ -10,8 +10,8 @@ const Project = {
    * @param supervisor
    * @param email
    */
-  addFyp: function(title, projno, summary, supervisor, email) {
-    const query = `INSERT INTO fyp 
+  addProject: function(title, projno, summary, supervisor, email) {
+    const query = `INSERT INTO project 
       (title, projno, summary, email, supervisor) 
       VALUES ('${title}', '${projno}', '${summary}', '${email}', '${supervisor}');`
     return new Promise((resolve, reject) => {
@@ -21,27 +21,27 @@ const Project = {
     })
   },
   /**
-   * @description function to read fyp[] from db
-   * @return fyp[]
+   * @description function to read project[] from db
+   * @return project[]
    */
-  getFyp: function() {
-    const query = `SELECT * FROM fyp;`
+  deleteProject: function() {
+    const query = `SELECT * FROM project;`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-          .then((fyp) => resolve(fyp))
+          .then((project) => resolve(project))
           .catch((e) => reject(e))
     })
   },
   /**
-   * @description edit fyp
+   * @description edit project
    * @param title
    * @param projno
    * @param summary
    * @param supervisor
    * @param email
    */
-  editFyp: function(title, projno, summary, supervisor, email) {
-    const query = `UPDATE fyp 
+  editProject: function(title, projno, summary, supervisor, email) {
+    const query = `UPDATE project 
       SET title='${title}', projno='${projno}', summary='${summary}', email='${email}', supervisor='${supervisor}'
       WHERE projno='${projno}';
     `
@@ -52,11 +52,11 @@ const Project = {
     })
   },
   /**
-   * @description delete fyp
+   * @description delete project
    * @param projno
    */
-  deleteFyp: function(projno) {
-    const query = `DELETE FROM fyp 
+  deleteProject: function(projno) {
+    const query = `DELETE FROM project 
       WHERE projno='${projno}';
     `
     return new Promise((resolve, reject) => {
@@ -69,7 +69,7 @@ const Project = {
    * @
    * @param {*} projno 
    */
-  reserveFyp: function(projno) {
+  reserveProject: function(projno) {
 
   },
 }
