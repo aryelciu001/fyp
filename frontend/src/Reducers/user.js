@@ -6,6 +6,7 @@ export const userSlice = createSlice({
     email: '',
     role: '',
     token: '',
+    eligible: false,
   },
   reducers: {
     login: (state, action) => {
@@ -15,6 +16,7 @@ export const userSlice = createSlice({
         email: action.payload.email,
         role: action.payload.role,
         token: action.payload.token,
+        eligible: action.payload.eligible,
       }
     },
     logout: (state) => {
@@ -24,6 +26,7 @@ export const userSlice = createSlice({
         email: '',
         role: '',
         token: '',
+        eligible: false,
       }
     },
   },
