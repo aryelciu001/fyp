@@ -13,17 +13,17 @@ const AuthController = require('../controllers/auth')
  */
 ProjectRouter.get('/', AuthController.isUser, function(req, res) {
   ProjectController.getProject()
-      .then((project) => res.send(project))
-      .catch((e) => {
-        logger.log({
-          level: 'error',
-          message: e
-        })
-        return res.status(500).send({
-          statusCode: 500,
-          message: "Something went wrong"
-        })
+    .then((project) => res.send(project))
+    .catch((e) => {
+      logger.log({
+        level: 'error',
+        message: e
       })
+      return res.status(500).send({
+        statusCode: 500,
+        message: "Something went wrong"
+      })
+    })
 })
 
 /**
@@ -39,17 +39,17 @@ ProjectRouter.get('/', AuthController.isUser, function(req, res) {
 ProjectRouter.post('/', AuthController.isAdmin, function(req, res) {
   const { title, projno, summary, supervisor, email } = req.body
   ProjectController.addProject(title, projno, summary, supervisor, email)
-      .then(() => res.send({}))
-      .catch((e) => {
-        logger.log({
-          level: 'error',
-          message: e
-        })
-        return res.status(500).send({
-          statusCode: 500,
-          message: "Something went wrong"
-        })
+    .then(() => res.send({}))
+    .catch((e) => {
+      logger.log({
+        level: 'error',
+        message: e
       })
+      return res.status(500).send({
+        statusCode: 500,
+        message: "Something went wrong"
+      })
+    })
 })
 
 /**
@@ -65,17 +65,17 @@ ProjectRouter.post('/', AuthController.isAdmin, function(req, res) {
 ProjectRouter.put('/', AuthController.isAdmin, function(req, res) {
   const { title, projno, summary, supervisor, email } = req.body
   ProjectController.editProject(title, projno, summary, supervisor, email)
-      .then(() => res.send({}))
-      .catch((e) => {
-        logger.log({
-          level: 'error',
-          message: e
-        })
-        return res.status(500).send({
-          statusCode: 500,
-          message: "Something went wrong"
-        })
+    .then(() => res.send({}))
+    .catch((e) => {
+      logger.log({
+        level: 'error',
+        message: e
       })
+      return res.status(500).send({
+        statusCode: 500,
+        message: "Something went wrong"
+      })
+    })
 })
 
 /**
@@ -86,17 +86,17 @@ ProjectRouter.put('/', AuthController.isAdmin, function(req, res) {
 ProjectRouter.delete('/:id', AuthController.isAdmin, function(req, res) {
   const { id } = req.params
   ProjectController.deleteProject(id)
-      .then(() => res.send({}))
-      .catch((e) => {
-        logger.log({
-          level: 'error',
-          message: e
-        })
-        return res.status(500).send({
-          statusCode: 500,
-          message: "Something went wrong"
-        })
+    .then(() => res.send({}))
+    .catch((e) => {
+      logger.log({
+        level: 'error',
+        message: e
       })
+      return res.status(500).send({
+        statusCode: 500,
+        message: "Something went wrong"
+      })
+    })
 })
 
 /**
