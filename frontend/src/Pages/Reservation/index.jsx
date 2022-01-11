@@ -1,9 +1,9 @@
-// import ProjectList from 'Pages/Reservation/ProjectList'
 import React, { useState, useEffect } from 'react'
 import api from 'API'
 import { useSelector } from 'react-redux'
 import { ApiRequestType } from 'utils/constant'
 import axios from 'axios'
+import ProjectList from './ProjectList'
 
 export default function Reservation() {
   const [reservation, setReservation] = useState([])
@@ -25,15 +25,7 @@ export default function Reservation() {
 
   return (
     <React.Fragment>
-      Your Reservations
-      <ul>
-        {
-          reservation.map((r) => {
-            return <li key={r.projno}>{r.projno}</li>
-          })
-        }
-      </ul>
-      {/* <ProjectList reservation={reservation}></ProjectList> */}
+      <ProjectList projectList={reservation}></ProjectList>
     </React.Fragment>
   )
 }

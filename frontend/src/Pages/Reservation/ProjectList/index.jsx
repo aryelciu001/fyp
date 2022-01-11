@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ProjectListItem from 'Pages/Home/ProjectListItem'
+import ProjectListItem from '../ProjectListItem'
 import './index.scss'
 
 export default function ProjectList(props) {

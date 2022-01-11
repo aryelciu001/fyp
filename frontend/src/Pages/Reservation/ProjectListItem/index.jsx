@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import Button from '@mui/material/Button'
-import { useSelector } from 'react-redux'
+import { Button } from '@mui/material'
+// import { useSelector } from 'react-redux'
 import './index.scss'
 
 export default function ProjectItemList(props) {
   const [openDesc, setOpenDesc] = useState(false)
-  const { title, projno, summary, supervisor, email } = props.project
-  const eligible = useSelector((state) => state.user.eligible)
+  const { title, projno, summary, supervisor, email } = props.project.project
+  // const eligible = useSelector((state) => state.user.eligible)
 
   const toggleDesc = () => {
     setOpenDesc(!openDesc)
   }
 
-  const reserve = (e) => {
-    e.stopPropagation()
-  }
+  // const reserve = (e) => {
+  //   e.stopPropagation()
+  // }
 
   return (
     <div
@@ -26,7 +26,8 @@ export default function ProjectItemList(props) {
         <h4>{title}</h4>
         <div className="buttons">
           <Button onClick={()=>toggleDesc()} variant="contained">{openDesc ? 'close' : 'more'}</Button>
-          <Select onClick={(e)=>(e)} variant="contained">Select</Select>
+          <Button onClick={(e)=>(e)} variant="contained" color="secondary">Unreserve</Button>
+          <Button onClick={(e)=>(e)} variant="contained">Select</Button>
         </div>
       </div>
       <div className={`project-list-item-body ${openDesc ? 'open' : 'close'}`}>

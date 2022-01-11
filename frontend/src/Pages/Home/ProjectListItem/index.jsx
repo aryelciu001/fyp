@@ -9,7 +9,8 @@ import './index.scss'
 export default function ProjectItemList(props) {
   const [openDesc, setOpenDesc] = useState(false)
   const { title, projno, summary, supervisor, email } = props.project
-  const { eligible, userEmail, token, role } = useSelector((state) => state.user)
+  const { eligible, token, role } = useSelector((state) => state.user)
+  const userEmail = useSelector((state) => state.user.email)
 
   const toggleDesc = () => {
     setOpenDesc(!openDesc)

@@ -70,7 +70,7 @@ function App() {
   const ReservationRoute = () => (
     <RequireAuth>
       <Navbar/>
-      <h1>FYP Selection Platform</h1>
+      <h1>Your Reservations</h1>
       <Reservation/>
     </RequireAuth>
   )
