@@ -1,31 +1,38 @@
 import React, { useState, useEffect } from 'react'
-import api from 'API'
-import { useSelector } from 'react-redux'
-import { ApiRequestType } from 'utils/constant'
-import axios from 'axios'
 import ProjectList from './ProjectList'
+import { useDispatch, useSelector } from 'react-redux'
+import { ApiRequestType } from 'utils/constant'
+import { updateReservation } from 'Reducers/reservation'
+import api from 'API'
+import axios from 'axios'
 
 export default function Reservation() {
-  const [reservation, setReservation] = useState([])
+  const [unmounted, setUnmounted] = useState(false)
   const token = useSelector((state) => state.user.token)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    let unmounted = false
     const source = axios.CancelToken.source()
-    api(ApiRequestType.GET_RESERVATION, { token })
-      .then((res) => {
-        if (unmounted) return
-        setReservation(res.data)
-      })
+    update()
     return function() {
-      unmounted = true
+      setUnmounted(true)
       source.cancel('Cancelling in cleanup')
     }
   }, [token])
 
+  const update = () => {
+    api(ApiRequestType.GET_RESERVATION, { token })
+      .then((res) => {
+        if (unmounted) return
+        dispatch(updateReservation({ reservation: res.data }))
+      })
+  }
+
   return (
     <React.Fragment>
-      <ProjectList projectList={reservation}></ProjectList>
+      <ProjectList
+        update={update}
+      />
     </React.Fragment>
   )
 }
