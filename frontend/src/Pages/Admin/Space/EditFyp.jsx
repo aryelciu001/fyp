@@ -44,7 +44,7 @@ export default function EditFyp() {
   }, [fetchData])
 
   return (
-    <>
+    <div className='space-content'>
       <Table
         headers={headers}
         data={data}
@@ -56,6 +56,6 @@ export default function EditFyp() {
       <DialogForm
         fetchData={fetchData}
       />
-    </>
+    </div>
   )
 }

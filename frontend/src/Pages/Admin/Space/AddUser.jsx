@@ -5,7 +5,7 @@ import { ApiRequestType } from 'utils/constant'
 
 export default function AddUser() {
   return (
-    <div className="form">
+    <div className='space-content'>
       <FileInput
         apiRequestType={ApiRequestType.POST_USER_MANY}
       />

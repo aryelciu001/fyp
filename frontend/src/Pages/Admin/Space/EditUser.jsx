@@ -44,7 +44,7 @@ export default function EditUser() {
   }, [fetchData])
 
   return (
-    <>
+    <div className='space-content'>
       <Table
         headers={headers}
         data={data}
@@ -55,6 +55,6 @@ export default function EditUser() {
       <DialogForm
         fetchData={fetchData}
       />
-    </>
+    </div>
   )
 }
