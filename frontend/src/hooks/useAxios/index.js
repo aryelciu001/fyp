@@ -4,6 +4,7 @@ import * as Auth from './Auth'
 import * as User from './User'
 import * as Fyp from './Fyp'
 import * as Reservation from './Reservation'
+import * as SelectionInfo from './SelectionInfo'
 
 export default function useAxios() {
   const token = useSelector((s) => s.user.token)
@@ -41,6 +42,8 @@ export default function useAxios() {
         return Reservation.deleteReservation(payload)
       case ApiRequestType.GET_RESERVATION:
         return Reservation.getReservation(payload)
+      case ApiRequestType.OPEN_SELECTION:
+        return SelectionInfo.openSelection(payload)
       default:
         return
     }

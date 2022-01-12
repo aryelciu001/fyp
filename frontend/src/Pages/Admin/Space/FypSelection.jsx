@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 import { Button } from '@mui/material'
 import DateTimePicker from 'Components/DateTimePicker'
+import useAxios from 'hooks/useAxios'
+import { ApiRequestType } from 'utils/constant'
 
 export default function FypSelection() {
   const [value, setValue] = useState(new Date())
+  const request = useAxios()
 
   const openSelection = () => {
-    console.log(value.getTime())
+    request(ApiRequestType.OPEN_SELECTION, { time: value.getTime() })
+      .then(() => alert(`Selection is to be opened on ${value}`))
+      .catch(() => alert('something is wrong'))
   }
 
   const closeSelection = () => {
