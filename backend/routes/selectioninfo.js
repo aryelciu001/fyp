@@ -4,15 +4,16 @@ const AuthController = require('../controllers/auth')
 const SelectionInfoController = require('../controllers/selectioninfo')
 
 /**
- * @description open selection time
+ * @description open/close selection time
  * @requires role: admin
  * @requestBody
  * - time (int)
+ * - open (1 or 0)
  */
  SelectionInfoRouter.post('/', AuthController.isAdmin, async function(req, res) {
-  const { time } = req.body
+  const { time, open } = req.body
 
-  SelectionInfoController.openSelection(time)
+  SelectionInfoController.updateSelection(time, open)
     .then(() => res.send({}))
     .catch((e) => {
       logger.log({
