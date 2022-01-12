@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS reservation (
   PRIMARY KEY (email, projno)
 );
 
-CREATE TABLE IF NOT EXISTS approval (
+CREATE TABLE IF NOT EXISTS selection (
   projno varchar(256) NOT NULL,
   email varchar(256) NOT NULL,
   FOREIGN KEY (projno) REFERENCES fyp(projno) ON DELETE CASCADE,
@@ -35,4 +35,12 @@ CREATE TABLE IF NOT EXISTS approval (
   PRIMARY KEY (email, projno)
 );
 
+CREATE TABLE IF NOT EXISTS selectioninfo (
+  id int NOT NULL,
+  selectionopen boolean NOT NULL,
+  selectionopentime bigint NOT NULL,
+  PRIMARY KEY (id)
+);
+
 INSERT INTO user (email, password) VALUES ("admin@admin.com", "$2b$08$/Mkq.4iKSdqteL1CPYEBbusYvf3e7qtm.Ql3ZgBO/6.out.s4xUMq");
+INSERT INTO selectioninfo(id, selectionopen, selectionopentime) values(1,0,0);
