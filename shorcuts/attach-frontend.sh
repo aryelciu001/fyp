@@ -1,0 +1,1 @@
+docker attach fyp_frontend
