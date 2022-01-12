@@ -3,10 +3,11 @@ import ProjectList from './ProjectList'
 import { useDispatch, useSelector } from 'react-redux'
 import { ApiRequestType } from 'utils/constant'
 import { updateReservation } from 'Reducers/reservation'
-import api from 'API'
 import axios from 'axios'
+import useAxios from 'hooks/useAxios'
 
 export default function Reservation() {
+  const request = useAxios()
   const [unmounted, setUnmounted] = useState(false)
   const token = useSelector((state) => state.user.token)
   const dispatch = useDispatch()
@@ -21,7 +22,7 @@ export default function Reservation() {
   }, [token])
 
   const update = () => {
-    api(ApiRequestType.GET_RESERVATION, { token })
+    request(ApiRequestType.GET_RESERVATION, { token })
       .then((res) => {
         if (unmounted) return
         dispatch(updateReservation({ reservation: res.data }))

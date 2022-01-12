@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import Table from 'Pages/Admin/Table'
 import DialogForm from 'Pages/Admin/DialogForm'
-import api from 'API'
 import { ApiRequestType } from 'utils/constant'
 import { FypSchema } from 'utils/schema'
 import { useSelector } from 'react-redux'
+import useAxios from 'hooks/useAxios'
 
 const headers = [
   {
@@ -19,11 +19,12 @@ const headers = [
 ]
 
 export default function EditFyp() {
+  const request = useAxios()
   const [data, setData] = useState([])
   const token = useSelector((s) => s.user.token)
 
   const fetchData = useCallback(() => {
-    api(ApiRequestType.GET_PROJECT_LIST, { token })
+    request(ApiRequestType.GET_PROJECT_LIST, { token })
       .then((response) => setData(response.data))
       .catch((e) => alert('Something is wrong'))
   }, [token])
@@ -31,7 +32,7 @@ export default function EditFyp() {
   const deleteItem = (data) => {
     const dataHeader = 'projno'
 
-    api(ApiRequestType.DELETE_FYP, { id: data[dataHeader], token })
+    request(ApiRequestType.DELETE_FYP, { id: data[dataHeader], token })
       .then(() => {
         fetchData()
         alert('Deleted!')

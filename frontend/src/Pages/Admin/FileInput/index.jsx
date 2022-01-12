@@ -1,12 +1,13 @@
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Button } from '@mui/material'
-import api from 'API'
 import { useSelector } from 'react-redux'
+import useAxios from 'hooks/useAxios'
 import './index.scss'
 
 export default function FileInput(props) {
   const { apiRequestType } = props
+  const request = useAxios()
   const fileInput = useRef(null)
   const token = useSelector((s) => s.user.token)
 
@@ -32,7 +33,7 @@ export default function FileInput(props) {
       csvFile.name,
     )
 
-    api(apiRequestType, { formData, token })
+    request(apiRequestType, { formData, token })
       .then(() => alert('File Added!'))
   }
 

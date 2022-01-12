@@ -4,19 +4,20 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { login } from 'Reducers/user'
 import { ApiRequestType } from 'utils/constant'
-import api from 'API'
 import './index.scss'
+import useAxios from 'hooks/useAxios'
 
 export default function Login() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const request = useAxios()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
   const loginLocal = () => {
-    api(ApiRequestType.LOGIN, { email, password })
+    request(ApiRequestType.LOGIN, { email, password })
       .then((res) => {
         const user = res.data
         dispatch(login(user))

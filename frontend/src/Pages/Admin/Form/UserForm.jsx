@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Button from '@mui/material/Button'
 import { TextField, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
-import api from 'API'
 import { useSelector } from 'react-redux'
 import './index.scss'
 import { UserType } from 'utils/constant'
+import useAxios from 'hooks/useAxios'
 
 export default function UserForm(props) {
+  const request = useAxios()
   const [email, setEmail] = useState(props.data ? props.data.email : '')
   const [studentMatricNumber, setStudentMatricNumber] = useState(props.data ? props.data.matriculation_number : '')
   const [password, setPassword] = useState('')
@@ -63,7 +64,7 @@ export default function UserForm(props) {
       eligible,
       token,
     }
-    api(apiRequestType, payload)
+    request(apiRequestType, payload)
         .then(() => {
           alert(apiResponseString)
           setEmail('')

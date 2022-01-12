@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import { Button } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { ApiRequestType } from 'utils/constant'
-import api from 'API'
 import './index.scss'
+import useAxios from 'hooks/useAxios'
 
 export default function ProjectItemList(props) {
+  const request = useAxios()
   const [openDesc, setOpenDesc] = useState(false)
   const { update, project } = props
   const { title, projno, summary, supervisor, email } = project.project
@@ -22,7 +23,7 @@ export default function ProjectItemList(props) {
       projno,
       token,
     }
-    api(ApiRequestType.DELETE_RESERVATION, payload)
+    request(ApiRequestType.DELETE_RESERVATION, payload)
       .then((res) => {
         alert('Project unreserved')
         update()

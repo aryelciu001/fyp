@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Button from '@mui/material/Button'
 import { useSelector } from 'react-redux'
-import api from 'API'
 import { ApiRequestType, UserType } from 'utils/constant'
 import './index.scss'
+import useAxios from 'hooks/useAxios'
 
 export default function ProjectItemList(props) {
+  const request = useAxios()
   const [openDesc, setOpenDesc] = useState(false)
   const { title, projno, summary, supervisor, email } = props.project
   const { eligible, token, role } = useSelector((state) => state.user)
@@ -22,7 +23,7 @@ export default function ProjectItemList(props) {
       projno,
       token,
     }
-    api(ApiRequestType.POST_RESERVATION, payload)
+    request(ApiRequestType.POST_RESERVATION, payload)
       .then(() => alert('Project reserved!'))
       .catch((e) => {
         switch (e.response.data.statusCode) {

@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import Table from 'Pages/Admin/Table'
-import api from 'API'
 import { useSelector } from 'react-redux'
 import { ApiRequestType } from 'utils/constant'
 import DialogForm from 'Pages/Admin/DialogForm'
 import { UserSchema } from 'utils/schema'
+import useAxios from 'hooks/useAxios'
 
 const headers = [
   {
@@ -19,11 +19,12 @@ const headers = [
 ]
 
 export default function EditUser() {
+  const request = useAxios()
   const [data, setData] = useState([])
   const token = useSelector((s) => s.user.token)
 
   const fetchData = useCallback(() => {
-    api(ApiRequestType.GET_USER, { token })
+    request(ApiRequestType.GET_USER, { token })
       .then((response) => setData(response.data))
       .catch((e) => alert('Something is wrong'))
   }, [token])
@@ -31,7 +32,7 @@ export default function EditUser() {
   const deleteItem = (data) => {
     const dataHeader = 'email'
 
-    api(ApiRequestType.DELETE_USER, { id: data[dataHeader], token })
+    request(ApiRequestType.DELETE_USER, { id: data[dataHeader], token })
       .then(() => {
         fetchData()
         alert('Deleted!')

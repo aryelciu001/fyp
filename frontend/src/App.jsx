@@ -9,11 +9,12 @@ import Login from 'Pages/Login'
 import Reservation from 'Pages/Reservation'
 import { login } from 'Reducers/user'
 import { ApiRequestType, UserType } from 'utils/constant'
-import api from 'API'
+import useAxios from 'hooks/useAxios'
 
 function App() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const request = useAxios()
 
   // local state
   const [loading, setLoading] = useState(true)
@@ -28,11 +29,11 @@ function App() {
       setLoading(false)
       navigate('/login')
     } else {
-      api(ApiRequestType.GET_USER_INFO, { token })
+      request(ApiRequestType.GET_USER_INFO, { token })
         .then((res) => {
           dispatch(login({ email: res.data.email, role: res.data.role, token, eligible: res.data.eligible }))
           setLoading(false)
-          navigate('/')
+          navigate('/admin')
         })
         .catch((e) => {
           navigate('/login')
