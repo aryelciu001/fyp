@@ -20,3 +20,12 @@ export const ApiRequestType = {
   POST_RESERVATION: 'POST_RESERVATION',
   GET_RESERVATION: 'GET_RESERVATION',
 }
+
+export const options = [
+  'Add FYP',
+  'Edit FYP',
+  'Add User',
+  'Edit User',
+  'FYP Selection',
+  'Generate Report',
+]
