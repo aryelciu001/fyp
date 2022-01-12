@@ -9,13 +9,15 @@ export default function FypSelection() {
   const request = useAxios()
 
   const openSelection = () => {
-    request(ApiRequestType.OPEN_SELECTION, { time: value.getTime() })
+    request(ApiRequestType.UPDATE_SELECTION, { time: value.getTime(), open: 1 })
       .then(() => alert(`Selection is to be opened on ${value}`))
       .catch(() => alert('something is wrong'))
   }
 
   const closeSelection = () => {
-    console.log(value.getTime())
+    request(ApiRequestType.UPDATE_SELECTION, { time: 0, open: 0 })
+      .then(() => alert('Selection is closed'))
+      .catch(() => alert('something is wrong'))
   }
 
   return (
