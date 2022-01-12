@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Button } from '@mui/material'
-import { useSelector } from 'react-redux'
 import { ApiRequestType } from 'utils/constant'
 import './index.scss'
 import useAxios from 'hooks/useAxios'
@@ -11,7 +10,6 @@ export default function ProjectItemList(props) {
   const [openDesc, setOpenDesc] = useState(false)
   const { update, project } = props
   const { title, projno, summary, supervisor, email } = project.project
-  const token = useSelector((state) => state.user.token)
 
   const toggleDesc = () => {
     setOpenDesc(!openDesc)
@@ -21,7 +19,6 @@ export default function ProjectItemList(props) {
     const payload = {
       email: props.userEmail,
       projno,
-      token,
     }
     request(ApiRequestType.DELETE_RESERVATION, payload)
       .then((res) => {

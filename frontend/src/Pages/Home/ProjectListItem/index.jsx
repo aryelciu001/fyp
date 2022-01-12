@@ -10,7 +10,7 @@ export default function ProjectItemList(props) {
   const request = useAxios()
   const [openDesc, setOpenDesc] = useState(false)
   const { title, projno, summary, supervisor, email } = props.project
-  const { eligible, token, role } = useSelector((state) => state.user)
+  const { eligible, role } = useSelector((state) => state.user)
   const userEmail = useSelector((state) => state.user.email)
 
   const toggleDesc = () => {
@@ -21,7 +21,6 @@ export default function ProjectItemList(props) {
     const payload = {
       email: userEmail,
       projno,
-      token,
     }
     request(ApiRequestType.POST_RESERVATION, payload)
       .then(() => alert('Project reserved!'))

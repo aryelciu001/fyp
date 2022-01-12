@@ -8,7 +8,7 @@ import * as Reservation from './Reservation'
 export default function useAxios() {
   const token = useSelector((s) => s.user.token)
 
-  const request = (action, payload) => {
+  const request = (action, payload = {}) => {
     if (token) payload.token = token
     switch (action) {
       case ApiRequestType.LOGIN:

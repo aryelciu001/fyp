@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { TextField, Button } from '@mui/material'
-import { useSelector } from 'react-redux'
 import { ApiRequestType } from 'utils/constant'
 import './index.scss'
 import useAxios from 'hooks/useAxios'
@@ -16,7 +15,6 @@ export default function FypForm(props) {
   const [apiRequestType, setApiRequestType] = useState('')
   const [apiResponseString, setApiResponseString] = useState('')
   const [buttonString, setButtonString] = useState('')
-  const token = useSelector((s) => s.user.token)
   const { formType } = props
 
   useEffect(() => {
@@ -64,7 +62,6 @@ export default function FypForm(props) {
       summary,
       supervisor,
       email,
-      token,
     }
 
     request(apiRequestType, payload)

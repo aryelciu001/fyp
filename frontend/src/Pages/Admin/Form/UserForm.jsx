@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Button from '@mui/material/Button'
 import { TextField, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
-import { useSelector } from 'react-redux'
 import './index.scss'
 import { UserType } from 'utils/constant'
 import useAxios from 'hooks/useAxios'
@@ -17,7 +16,6 @@ export default function UserForm(props) {
   const [apiRequestType, setApiRequestType] = useState('')
   const [apiResponseString, setApiResponseString] = useState('')
   const [buttonString, setButtonString] = useState('')
-  const token = useSelector((s) => s.user.token)
   const { formType } = props
   const roles = Object.keys(UserType).map((key) => UserType[key])
 
@@ -62,7 +60,6 @@ export default function UserForm(props) {
       password,
       role,
       eligible,
-      token,
     }
     request(apiRequestType, payload)
         .then(() => {
