@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import ProjectList from './ProjectList'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ApiRequestType } from 'utils/constant'
 import { updateReservation } from 'Reducers/reservation'
 import axios from 'axios'
 import useAxios from 'hooks/useAxios'
 
 export default function Reservation() {
+  const reservation = useSelector((state) => state.reservation.list)
+  const selection = useSelector((state) => state.selection.list)
   const request = useAxios()
   const [unmounted, setUnmounted] = useState(false)
   const dispatch = useDispatch()
@@ -30,8 +32,16 @@ export default function Reservation() {
 
   return (
     <React.Fragment>
+      <h1>Your Selection</h1>
       <ProjectList
+        type='selection'
+        list={selection}
+      />
+      <h1>Your Reservations</h1>
+      <ProjectList
+        list={reservation}
         update={update}
+        type='reservation'
       />
     </React.Fragment>
   )

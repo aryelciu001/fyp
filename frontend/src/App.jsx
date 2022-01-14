@@ -71,7 +71,6 @@ function App() {
   const ReservationRoute = () => (
     <RequireAuth>
       <Navbar/>
-      <h1>Your Reservations</h1>
       <Reservation/>
     </RequireAuth>
   )

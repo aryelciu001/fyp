@@ -1,20 +1,18 @@
 import ProjectListItem from '../ProjectListItem'
-import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 import './index.scss'
 
 export default function ProjectList(props) {
-  const reservation = useSelector((state) => state.reservation.reservation)
-
   return (
     <div className="project-list">
-      {reservation.map((project) => (
+      {props.list.map((project) => (
         <ProjectListItem
           key={project.projno}
           project={project}
           userEmail={project.email}
           update={props.update}
+          type={props.type}
         />
       ))}
     </div>
@@ -23,4 +21,6 @@ export default function ProjectList(props) {
 
 ProjectList.propTypes = {
   update: PropTypes.func,
+  list: PropTypes.array,
+  type: PropTypes.string,
 }

@@ -38,9 +38,14 @@ export default function ProjectItemList(props) {
       <div className="project-list-item-header">
         <h4>{title}</h4>
         <div className="buttons">
+          {
+            props.type === 'reservation' ?
+            <>
+              <Button onClick={unreserve} variant="contained" color="secondary">Unreserve</Button>
+              <Button onClick={(e)=>(e)} variant="contained">Select</Button>
+            </> : null
+          }
           <Button onClick={()=>toggleDesc()} variant="contained">{openDesc ? 'close' : 'more'}</Button>
-          <Button onClick={unreserve} variant="contained" color="secondary">Unreserve</Button>
-          <Button onClick={(e)=>(e)} variant="contained">Select</Button>
         </div>
       </div>
       <div className={`project-list-item-body ${openDesc ? 'open' : 'close'}`}>
@@ -56,4 +61,5 @@ ProjectItemList.propTypes = {
   project: PropTypes.object,
   userEmail: PropTypes.string,
   update: PropTypes.func,
+  type: PropTypes.string,
 }

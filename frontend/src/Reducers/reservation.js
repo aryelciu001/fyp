@@ -3,13 +3,13 @@ import { createSlice } from '@reduxjs/toolkit'
 export const reservationSlice = createSlice({
   name: 'reservation',
   initialState: {
-    reservation: [],
+    list: [],
   },
   reducers: {
     updateReservation: (state, action) => {
       return {
         ...state,
-        reservation: action.payload.reservation,
+        list: action.payload.reservation,
       }
     },
   },
