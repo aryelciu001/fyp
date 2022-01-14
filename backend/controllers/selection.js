@@ -40,6 +40,8 @@ class SelectionController {
       try {
         let query = `SELECT * FROM selection WHERE email='${email}';`
         let selection = await mysqlQuery(query)
+        
+        if (!selection.length) return resolve([])
         selection = selection[0]
 
         query = `SELECT * FROM project WHERE projno='${selection.projno}';`
