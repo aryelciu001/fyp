@@ -18,9 +18,7 @@ SelectionRouter.post('/', AuthController.isEligibleStudent, async function(req, 
 SelectionRouter.get('/', AuthController.isEligibleStudent, async function(req, res) {
   const { authenticatedUser } = req.body
   SelectionController.getSelection(authenticatedUser.email)
-    .then((selection) => res.send({
-      selection
-    }))
+    .then((selection) => res.send(selection))
     .catch((e) => {
       logger.error(e.message)
       return ErrorResponse(e, res)

@@ -27,11 +27,21 @@ class SelectionController {
   }
 
   getSelection = (email) => {
-    const query = `SELECT * FROM selection WHERE email='${email}';`
-    return new Promise((resolve, reject) => {
-      mysqlQuery(query)
-        .then((selection) => resolve(selection))
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+    return new Promise(async (resolve, reject) => {
+      try {
+        let query = `SELECT * FROM selection WHERE email='${email}';`
+        let selection = await mysqlQuery(query)
+        selection = selection[0]
+
+        query = `SELECT * FROM project WHERE projno='${selection.projno}';`
+        let project = await mysqlQuery(query)
+        project = project[0]
+
+        selection.project = project
+        return resolve([selection])
+      } catch (e) {
+        return reject(new MyError(ErrorMessage.SERVER_ERROR))
+      }
     })
   }
 }
