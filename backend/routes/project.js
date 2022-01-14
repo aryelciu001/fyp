@@ -14,11 +14,11 @@ const ErrorResponse = require('../utils/Error/ErrorResponse')
  */
 ProjectRouter.get('/', AuthController.isUser, function(req, res) {
   ProjectController.getProject()
-      .then((project) => res.send(project))
-      .catch((e) => {
-        logger.error(e.message)
-        return ErrorResponse(e, res)
-      })
+    .then((project) => res.send(project))
+    .catch((e) => {
+      logger.error(e.message)
+      return ErrorResponse(e, res)
+    })
 })
 
 /**
@@ -34,11 +34,11 @@ ProjectRouter.get('/', AuthController.isUser, function(req, res) {
 ProjectRouter.post('/', AuthController.isAdmin, function(req, res) {
   const { title, projno, summary, supervisor, email } = req.body
   ProjectController.addProject(title, projno, summary, supervisor, email)
-      .then(() => res.send({}))
-      .catch((e) => {
-        logger.error(e.message)
-        return ErrorResponse(e, res)
-      })
+    .then(() => res.send({}))
+    .catch((e) => {
+      logger.error(e.message)
+      return ErrorResponse(e, res)
+    })
 })
 
 /**
@@ -54,11 +54,11 @@ ProjectRouter.post('/', AuthController.isAdmin, function(req, res) {
 ProjectRouter.put('/', AuthController.isAdmin, function(req, res) {
   const { title, projno, summary, supervisor, email } = req.body
   ProjectController.editProject(title, projno, summary, supervisor, email)
-      .then(() => res.send({}))
-      .catch((e) => {
-        logger.error(e.message)
-        return ErrorResponse(e, res)
-      })
+    .then(() => res.send({}))
+    .catch((e) => {
+      logger.error(e.message)
+      return ErrorResponse(e, res)
+    })
 })
 
 /**
@@ -69,11 +69,11 @@ ProjectRouter.put('/', AuthController.isAdmin, function(req, res) {
 ProjectRouter.delete('/:id', AuthController.isAdmin, function(req, res) {
   const { id } = req.params
   ProjectController.deleteProject(id)
-      .then(() => res.send({}))
-      .catch((e) => {
-        logger.error(e.message)
-        return ErrorResponse(e, res)
-      })
+    .then(() => res.send({}))
+    .catch((e) => {
+      logger.error(e.message)
+      return ErrorResponse(e, res)
+    })
 })
 
 /**
@@ -91,11 +91,11 @@ ProjectRouter.post('/csv', upload.single('csvFile'), AuthController.isAdmin, asy
     promises.push(ProjectController.addProject(project['Title'], project['Proj No'], project['Summary'], project['Supervisor'], project['Email']))
   })
   Promise.allSettled(promises)
-      .then(() => res.send())
-      .catch((e) => {
-        logger.error(e.message)
-        return ErrorResponse(e, res)
-      })
+    .then(() => res.send())
+    .catch((e) => {
+      logger.error(e.message)
+      return ErrorResponse(e, res)
+    })
 })
 
 module.exports = ProjectRouter

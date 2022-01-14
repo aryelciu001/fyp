@@ -39,8 +39,8 @@ module.exports = {
     `
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-          .then(() => resolve())
-          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .then(() => resolve())
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -52,8 +52,8 @@ module.exports = {
     const query = `SELECT * FROM reservation WHERE email='${email}';`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-          .then((reservations) => resolve(reservations))
-          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .then((reservations) => resolve(reservations))
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
 }

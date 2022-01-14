@@ -16,5 +16,6 @@ module.exports = {
     'valid-jsdoc': 'off',
     'max-len': 'off',
     'new-cap': 'off',
+    'indent': ['error', 2],
   },
 }

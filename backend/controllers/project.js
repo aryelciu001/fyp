@@ -17,8 +17,8 @@ const Project = {
       VALUES ('${title}', '${projno}', '${summary}', '${email}', '${supervisor}');`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-          .then(() => resolve())
-          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .then(() => resolve())
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -29,8 +29,8 @@ const Project = {
     const query = `SELECT * FROM project;`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-          .then((project) => resolve(project))
-          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .then((project) => resolve(project))
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -41,8 +41,8 @@ const Project = {
     const query = `SELECT * FROM project WHERE projno='${projno}';`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-          .then((project) => resolve(project))
-          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .then((project) => resolve(project))
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -60,8 +60,8 @@ const Project = {
     `
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-          .then(() => resolve())
-          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .then(() => resolve())
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -74,8 +74,8 @@ const Project = {
     `
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-          .then(() => resolve())
-          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .then(() => resolve())
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
 }

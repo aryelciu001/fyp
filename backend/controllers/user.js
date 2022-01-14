@@ -24,8 +24,8 @@ module.exports = {
       VALUES ('${email}', '${studentMatricNumber}', '${password}', '${role}', ${eligible});`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-          .then(() => resolve())
-          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .then(() => resolve())
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -57,8 +57,8 @@ module.exports = {
     }
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-          .then(() => resolve())
-          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .then(() => resolve())
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -70,8 +70,8 @@ module.exports = {
     const query = `SELECT * FROM user WHERE role="${role}";`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-          .then((student) => resolve(student))
-          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .then((student) => resolve(student))
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -82,8 +82,8 @@ module.exports = {
     const query = `SELECT * FROM user;`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-          .then((user) => resolve(user))
-          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .then((user) => resolve(user))
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -96,8 +96,8 @@ module.exports = {
     `
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-          .then(() => resolve())
-          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .then(() => resolve())
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -111,8 +111,8 @@ module.exports = {
     `
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-          .then((users) => resolve(users[0]))
-          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .then((users) => resolve(users[0]))
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
 }

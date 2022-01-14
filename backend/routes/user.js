@@ -13,11 +13,11 @@ const ErrorResponse = require('../utils/Error/ErrorResponse')
  */
 UserRouter.get('/', AuthController.isAdmin, async function(req, res) {
   UserController.getAllUser()
-      .then((user) => res.send(user))
-      .catch((e) => {
-        logger.error(e.message)
-        return ErrorResponse(e, res)
-      })
+    .then((user) => res.send(user))
+    .catch((e) => {
+      logger.error(e.message)
+      return ErrorResponse(e, res)
+    })
 })
 
 /**
@@ -33,11 +33,11 @@ UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
   const { email, studentMatricNumber, password, role, eligible } = req.body
 
   UserController.addUser(email, studentMatricNumber, password, role, eligible)
-      .then(() => res.send({}))
-      .catch((e) => {
-        logger.error(e.message)
-        return ErrorResponse(e, res)
-      })
+    .then(() => res.send({}))
+    .catch((e) => {
+      logger.error(e.message)
+      return ErrorResponse(e, res)
+    })
 })
 
 /**
@@ -53,11 +53,11 @@ UserRouter.put('/', AuthController.isAdmin, async function(req, res) {
   const { email, studentMatricNumber, password, role, eligible } = req.body
 
   UserController.editUser(email, studentMatricNumber, password, role, eligible)
-      .then(() => res.send({}))
-      .catch((e) => {
-        logger.error(e.message)
-        return ErrorResponse(e, res)
-      })
+    .then(() => res.send({}))
+    .catch((e) => {
+      logger.error(e.message)
+      return ErrorResponse(e, res)
+    })
 })
 
 /**
@@ -69,11 +69,11 @@ UserRouter.delete('/:id', AuthController.isAdmin, async function(req, res) {
   const { id } = req.params
 
   UserController.deleteUser(id)
-      .then(() => res.send({}))
-      .catch((e) => {
-        logger.error(e.message)
-        return ErrorResponse(e, res)
-      })
+    .then(() => res.send({}))
+    .catch((e) => {
+      logger.error(e.message)
+      return ErrorResponse(e, res)
+    })
 })
 
 /**
@@ -93,11 +93,11 @@ UserRouter.post('/csv', upload.single('csvFile'), AuthController.isAdmin, async 
     promises.push(UserController.addUser(user['email'], matricNumber, user['password'], user['role'], user['eligible']))
   })
   Promise.allSettled(promises)
-      .then(() => res.send())
-      .catch((e) => {
-        logger.error(e.message)
-        return ErrorResponse(e, res)
-      })
+    .then(() => res.send())
+    .catch((e) => {
+      logger.error(e.message)
+      return ErrorResponse(e, res)
+    })
 })
 
 module.exports = UserRouter

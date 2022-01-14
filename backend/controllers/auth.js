@@ -69,20 +69,20 @@ module.exports = {
     return new Promise((resolve, reject) => {
       const query = `SELECT * FROM user WHERE email="${email}"`
       mysqlQuery(query)
-          .then(async (user) => {
-            if (!user.length) return reject(new MyError(ErrorMessage.UNAUTHORIZED))
-            user = user[0]
-            // compare password
-            if (await passwordIsCorrect(password, user.password)) {
-              const token = generateToken({ email: user.email, role: user.role })
-              return resolve({ token, email: user.email, role: user.role, eligible: user.eligible })
-            } else {
-              reject(new MyError(ErrorMessage.UNAUTHORIZED))
-            }
-          })
-          .catch((e) => {
-            reject(new MyError(ErrorMessage.SERVER_ERROR))
-          })
+        .then(async (user) => {
+          if (!user.length) return reject(new MyError(ErrorMessage.UNAUTHORIZED))
+          user = user[0]
+          // compare password
+          if (await passwordIsCorrect(password, user.password)) {
+            const token = generateToken({ email: user.email, role: user.role })
+            return resolve({ token, email: user.email, role: user.role, eligible: user.eligible })
+          } else {
+            reject(new MyError(ErrorMessage.UNAUTHORIZED))
+          }
+        })
+        .catch((e) => {
+          reject(new MyError(ErrorMessage.SERVER_ERROR))
+        })
     })
   },
 }

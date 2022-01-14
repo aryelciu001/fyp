@@ -15,11 +15,11 @@ SelectionRouter.post('/', AuthController.isEligibleStudent, async function(req, 
   const { projno, email } = req.body
 
   SelectionController.selectProject(projno, email)
-      .then(() => res.send({}))
-      .catch((e) => {
-        logger.error(e.message)
-        return ErrorResponse(e, res)
-      })
+    .then(() => res.send({}))
+    .catch((e) => {
+      logger.error(e.message)
+      return ErrorResponse(e, res)
+    })
 })
 
 module.exports = SelectionRouter
