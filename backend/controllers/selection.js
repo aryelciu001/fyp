@@ -16,6 +16,15 @@ class SelectionController {
 
         if (userHasSelected.length) return reject(new MyError(ErrorMessage.USER_HAS_SELECTED))
 
+        query = `SELECT * FROM selectioninfo WHERE id=1`
+        let selectionInfo = await mysqlQuery(query)
+        selectionInfo = selectionInfo[0]
+
+        if (!selectionInfo.selectionopen) return reject(new MyError(ErrorMessage.SELECTION_CLOSED))
+
+        const now = (new Date()).getTime()
+        if (selectionInfo.selectionopentime > (new Date()).getTime()) return reject(new MyError(ErrorMessage.SELECTION_CLOSED))
+
         query = `INSERT INTO selection(projno, email)
           VALUES('${projno}', '${email}');`
         await mysqlQuery(query)
