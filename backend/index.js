@@ -21,11 +21,13 @@ const reservation = require('./routes/reservation')
 const project = require('./routes/project')
 const user = require('./routes/user')
 const selectioninfo = require('./routes/selectioninfo')
+const selection = require('./routes/selection')
 app.use('/auth', auth)
 app.use('/reservation', reservation)
 app.use('/project', project)
 app.use('/user', user)
 app.use('/selectioninfo', selectioninfo)
+app.use('/selection', selection)
 
 // Spin up server
 const port = process.env.PORT || 3000
