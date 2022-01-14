@@ -42,7 +42,6 @@ export default function ProjectItemList(props) {
         update()
       })
       .catch((e) => {
-        console.log(e.response.data.code)
         switch (e.response.data.code) {
           case ErrorCode.SELECTION_CLOSED:
             alert('You cannot select your project yet')
