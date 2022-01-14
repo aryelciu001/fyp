@@ -20,6 +20,7 @@ export const ApiRequestType = {
   POST_RESERVATION: 'POST_RESERVATION',
   GET_RESERVATION: 'GET_RESERVATION',
   UPDATE_SELECTION: 'UPDATE_SELECTION',
+  SELECT: 'SELECT',
 }
 
 export const options = [

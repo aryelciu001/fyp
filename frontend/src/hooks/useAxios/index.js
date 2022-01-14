@@ -5,6 +5,7 @@ import * as User from './User'
 import * as Fyp from './Fyp'
 import * as Reservation from './Reservation'
 import * as SelectionInfo from './SelectionInfo'
+import * as Selection from './Selection'
 
 export default function useAxios() {
   const token = useSelector((s) => s.user.token)
@@ -44,6 +45,8 @@ export default function useAxios() {
         return Reservation.getReservation(payload)
       case ApiRequestType.UPDATE_SELECTION:
         return SelectionInfo.updateSelection(payload)
+      case ApiRequestType.SELECT:
+        return Selection.select(payload)
       default:
         return
     }

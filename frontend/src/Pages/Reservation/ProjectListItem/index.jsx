@@ -30,6 +30,21 @@ export default function ProjectItemList(props) {
       })
   }
 
+  const select = () => {
+    const payload = {
+      email: props.userEmail,
+      projno,
+    }
+    request(ApiRequestType.SELECT, payload)
+      .then((res) => {
+        alert('Project selected')
+        update()
+      })
+      .catch((e) => {
+        alert('something is wrong')
+      })
+  }
+
   return (
     <div
       className="project-list-item"
@@ -42,7 +57,7 @@ export default function ProjectItemList(props) {
             props.type === 'reservation' ?
             <>
               <Button onClick={unreserve} variant="contained" color="secondary">Unreserve</Button>
-              <Button onClick={(e)=>(e)} variant="contained">Select</Button>
+              <Button onClick={select} variant="contained">Select</Button>
             </> : null
           }
           <Button onClick={()=>toggleDesc()} variant="contained">{openDesc ? 'close' : 'more'}</Button>
