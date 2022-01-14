@@ -1,5 +1,6 @@
-const logger = require('../utils/logger')
 const { mysqlQuery } = require('../utils/mysqlQuery')
+const MyError = require('../utils/Error/Error')
+const ErrorMessage = require('../utils/Error/ErrorMessage')
 
 module.exports = {
   updateSelection: (time, open) => {
@@ -9,7 +10,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
-        .catch((e) => reject(e))
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
 }

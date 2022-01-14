@@ -1,5 +1,6 @@
-const logger = require('../utils/logger')
 const { mysqlQuery } = require('../utils/mysqlQuery')
+const MyError = require('../utils/Error/Error')
+const ErrorMessage = require('../utils/Error/ErrorMessage')
 
 module.exports = {
   /**
@@ -8,13 +9,23 @@ module.exports = {
    * @param {*} projno 
    */
   addReservation: function(email, projno) {
-    const query = `INSERT INTO reservation 
-      (email, projno) 
-      VALUES ('${email}', '${projno}');`
-    return new Promise((resolve, reject) => {
-      mysqlQuery(query)
-        .then(() => resolve())
-        .catch((e) => reject(e))
+    return new Promise(async (resolve, reject) => {
+      try {
+        let query = `SELECT * FROM reservation
+          where email='${email}' AND projno='${projno}';`
+        let duplicateReservation = await mysqlQuery(query)
+        if (duplicateReservation.length) {
+          return reject(new MyError(ErrorMessage.ER_DUP_ENTRY))
+        }
+
+        query = `INSERT INTO reservation 
+          (email, projno) 
+          VALUES ('${email}', '${projno}');`
+        await mysqlQuery(query)
+        return resolve()
+      } catch (e) {
+        return reject(new MyError(ErrorMessage.SERVER_ERROR))
+      }
     })
   },
   /**
@@ -29,7 +40,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
-        .catch((e) => reject(e))
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -42,7 +53,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then((reservations) => resolve(reservations))
-        .catch((e) => reject(e))
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   }
 }

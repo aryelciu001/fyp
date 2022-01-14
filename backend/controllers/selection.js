@@ -1,4 +1,3 @@
-const logger = require('../utils/logger')
 const { mysqlQuery } = require('../utils/mysqlQuery')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
 const MyError = require('../utils/Error/Error')

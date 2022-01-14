@@ -2,6 +2,7 @@ const logger = require('../utils/logger')
 const SelectionInfoRouter = require('express').Router()
 const AuthController = require('../controllers/auth')
 const SelectionInfoController = require('../controllers/selectioninfo')
+const ErrorResponse = require('../utils/Error/ErrorResponse')
 
 /**
  * @description open/close selection time
@@ -17,10 +18,7 @@ const SelectionInfoController = require('../controllers/selectioninfo')
     .then(() => res.send({}))
     .catch((e) => {
       logger.error(e.message)
-      return res.status(500).send({
-        statusCode: 500,
-        message: "Something went wrong"
-      })
+      return ErrorResponse(e, res)
     })
 })
 

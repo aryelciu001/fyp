@@ -1,5 +1,6 @@
-const logger = require('../utils/logger')
 const { mysqlQuery } = require('../utils/mysqlQuery')
+const MyError = require('../utils/Error/Error')
+const ErrorMessage = require('../utils/Error/ErrorMessage')
 
 const Project = {
   /**
@@ -16,8 +17,8 @@ const Project = {
       VALUES ('${title}', '${projno}', '${summary}', '${email}', '${supervisor}');`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-          .then(() => resolve())
-          .catch((e) => reject(e))
+        .then(() => resolve())
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -29,7 +30,7 @@ const Project = {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
           .then((project) => resolve(project))
-          .catch((e) => reject(e))
+          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -41,7 +42,7 @@ const Project = {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
           .then((project) => resolve(project))
-          .catch((e) => reject(e))
+          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -60,7 +61,7 @@ const Project = {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
           .then(() => resolve())
-          .catch((e) => reject(e))
+          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -74,7 +75,7 @@ const Project = {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
           .then(() => resolve())
-          .catch((e) => reject(e))
+          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
 }

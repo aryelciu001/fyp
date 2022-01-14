@@ -1,6 +1,7 @@
-const logger = require('../utils/logger')
 const { mysqlQuery } = require('../utils/mysqlQuery')
 const { encrypt } = require('../utils/bcrypt')
+const MyError = require('../utils/Error/Error')
+const ErrorMessage = require('../utils/Error/ErrorMessage')
 
 module.exports = {
   /**
@@ -24,7 +25,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
           .then(() => resolve())
-          .catch((e) => reject(e))
+          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -57,7 +58,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
           .then(() => resolve())
-          .catch((e) => reject(e))
+          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -70,7 +71,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
           .then((student) => resolve(student))
-          .catch((e) => reject(e))
+          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -82,7 +83,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
           .then((user) => resolve(user))
-          .catch((e) => reject(e))
+          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -96,7 +97,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
           .then(() => resolve())
-          .catch((e) => reject(e))
+          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -111,7 +112,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then((users) => resolve(users[0]))
-        .catch((e) => reject(e))
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   }
 }

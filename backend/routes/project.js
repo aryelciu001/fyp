@@ -5,6 +5,7 @@ const upload = multer()
 const ProjectRouter = require('express').Router()
 const ProjectController = require('../controllers/project')
 const AuthController = require('../controllers/auth')
+const ErrorResponse = require('../utils/Error/ErrorResponse')
 
 /**
  * @description get list of Projects
@@ -16,10 +17,7 @@ ProjectRouter.get('/', AuthController.isUser, function(req, res) {
     .then((project) => res.send(project))
     .catch((e) => {
       logger.error(e.message)
-      return res.status(500).send({
-        statusCode: 500,
-        message: "Something went wrong"
-      })
+      return ErrorResponse(e, res)
     })
 })
 
@@ -39,10 +37,7 @@ ProjectRouter.post('/', AuthController.isAdmin, function(req, res) {
     .then(() => res.send({}))
     .catch((e) => {
       logger.error(e.message)
-      return res.status(500).send({
-        statusCode: 500,
-        message: "Something went wrong"
-      })
+      return ErrorResponse(e, res)
     })
 })
 
@@ -62,10 +57,7 @@ ProjectRouter.put('/', AuthController.isAdmin, function(req, res) {
     .then(() => res.send({}))
     .catch((e) => {
       logger.error(e.message)
-      return res.status(500).send({
-        statusCode: 500,
-        message: "Something went wrong"
-      })
+      return ErrorResponse(e, res)
     })
 })
 
@@ -80,10 +72,7 @@ ProjectRouter.delete('/:id', AuthController.isAdmin, function(req, res) {
     .then(() => res.send({}))
     .catch((e) => {
       logger.error(e.message)
-      return res.status(500).send({
-        statusCode: 500,
-        message: "Something went wrong"
-      })
+      return ErrorResponse(e, res)
     })
 })
 
@@ -105,10 +94,7 @@ ProjectRouter.post('/csv', upload.single('csvFile'), AuthController.isAdmin, asy
     .then(() => res.send())
     .catch(e => {
       logger.error(e.message)
-      return res.status(500).send({
-        statusCode: 500,
-        message: "Something went wrong"
-      })
+      return ErrorResponse(e, res)
     })
 })
 

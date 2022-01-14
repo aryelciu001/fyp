@@ -18,5 +18,10 @@ module.exports = {
     code: 'UNAUTHORIZED',
     message: 'User is unauthorized',
     statusCode: 401
+  },
+  ER_DUP_ENTRY: {
+    code: 'ER_DUP_ENTRY',
+    message: 'Duplicate reservation',
+    statusCode: 409
   }
 }

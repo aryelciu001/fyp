@@ -5,6 +5,7 @@ const multer = require('multer')
 const upload = multer()
 const UserController = require('../controllers/user')
 const AuthController = require('../controllers/auth')
+const ErrorResponse = require('../utils/Error/ErrorResponse')
 
 /**
  * @description get list of students
@@ -15,10 +16,7 @@ UserRouter.get('/', AuthController.isAdmin, async function(req, res) {
       .then((user) => res.send(user))
       .catch((e) => {
         logger.error(e.message)
-        return res.status(500).send({
-          statusCode: 500,
-          message: "Something went wrong"
-        })
+        return ErrorResponse(e, res)
       })
 })
 
@@ -38,10 +36,7 @@ UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
       .then(() => res.send({}))
       .catch((e) => {
         logger.error(e.message)
-        return res.status(500).send({
-          statusCode: 500,
-          message: "Something went wrong"
-        })
+        return ErrorResponse(e, res)
       })
 })
 
@@ -61,10 +56,7 @@ UserRouter.put('/', AuthController.isAdmin, async function(req, res) {
       .then(() => res.send({}))
       .catch((e) => {
         logger.error(e.message)
-        return res.status(500).send({
-          statusCode: 500,
-          message: "Something went wrong"
-        })
+        return ErrorResponse(e, res)
       })
 })
 
@@ -80,10 +72,7 @@ UserRouter.delete('/:id', AuthController.isAdmin, async function(req, res) {
       .then(() => res.send({}))
       .catch((e) => {
         logger.error(e.message)
-        return res.status(500).send({
-          statusCode: 500,
-          message: "Something went wrong"
-        })
+        return ErrorResponse(e, res)
       })
 })
 
@@ -107,10 +96,7 @@ UserRouter.delete('/:id', AuthController.isAdmin, async function(req, res) {
       .then(() => res.send())
       .catch((e) => {
         logger.error(e.message)
-        return res.status(500).send({
-          statusCode: 500,
-          message: "Something went wrong"
-        })
+        return ErrorResponse(e, res)
       })
 })
 

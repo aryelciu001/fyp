@@ -25,8 +25,8 @@ export default function ProjectItemList(props) {
     request(ApiRequestType.POST_RESERVATION, payload)
       .then(() => alert('Project reserved!'))
       .catch((e) => {
-        switch (e.response.data.statusCode) {
-          case 409:
+        switch (e.response.data.code) {
+          case 'ER_DUP_ENTRY':
             alert('You have reserved this project')
             break
           default:

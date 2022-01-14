@@ -3,6 +3,7 @@ const ReservationRouter = require('express').Router()
 const ReservationController = require('../controllers/reservation')
 const AuthController = require('../controllers/auth')
 const ProjectController = require('../controllers/project')
+const ErrorResponse = require('../utils/Error/ErrorResponse')
 
 ReservationRouter.get('/', AuthController.isEligibleStudent, async function(req, res) {
   const { email } = req.body.authenticatedUser
@@ -39,18 +40,7 @@ ReservationRouter.post('/', AuthController.isEligibleStudent, async function(req
     .then(() => res.send({}))
     .catch((e) => {
       logger.error(e.message)
-      switch (e.code) {
-        case 'ER_DUP_ENTRY':
-          return res.status(409).send({
-            statusCode: 409,
-            message: "Duplicate entry"
-          })
-        default: 
-          return res.status(500).send({
-            statusCode: 500,
-            message: "Something went wrong"
-          })
-      }
+      return ErrorResponse(e, res)
     })
 })
 
@@ -67,10 +57,7 @@ ReservationRouter.post('/', AuthController.isEligibleStudent, async function(req
     .then(() => res.send({}))
     .catch((e) => {
       logger.error(e.message)
-      return res.status(500).send({
-        statusCode: 500,
-        message: "Something went wrong"
-      })
+      return ErrorResponse(e, res)
     })
 })
 

@@ -2,6 +2,7 @@ const logger = require('../utils/logger')
 const SelectionRouter = require('express').Router()
 const AuthController = require('../controllers/auth')
 const SelectionController = require('../controllers/selection')
+const ErrorResponse = require('../utils/Error/ErrorResponse')
 
 /**
  * @description open/close selection time
@@ -17,10 +18,7 @@ SelectionRouter.post('/', AuthController.isEligibleStudent, async function(req, 
     .then(() => res.send({}))
     .catch((e) => {
       logger.error(e.message)
-      return res.status(500).send({
-        statusCode: 500,
-        message: "Something went wrong"
-      })
+      return ErrorResponse(e, res)
     })
 })
 
