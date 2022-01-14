@@ -24,4 +24,9 @@ module.exports = {
     message: 'Duplicate reservation',
     statusCode: 409,
   },
+  SELECTION_CLOSED: {
+    code: 'SELECTION_CLOSED',
+    message: 'Selection closed',
+    statusCode: 401,
+  }
 }
