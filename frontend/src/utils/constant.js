@@ -21,6 +21,7 @@ export const ApiRequestType = {
   GET_RESERVATION: 'GET_RESERVATION',
   UPDATE_SELECTION_INFO: 'UPDATE_SELECTION_INFO',
   SELECT: 'SELECT',
+  GET_SELECTION: 'GET_SELECTION',
 }
 
 export const options = [
@@ -31,3 +32,12 @@ export const options = [
   'FYP Selection',
   'Generate Report',
 ]
+
+export const ErrorCode = {
+  PROJECT_SELECTED: 'PROJECT_SELECTED',
+  USER_HAS_SELECTED: 'USER_HAS_SELECTED',
+  SERVER_ERROR: 'SERVER_ERROR',
+  UNAUTHORIZED: 'UNAUTHORIZED',
+  ER_DUP_ENTRY: 'ER_DUP_ENTRY',
+  SELECTION_CLOSED: 'SELECTION_CLOSED',
+}

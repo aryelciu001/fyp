@@ -5,6 +5,7 @@ import { ApiRequestType } from 'utils/constant'
 import { updateReservation } from 'Reducers/reservation'
 import axios from 'axios'
 import useAxios from 'hooks/useAxios'
+import { updateSelection } from 'Reducers/selection'
 
 export default function Reservation() {
   const reservation = useSelector((state) => state.reservation.list)
@@ -27,6 +28,11 @@ export default function Reservation() {
       .then((res) => {
         if (unmounted) return
         dispatch(updateReservation({ reservation: res.data }))
+      })
+    request(ApiRequestType.GET_SELECTION)
+      .then((res) => {
+        if (unmounted) return
+        dispatch(updateSelection({ selection: res.data }))
       })
   }
 

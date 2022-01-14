@@ -47,6 +47,8 @@ export default function useAxios() {
         return SelectionInfo.updateSelectionInfo(payload)
       case ApiRequestType.SELECT:
         return Selection.select(payload)
+      case ApiRequestType.GET_SELECTION:
+        return Selection.getSelection(payload)
       default:
         return
     }

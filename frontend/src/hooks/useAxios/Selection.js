@@ -20,3 +20,15 @@ export function select(payload) {
   return axios.post(uri, body, config)
 }
 
+export function getSelection(payload) {
+  const uri = `${API}/selection`
+  const {
+    token,
+  } = payload
+  const config = {
+    headers: {
+      Authorization: token,
+    },
+  }
+  return axios.get(uri, config)
+}

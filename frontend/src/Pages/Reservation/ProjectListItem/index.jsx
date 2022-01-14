@@ -4,6 +4,7 @@ import { Button } from '@mui/material'
 import { ApiRequestType } from 'utils/constant'
 import './index.scss'
 import useAxios from 'hooks/useAxios'
+import { ErrorCode } from 'utils/constant'
 
 export default function ProjectItemList(props) {
   const request = useAxios()
@@ -41,7 +42,20 @@ export default function ProjectItemList(props) {
         update()
       })
       .catch((e) => {
-        alert('something is wrong')
+        console.log(e.response.data.code)
+        switch (e.response.data.code) {
+          case ErrorCode.SELECTION_CLOSED:
+            alert('You cannot select your project yet')
+            break
+          case ErrorCode.PROJECT_SELECTED:
+            alert('Project has been selected by another user')
+            break
+          case ErrorCode.USER_HAS_SELECTED:
+            alert('You have selected a project')
+            break
+          default:
+            alert('something is wrong')
+        }
       })
   }
 
