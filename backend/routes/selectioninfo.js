@@ -16,10 +16,7 @@ const SelectionInfoController = require('../controllers/selectioninfo')
   SelectionInfoController.updateSelection(time, open)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.log({
-        level: 'error',
-        message: e
-      })
+      logger.error(e.message)
       return res.status(500).send({
         statusCode: 500,
         message: "Something went wrong"

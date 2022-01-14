@@ -15,10 +15,7 @@ ProjectRouter.get('/', AuthController.isUser, function(req, res) {
   ProjectController.getProject()
     .then((project) => res.send(project))
     .catch((e) => {
-      logger.log({
-        level: 'error',
-        message: e
-      })
+      logger.error(e.message)
       return res.status(500).send({
         statusCode: 500,
         message: "Something went wrong"
@@ -41,10 +38,7 @@ ProjectRouter.post('/', AuthController.isAdmin, function(req, res) {
   ProjectController.addProject(title, projno, summary, supervisor, email)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.log({
-        level: 'error',
-        message: e
-      })
+      logger.error(e.message)
       return res.status(500).send({
         statusCode: 500,
         message: "Something went wrong"
@@ -67,10 +61,7 @@ ProjectRouter.put('/', AuthController.isAdmin, function(req, res) {
   ProjectController.editProject(title, projno, summary, supervisor, email)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.log({
-        level: 'error',
-        message: e
-      })
+      logger.error(e.message)
       return res.status(500).send({
         statusCode: 500,
         message: "Something went wrong"
@@ -88,10 +79,7 @@ ProjectRouter.delete('/:id', AuthController.isAdmin, function(req, res) {
   ProjectController.deleteProject(id)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.log({
-        level: 'error',
-        message: e
-      })
+      logger.error(e.message)
       return res.status(500).send({
         statusCode: 500,
         message: "Something went wrong"
@@ -116,10 +104,7 @@ ProjectRouter.post('/csv', upload.single('csvFile'), AuthController.isAdmin, asy
   Promise.allSettled(promises)
     .then(() => res.send())
     .catch(e => {
-      logger.log({
-        level: 'error',
-        message: e
-      })
+      logger.error(e.message)
       return res.status(500).send({
         statusCode: 500,
         message: "Something went wrong"

@@ -17,10 +17,7 @@ ReservationRouter.get('/', AuthController.isEligibleStudent, async function(req,
       return res.send(reservations)
     })
     .catch((e) => {
-      logger.log({
-        level: 'error',
-        message: e
-      })
+      logger.error(e.message)
       return res.status(500).send({
         statusCode: 500,
         message: "Something went wrong"
@@ -41,10 +38,7 @@ ReservationRouter.post('/', AuthController.isEligibleStudent, async function(req
   ReservationController.addReservation(email, projno)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.log({
-        level: 'error',
-        message: e
-      })
+      logger.error(e.message)
       switch (e.code) {
         case 'ER_DUP_ENTRY':
           return res.status(409).send({
@@ -72,10 +66,7 @@ ReservationRouter.post('/', AuthController.isEligibleStudent, async function(req
   ReservationController.deleteReservation(email, projno)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.log({
-        level: 'error',
-        message: e
-      })
+      logger.error(e.message)
       return res.status(500).send({
         statusCode: 500,
         message: "Something went wrong"

@@ -14,10 +14,7 @@ UserRouter.get('/', AuthController.isAdmin, async function(req, res) {
   UserController.getAllUser()
       .then((user) => res.send(user))
       .catch((e) => {
-        logger.log({
-          level: 'error',
-          message: e
-        })
+        logger.error(e.message)
         return res.status(500).send({
           statusCode: 500,
           message: "Something went wrong"
@@ -40,10 +37,7 @@ UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
   UserController.addUser(email, studentMatricNumber, password, role, eligible)
       .then(() => res.send({}))
       .catch((e) => {
-        logger.log({
-          level: 'error',
-          message: e
-        })
+        logger.error(e.message)
         return res.status(500).send({
           statusCode: 500,
           message: "Something went wrong"
@@ -66,10 +60,7 @@ UserRouter.put('/', AuthController.isAdmin, async function(req, res) {
   UserController.editUser(email, studentMatricNumber, password, role, eligible,)
       .then(() => res.send({}))
       .catch((e) => {
-        logger.log({
-          level: 'error',
-          message: e
-        })
+        logger.error(e.message)
         return res.status(500).send({
           statusCode: 500,
           message: "Something went wrong"
@@ -88,10 +79,7 @@ UserRouter.delete('/:id', AuthController.isAdmin, async function(req, res) {
   UserController.deleteUser(id)
       .then(() => res.send({}))
       .catch((e) => {
-        logger.log({
-          level: 'error',
-          message: e
-        })
+        logger.error(e.message)
         return res.status(500).send({
           statusCode: 500,
           message: "Something went wrong"
@@ -118,10 +106,7 @@ UserRouter.delete('/:id', AuthController.isAdmin, async function(req, res) {
   Promise.allSettled(promises)
       .then(() => res.send())
       .catch((e) => {
-        logger.log({
-          level: 'error',
-          message: e
-        })
+        logger.error(e.message)
         return res.status(500).send({
           statusCode: 500,
           message: "Something went wrong"
