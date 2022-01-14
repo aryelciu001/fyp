@@ -25,6 +25,15 @@ class SelectionController {
       }
     })
   }
+
+  getSelection = (email) => {
+    const query = `SELECT * FROM selection WHERE email='${email}';`
+    return new Promise((resolve, reject) => {
+      mysqlQuery(query)
+        .then((selection) => resolve(selection))
+        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+    })
+  }
 }
 
 module.exports = new SelectionController()
