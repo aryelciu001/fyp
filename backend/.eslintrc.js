@@ -15,6 +15,6 @@ module.exports = {
     'object-curly-spacing': ['error', 'always'],
     'valid-jsdoc': 'off',
     'max-len': 'off',
-    'new-cap': 'off'
+    'new-cap': 'off',
   },
-};
+}

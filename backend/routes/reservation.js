@@ -9,21 +9,21 @@ ReservationRouter.get('/', AuthController.isEligibleStudent, async function(req,
   const { email } = req.body.authenticatedUser
 
   ReservationController.getReservation(email)
-    .then(async (reservations) => {
-      let project
-      for (let reservation of reservations) {
-        project = await ProjectController.getOneProject(reservation.projno)
-        reservation['project'] = project[0]
-      }
-      return res.send(reservations)
-    })
-    .catch((e) => {
-      logger.error(e.message)
-      return res.status(500).send({
-        statusCode: 500,
-        message: "Something went wrong"
+      .then(async (reservations) => {
+        let project
+        for (const reservation of reservations) {
+          project = await ProjectController.getOneProject(reservation.projno)
+          reservation['project'] = project[0]
+        }
+        return res.send(reservations)
       })
-    })
+      .catch((e) => {
+        logger.error(e.message)
+        return res.status(500).send({
+          statusCode: 500,
+          message: 'Something went wrong',
+        })
+      })
 })
 
 /**
@@ -37,11 +37,11 @@ ReservationRouter.post('/', AuthController.isEligibleStudent, async function(req
   const { email, projno } = req.body
 
   ReservationController.addReservation(email, projno)
-    .then(() => res.send({}))
-    .catch((e) => {
-      logger.error(e.message)
-      return ErrorResponse(e, res)
-    })
+      .then(() => res.send({}))
+      .catch((e) => {
+        logger.error(e.message)
+        return ErrorResponse(e, res)
+      })
 })
 
 /**
@@ -51,14 +51,14 @@ ReservationRouter.post('/', AuthController.isEligibleStudent, async function(req
  * - email
  * - projno
  */
- ReservationRouter.delete('/:email&:projno', AuthController.isEligibleStudent, async function(req, res) {
+ReservationRouter.delete('/:email&:projno', AuthController.isEligibleStudent, async function(req, res) {
   const { email, projno } = req.params
   ReservationController.deleteReservation(email, projno)
-    .then(() => res.send({}))
-    .catch((e) => {
-      logger.error(e.message)
-      return ErrorResponse(e, res)
-    })
+      .then(() => res.send({}))
+      .catch((e) => {
+        logger.error(e.message)
+        return ErrorResponse(e, res)
+      })
 })
 
 module.exports = ReservationRouter

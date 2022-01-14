@@ -9,8 +9,8 @@ module.exports = {
       WHERE id=1;`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-        .then(() => resolve())
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+          .then(() => resolve())
+          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
 }

@@ -15,11 +15,11 @@ const ErrorResponse = require('../utils/Error/ErrorResponse')
 AuthRouter.post('/login', async function(req, res) {
   const { email, password } = req.body
   AuthController.login(email, password)
-    .then((user) => res.status(200).send(user))
-    .catch((e) => {
-      logger.error(e.message)
-      return ErrorResponse(e, res)
-    })
+      .then((user) => res.status(200).send(user))
+      .catch((e) => {
+        logger.error(e.message)
+        return ErrorResponse(e, res)
+      })
 })
 
 /**

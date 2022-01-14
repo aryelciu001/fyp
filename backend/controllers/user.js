@@ -35,7 +35,7 @@ module.exports = {
    * @param password
    * @param role
    */
-  editUser: async function(email, studentMatricNumber, password, role, eligible,) {
+  editUser: async function(email, studentMatricNumber, password, role, eligible) {
     let query
     // lowercase everything
     email = email.toLowerCase()
@@ -102,7 +102,7 @@ module.exports = {
   },
   /**
    * @description get a user using primary key (email)
-   * @param {*} email 
+   * @param {*} email
    * @returns user
    */
   getUser: function(email) {
@@ -111,8 +111,8 @@ module.exports = {
     `
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-        .then((users) => resolve(users[0]))
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+          .then((users) => resolve(users[0]))
+          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
-  }
+  },
 }

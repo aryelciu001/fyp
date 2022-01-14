@@ -5,15 +5,15 @@ const ErrorMessage = require('../utils/Error/ErrorMessage')
 module.exports = {
   /**
    * @description add reservation
-   * @param {*} email 
-   * @param {*} projno 
+   * @param {*} email
+   * @param {*} projno
    */
   addReservation: function(email, projno) {
     return new Promise(async (resolve, reject) => {
       try {
         let query = `SELECT * FROM reservation
           where email='${email}' AND projno='${projno}';`
-        let duplicateReservation = await mysqlQuery(query)
+        const duplicateReservation = await mysqlQuery(query)
         if (duplicateReservation.length) {
           return reject(new MyError(ErrorMessage.ER_DUP_ENTRY))
         }
@@ -30,8 +30,8 @@ module.exports = {
   },
   /**
    * @description delete reservation
-   * @param {*} email 
-   * @param {*} projno 
+   * @param {*} email
+   * @param {*} projno
    */
   deleteReservation: function(email, projno) {
     const query = `DELETE FROM reservation 
@@ -39,21 +39,21 @@ module.exports = {
     `
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-        .then(() => resolve())
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+          .then(() => resolve())
+          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
    * @description get user's reservation
-   * @param {*} email 
+   * @param {*} email
    * @returns reservations
    */
   getReservation: function(email) {
     const query = `SELECT * FROM reservation WHERE email='${email}';`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-        .then((reservations) => resolve(reservations))
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+          .then((reservations) => resolve(reservations))
+          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
-  }
+  },
 }

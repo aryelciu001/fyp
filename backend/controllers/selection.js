@@ -13,7 +13,7 @@ class SelectionController {
 
         query = `SELECT * FROM selection WHERE email='${email}'`
         const userHasSelected = await mysqlQuery(query)
-        
+
         if (userHasSelected.length) return reject(new MyError(ErrorMessage.USER_HAS_SELECTED))
 
         query = `INSERT INTO selection(projno, email)

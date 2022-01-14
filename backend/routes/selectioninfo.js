@@ -11,15 +11,15 @@ const ErrorResponse = require('../utils/Error/ErrorResponse')
  * - time (int)
  * - open (1 or 0)
  */
- SelectionInfoRouter.post('/', AuthController.isAdmin, async function(req, res) {
+SelectionInfoRouter.post('/', AuthController.isAdmin, async function(req, res) {
   const { time, open } = req.body
 
   SelectionInfoController.updateSelection(time, open)
-    .then(() => res.send({}))
-    .catch((e) => {
-      logger.error(e.message)
-      return ErrorResponse(e, res)
-    })
+      .then(() => res.send({}))
+      .catch((e) => {
+        logger.error(e.message)
+        return ErrorResponse(e, res)
+      })
 })
 
 module.exports = SelectionInfoRouter

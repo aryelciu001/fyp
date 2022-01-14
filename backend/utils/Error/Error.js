@@ -1,5 +1,5 @@
 class MyError extends Error {
-  constructor (errorObject) {
+  constructor(errorObject) {
     super(errorObject.message)
     this.code = errorObject.code
     this.statusCode = errorObject.statusCode

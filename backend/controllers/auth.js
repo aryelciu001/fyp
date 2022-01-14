@@ -19,7 +19,7 @@ module.exports = {
       const admin = req.body.authenticatedUser
       if (admin.role !== Interface.UserType.ADMIN) {
         return ErrorResponse(new MyError(ErrorMessage.UNAUTHORIZED), res)
-      } 
+      }
       return next()
     })
   },

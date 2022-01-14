@@ -17,8 +17,8 @@ const Project = {
       VALUES ('${title}', '${projno}', '${summary}', '${email}', '${supervisor}');`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
-        .then(() => resolve())
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+          .then(() => resolve())
+          .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   },
   /**
@@ -37,7 +37,7 @@ const Project = {
    * @description get one project
    * @return project[]
    */
-   getOneProject: function(projno) {
+  getOneProject: function(projno) {
     const query = `SELECT * FROM project WHERE projno='${projno}';`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
