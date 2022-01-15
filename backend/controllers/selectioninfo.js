@@ -3,7 +3,7 @@ const MyError = require('../utils/Error/Error')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
 
 class SelectionInfoController {
-  updateSelection = () => {
+  updateSelection = (time, open) => {
     const query = `UPDATE selectioninfo
       SET selectionopen=${open}, selectionopentime=${time}
       WHERE id=1;`
