@@ -21,4 +21,13 @@ SelectionInfoRouter.post('/', AuthController.isAdmin, async function(req, res) {
     })
 })
 
+SelectionInfoRouter.get('/', AuthController.isUser, async function(req, res) {
+  SelectionInfoController.getSelectionOpenTime()
+    .then((selectionInfo) => res.send(selectionInfo))
+    .catch((e) => {
+      logger.error(e.message)
+      return ErrorResponse(e, res)
+    })
+})
+
 module.exports = SelectionInfoRouter

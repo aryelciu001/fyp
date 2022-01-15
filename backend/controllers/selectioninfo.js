@@ -15,7 +15,7 @@ class SelectionInfoController {
   }
 
   getSelectionOpenTime = () => {
-    const query = `SELECT * from selection
+    const query = `SELECT * from selectioninfo
       WHERE id=1;`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
