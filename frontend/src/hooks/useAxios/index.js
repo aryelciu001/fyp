@@ -45,6 +45,8 @@ export default function useAxios() {
         return Reservation.getReservation(payload)
       case ApiRequestType.UPDATE_SELECTION_INFO:
         return SelectionInfo.updateSelectionInfo(payload)
+      case ApiRequestType.GET_SELECTION_INFO:
+        return SelectionInfo.getSelectionInfo(payload)
       case ApiRequestType.SELECT:
         return Selection.select(payload)
       case ApiRequestType.GET_SELECTION:

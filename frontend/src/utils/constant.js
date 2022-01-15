@@ -22,6 +22,7 @@ export const ApiRequestType = {
   UPDATE_SELECTION_INFO: 'UPDATE_SELECTION_INFO',
   SELECT: 'SELECT',
   GET_SELECTION: 'GET_SELECTION',
+  GET_SELECTION_INFO: 'GET_SELECTION_INFO',
 }
 
 export const options = [

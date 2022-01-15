@@ -19,3 +19,14 @@ export function updateSelectionInfo(payload) {
   }
   return axios.post(uri, body, config)
 }
+
+export function getSelectionInfo(payload) {
+  const uri = `${API}/selectioninfo`
+  const { token } = payload
+  const config = {
+    headers: {
+      Authorization: token,
+    },
+  }
+  return axios.get(uri, config)
+}
