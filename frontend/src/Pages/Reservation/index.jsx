@@ -12,7 +12,7 @@ export default function Reservation() {
   const selection = useSelector((state) => state.selection.list)
   const request = useAxios()
   const [unmounted, setUnmounted] = useState(false)
-  const [selectionOpenTime, setSelectionOpenTime] = useState(null)
+  const [selectionInfo, setSelectionInfo] = useState('Selection is closed')
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -38,19 +38,20 @@ export default function Reservation() {
     request(ApiRequestType.GET_SELECTION_INFO)
       .then((res) => {
         if (unmounted) return
-        setSelectionOpenTime('')
-        let selectionOpenTime = res.data.selectionopentime
-        selectionOpenTime = new Date(selectionOpenTime)
-        selectionOpenTime = selectionOpenTime.toLocaleString()
-        setSelectionOpenTime(selectionOpenTime)
+        if (res.data.selectionopen) {
+          let selectionOpenTime = res.data.selectionopentime
+          selectionOpenTime = new Date(selectionOpenTime)
+          selectionOpenTime = selectionOpenTime.toLocaleString()
+          setSelectionInfo(`Selection is open on: ${selectionOpenTime}`)
+        } else {
+          setSelectionInfo('Selection is closed')
+        }
       })
   }
 
   return (
     <React.Fragment>
-      {
-        selectionOpenTime ? <h3 style={{ marginBottom: '30px' }}>Selection is open on: { selectionOpenTime }</h3> : ''
-      }
+      <h3 style={{ marginBottom: '30px' }}>{ selectionInfo }</h3>
       <h1>Your Selection</h1>
       <ProjectList
         type='selection'
