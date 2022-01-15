@@ -3,7 +3,7 @@ const { encrypt } = require('../utils/bcrypt')
 const MyError = require('../utils/Error/Error')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
 
-module.exports = {
+class UserController {
   /**
    * @description add user to db
    * @param email
@@ -11,7 +11,7 @@ module.exports = {
    * @param password
    * @param role
    */
-  addUser: async function(email, studentMatricNumber, password, role, eligible) {
+  addUser = async (email, studentMatricNumber, password, role, eligible) => {
     // lowercase everything
     email = email.toLowerCase()
     studentMatricNumber = studentMatricNumber.toLowerCase()
@@ -27,7 +27,7 @@ module.exports = {
         .then(() => resolve())
         .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
-  },
+  }
   /**
    * @description edit user
    * @param email
@@ -35,7 +35,7 @@ module.exports = {
    * @param password
    * @param role
    */
-  editUser: async function(email, studentMatricNumber, password, role, eligible) {
+  editUser = async (email, studentMatricNumber, password, role, eligible) => {
     let query
     // lowercase everything
     email = email.toLowerCase()
@@ -60,37 +60,37 @@ module.exports = {
         .then(() => resolve())
         .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
-  },
+  }
   /**
    * @description get user[] with a specific role
    * @param role
    * @return user[]
    */
-  getUserBasedOnRole: function(role) {
+  getUserBasedOnRole = (role) => {
     const query = `SELECT * FROM user WHERE role="${role}";`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then((student) => resolve(student))
         .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
-  },
+  }
   /**
    * @description get all user
    * @return user[]
    */
-  getAllUser: function() {
+  getAllUser = () => {
     const query = `SELECT * FROM user;`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then((user) => resolve(user))
         .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
-  },
+  }
   /**
    * @description delete user with specified email
    * @param id (email for user)
    */
-  deleteUser: function(email) {
+  deleteUser = (email) => {
     const query = `DELETE FROM user 
       WHERE email='${email}';
     `
@@ -99,13 +99,13 @@ module.exports = {
         .then(() => resolve())
         .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
-  },
+  }
   /**
    * @description get a user using primary key (email)
    * @param {*} email
    * @returns user
    */
-  getUser: function(email) {
+  getUser = (email) => {
     const query = `SELECT * FROM user 
       WHERE email='${email}';
     `
@@ -114,5 +114,7 @@ module.exports = {
         .then((users) => resolve(users[0]))
         .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
-  },
+  }
 }
+
+module.exports = new UserController()

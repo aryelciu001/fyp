@@ -23,7 +23,7 @@ class SelectionController {
         if (!selectionInfo.selectionopen) return reject(new MyError(ErrorMessage.SELECTION_CLOSED))
 
         const now = (new Date()).getTime()
-        if (selectionInfo.selectionopentime > (new Date()).getTime()) return reject(new MyError(ErrorMessage.SELECTION_CLOSED))
+        if (selectionInfo.selectionopentime > now) return reject(new MyError(ErrorMessage.SELECTION_CLOSED))
 
         query = `INSERT INTO selection(projno, email)
           VALUES('${projno}', '${email}');`

@@ -7,14 +7,14 @@ const ErrorResponse = require('../utils/Error/ErrorResponse')
 const MyError = require('../utils/Error/Error')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
 
-module.exports = {
+class AuthController {
   /**
    * @description express middleware to authenticate admin
    * @requestHeaders
    * - authorization: jwt string
    * @return next function
    */
-  isAdmin(req, res, next) {
+  isAdmin = (req, res, next) => {
     module.exports.isUser(req, res, () => {
       const admin = req.body.authenticatedUser
       if (admin.role !== Interface.UserType.ADMIN) {
@@ -22,14 +22,15 @@ module.exports = {
       }
       return next()
     })
-  },
+  }
+
   /**
    * @description express middleware to authenticate eligible student
    * @requestHeaders
    * - authorization: jwt string
    * @return next function
    */
-  isEligibleStudent(req, res, next) {
+  isEligibleStudent = (req, res, next) => {
     module.exports.isUser(req, res, async () => {
       let user = req.body.authenticatedUser
       user = await UserController.getUser(user.email)
@@ -38,14 +39,15 @@ module.exports = {
       }
       return next()
     })
-  },
+  }
+
   /**
    * @description express middleware to authenticate user
    * @requestHeaders
    * - authorization: jwt string
    * @return next function
    */
-  isUser(req, res, next) {
+  isUser = (req, res, next) => {
     const jwtToken = req.headers.authorization
     try {
       const user = verifyToken(jwtToken)
@@ -54,7 +56,8 @@ module.exports = {
     } catch (e) {
       return ErrorResponse(new MyError(ErrorMessage.UNAUTHORIZED), res)
     }
-  },
+  }
+
   /**
    * @description Login
    * @requestBody
@@ -65,7 +68,7 @@ module.exports = {
    * - email
    * - role
    */
-  login: function(email, password) {
+  login = (email, password) => {
     return new Promise((resolve, reject) => {
       const query = `SELECT * FROM user WHERE email="${email}"`
       mysqlQuery(query)
@@ -84,5 +87,7 @@ module.exports = {
           reject(new MyError(ErrorMessage.SERVER_ERROR))
         })
     })
-  },
+  }
 }
+
+module.exports = new AuthController()

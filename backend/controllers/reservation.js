@@ -2,13 +2,13 @@ const { mysqlQuery } = require('../utils/mysqlQuery')
 const MyError = require('../utils/Error/Error')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
 
-module.exports = {
+class ReservationController {
   /**
    * @description add reservation
    * @param {*} email
    * @param {*} projno
    */
-  addReservation: function(email, projno) {
+  addReservation = (email, projno) => {
     return new Promise(async (resolve, reject) => {
       try {
         let query = `SELECT * FROM reservation
@@ -27,13 +27,14 @@ module.exports = {
         return reject(new MyError(ErrorMessage.SERVER_ERROR))
       }
     })
-  },
+  }
+
   /**
    * @description delete reservation
    * @param {*} email
    * @param {*} projno
    */
-  deleteReservation: function(email, projno) {
+  deleteReservation = (email, projno) => {
     const query = `DELETE FROM reservation 
       WHERE email='${email}' AND projno='${projno}';
     `
@@ -42,18 +43,21 @@ module.exports = {
         .then(() => resolve())
         .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
-  },
+  }
+  
   /**
    * @description get user's reservation
    * @param {*} email
    * @returns reservations
    */
-  getReservation: function(email) {
+  getReservation = (email) => {
     const query = `SELECT * FROM reservation WHERE email='${email}';`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then((reservations) => resolve(reservations))
         .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
-  },
+  }
 }
+
+module.exports = new ReservationController()
