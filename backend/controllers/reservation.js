@@ -58,6 +58,18 @@ class ReservationController {
         .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   }
+
+  generateReport = () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const query = `SELECT * FROM reservation;`
+        const data = await mysqlQuery(query)
+        return resolve(data)
+      } catch (e) {
+        return reject(new MyError(ErrorMessage.SERVER_ERROR))
+      }
+    })
+  }
 }
 
 module.exports = new ReservationController()

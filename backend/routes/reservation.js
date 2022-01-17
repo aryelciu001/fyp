@@ -61,4 +61,13 @@ ReservationRouter.delete('/:email&:projno', AuthController.isEligibleStudent, as
     })
 })
 
+ReservationRouter.get('/all', AuthController.isAdmin, async function(req, res) {
+  ReservationController.generateReport()
+    .then((data) => res.send(data))
+    .catch((e) => {
+      logger.error(e.message)
+      return ErrorResponse(e, res)
+    })
+})
+
 module.exports = ReservationRouter
