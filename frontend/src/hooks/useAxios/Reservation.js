@@ -41,3 +41,16 @@ export function getReservation(payload) {
   }
   return axios.get(uri, config)
 }
+
+export function getAllReservation(payload) {
+  const uri = `${API}/reservation/all`
+  const {
+    token,
+  } = payload
+  const config = {
+    headers: {
+      Authorization: token,
+    },
+  }
+  return axios.get(uri, config)
+}

@@ -51,6 +51,10 @@ export default function useAxios() {
         return Selection.select(payload)
       case ApiRequestType.GET_SELECTION:
         return Selection.getSelection(payload)
+      case ApiRequestType.GET_ALL_SELECTION:
+        return Selection.getAllSelection(payload)
+      case ApiRequestType.GET_ALL_RESERVATION:
+        return Reservation.getAllReservation(payload)
       default:
         return
     }

@@ -7,12 +7,18 @@ import { ApiRequestType } from 'utils/constant'
 import './index.scss'
 
 export default function GenerateReport() {
-  const generateReservationReport = () => {
+  const request = useAxios()
 
+  const generateReservationReport = () => {
+    request(ApiRequestType.GET_ALL_RESERVATION)
+      .then(res => console.log(res))
+      .catch(() => alert('something is wrong'))
   }
 
   const generateSelectionReport = () => {
-
+    request(ApiRequestType.GET_ALL_SELECTION)
+      .then(res => console.log(res))
+      .catch(() => alert('something is wrong'))
   }
 
   return (

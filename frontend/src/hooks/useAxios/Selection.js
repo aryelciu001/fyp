@@ -32,3 +32,16 @@ export function getSelection(payload) {
   }
   return axios.get(uri, config)
 }
+
+export function getAllSelection(payload) {
+  const uri = `${API}/selection/all`
+  const {
+    token,
+  } = payload
+  const config = {
+    headers: {
+      Authorization: token,
+    },
+  }
+  return axios.get(uri, config)
+}
