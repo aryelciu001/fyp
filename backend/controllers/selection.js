@@ -59,7 +59,12 @@ class SelectionController {
   generateReport = () => {
     return new Promise(async (resolve, reject) => {
       try {
-        const query = `SELECT * FROM selection;`
+        const query = `SELECT u.email as student_email, u.matriculation_number, p.projno, p.supervisor, p.email as supervisor_email, p.title
+          FROM selection as s
+          JOIN user as u
+          ON s.email = u.email
+          JOIN project as p
+          ON s.projno = p.projno;`
         const data = await mysqlQuery(query)
         return resolve(data)
       } catch (e) {

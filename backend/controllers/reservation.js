@@ -62,7 +62,12 @@ class ReservationController {
   generateReport = () => {
     return new Promise(async (resolve, reject) => {
       try {
-        const query = `SELECT * FROM reservation;`
+        const query = `SELECT u.email as student_email, u.matriculation_number, p.projno, p.supervisor, p.email as supervisor_email, p.title
+          FROM reservation as r
+          JOIN user as u
+          ON r.email = u.email
+          JOIN project as p
+          ON r.projno = p.projno;`
         const data = await mysqlQuery(query)
         return resolve(data)
       } catch (e) {
