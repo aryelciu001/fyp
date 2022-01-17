@@ -4,6 +4,12 @@ const AuthController = require('../controllers/auth')
 const SelectionController = require('../controllers/selection')
 const ErrorResponse = require('../utils/Error/ErrorResponse')
 
+/**
+ * @description select project
+ * @requestBody
+ * - projno
+ * - email
+ */
 SelectionRouter.post('/', AuthController.isEligibleStudent, async function(req, res) {
   const { projno, email } = req.body
 
@@ -15,6 +21,9 @@ SelectionRouter.post('/', AuthController.isEligibleStudent, async function(req, 
     })
 })
 
+/**
+ * @description get selection of student
+ */
 SelectionRouter.get('/', AuthController.isEligibleStudent, async function(req, res) {
   const { authenticatedUser } = req.body
   SelectionController.getSelection(authenticatedUser.email)
@@ -25,6 +34,9 @@ SelectionRouter.get('/', AuthController.isEligibleStudent, async function(req, r
     })
 })
 
+/**
+ * @description get all selection
+ */
 SelectionRouter.get('/all', AuthController.isAdmin, async function(req, res) {
   SelectionController.generateReport()
     .then((data) => res.send(data))

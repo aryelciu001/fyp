@@ -3,7 +3,12 @@ const MyError = require('../utils/Error/Error')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
 
 class SelectionInfoController {
-  updateSelection = (time, open) => {
+  /**
+   * @description update time and open/close project selection
+   * @param {*} time 
+   * @param {*} open 
+   */
+  updateSelectionInfo = (time, open) => {
     const query = `UPDATE selectioninfo
       SET selectionopen=${open}, selectionopentime=${time}
       WHERE id=1;`
@@ -14,6 +19,9 @@ class SelectionInfoController {
     })
   }
 
+  /**
+   * @description get selectioninfo
+   */
   getSelectionOpenTime = () => {
     const query = `SELECT * from selectioninfo
       WHERE id=1;`

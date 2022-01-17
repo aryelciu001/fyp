@@ -59,6 +59,10 @@ class ReservationController {
     })
   }
 
+  /**
+   * @description return a table to be used for report
+   * @returns query
+   */
   generateReport = () => {
     return new Promise(async (resolve, reject) => {
       try {

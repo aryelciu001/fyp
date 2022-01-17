@@ -3,6 +3,11 @@ const ErrorMessage = require('../utils/Error/ErrorMessage')
 const MyError = require('../utils/Error/Error')
 
 class SelectionController {
+  /**
+   * @description select project
+   * @param {*} projno 
+   * @param {*} email 
+   */
   selectProject = (projno, email) => {
     return new Promise(async (resolve, reject) => {
       try {
@@ -35,6 +40,11 @@ class SelectionController {
     })
   }
 
+  /**
+   * @description get user selection
+   * @param {*} email 
+   * @returns selection by the user with the email 
+   */
   getSelection = (email) => {
     return new Promise(async (resolve, reject) => {
       try {
@@ -56,6 +66,10 @@ class SelectionController {
     })
   }
 
+  /**
+   * @description return a table to be used for report
+   * @returns query
+   */
   generateReport = () => {
     return new Promise(async (resolve, reject) => {
       try {

@@ -5,6 +5,9 @@ const AuthController = require('../controllers/auth')
 const ProjectController = require('../controllers/project')
 const ErrorResponse = require('../utils/Error/ErrorResponse')
 
+/**
+ * @description get reservation of student
+ */
 ReservationRouter.get('/', AuthController.isEligibleStudent, async function(req, res) {
   const { email } = req.body.authenticatedUser
 
@@ -61,6 +64,9 @@ ReservationRouter.delete('/:email&:projno', AuthController.isEligibleStudent, as
     })
 })
 
+/**
+ * @description get all reservation
+ */
 ReservationRouter.get('/all', AuthController.isAdmin, async function(req, res) {
   ReservationController.generateReport()
     .then((data) => res.send(data))

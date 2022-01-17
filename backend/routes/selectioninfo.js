@@ -13,7 +13,7 @@ const ErrorResponse = require('../utils/Error/ErrorResponse')
  */
 SelectionInfoRouter.post('/', AuthController.isAdmin, async function(req, res) {
   const { time, open } = req.body
-  SelectionInfoController.updateSelection(time, open)
+  SelectionInfoController.updateSelectionInfo(time, open)
     .then(() => res.send({}))
     .catch((e) => {
       logger.error(e.message)
@@ -21,6 +21,9 @@ SelectionInfoRouter.post('/', AuthController.isAdmin, async function(req, res) {
     })
 })
 
+/**
+ * @description get selection info
+ */
 SelectionInfoRouter.get('/', AuthController.isUser, async function(req, res) {
   SelectionInfoController.getSelectionOpenTime()
     .then((selectionInfo) => res.send(selectionInfo))
