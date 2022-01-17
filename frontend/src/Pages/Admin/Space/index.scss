@@ -22,16 +22,14 @@
     .datetimepicker {
       max-width: 300px;
     }
-    .selection-time-buttons {
-      button {
-        margin-right: 20px;
-      }
-      .btn-primary {
-        background-color: $theme-blue;
-      }
-      .btn-danger {
-        background-color: $theme-red;
-      }
+    button {
+      margin-right: 20px;
+    }
+    .btn-primary {
+      background-color: $theme-blue;
+    }
+    .btn-danger {
+      background-color: $theme-red;
     }
   }
 }
