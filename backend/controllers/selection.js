@@ -55,6 +55,18 @@ class SelectionController {
       }
     })
   }
+
+  generateReport = () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const query = `SELECT * FROM selection;`
+        const data = await mysqlQuery(query)
+        return resolve(data)
+      } catch (e) {
+        return reject(new MyError(ErrorMessage.SERVER_ERROR))
+      }
+    })
+  }
 }
 
 module.exports = new SelectionController()

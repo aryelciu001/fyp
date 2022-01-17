@@ -25,4 +25,13 @@ SelectionRouter.get('/', AuthController.isEligibleStudent, async function(req, r
     })
 })
 
+SelectionRouter.get('/all', AuthController.isAdmin, async function(req, res) {
+  SelectionController.generateReport()
+    .then((data) => res.send(data))
+    .catch((e) => {
+      logger.error(e.message)
+      return ErrorResponse(e, res)
+    })
+})
+
 module.exports = SelectionRouter
