@@ -29,8 +29,6 @@ class SelectionController {
 
         const now = (new Date()).getTime()
         if (selectionInfo.selectionopentime > now) return reject(new MyError(ErrorMessage.SELECTION_CLOSED))
-
-        const now = (new Date()).getTime()
         if (selectionInfo.selectionclosetime < now) return reject(new MyError(ErrorMessage.SELECTION_CLOSED))
 
         // insert into selection db
