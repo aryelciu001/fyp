@@ -4,7 +4,7 @@ import Space from 'Pages/Admin/Space'
 import './index.scss'
 
 export default function Admin() {
-  const [selectedOption, setSelectedOption] = useState('FYP Selection')
+  const [selectedOption, setSelectedOption] = useState('Add FYP')
 
   return (
     <div className="admin">
