@@ -6,12 +6,13 @@ import Navbar from 'Components/Navbar'
 import Home from 'Pages/Home'
 import Admin from 'Pages/Admin'
 import Login from 'Pages/Login'
+import Register from 'Pages/Register'
 import Reservation from 'Pages/Reservation'
 import { login } from 'Reducers/user'
 import { ApiRequestType, UserType } from 'utils/constant'
 import useAxios from 'hooks/useAxios'
 
-function App() {
+function App(props) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const request = useAxios()
@@ -22,6 +23,10 @@ function App() {
 
   useEffect(() => {
     if (tokenState) return
+    if (window.location.pathname === '/register') {
+      setLoading(false)
+      return
+    }
 
     // check user token in localstorage
     const token = localStorage.getItem('token')
@@ -91,6 +96,7 @@ function App() {
         loading ? <h1>Loading</h1> :
         <Routes>
           <Route path='/login' element={<Login/>}/>
+          <Route path='/register' element={<Register/>}/>
           <Route path='/admin' element={<AdminRoute/>}/>
           <Route path='/reservation' element={<ReservationRoute/>}/>
           <Route path='/' element={<HomeRoute/>}/>
@@ -103,5 +109,6 @@ function App() {
 export default App
 
 App.propTypes = {
+  location: PropTypes.string,
   children: PropTypes.object,
 }
