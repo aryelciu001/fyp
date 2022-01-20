@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { TextField, Typography, Button } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { login } from 'Reducers/user'
 import { ApiRequestType } from 'utils/constant'
@@ -14,7 +14,6 @@ export default function Login() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
 
   const loginLocal = () => {
     request(ApiRequestType.LOGIN, { email, password })
@@ -24,7 +23,7 @@ export default function Login() {
         navigate('/')
       })
       .catch((e) => {
-        setError('Email or password is incorrect')
+        alert('Email or password is incorrect')
       })
   }
 
@@ -62,9 +61,7 @@ export default function Login() {
           </Button>
         </div>
         <div className="row">
-          <span className="error">
-            {error}
-          </span>
+          <Link to={'/register'}>Register</Link>
         </div>
       </div>
     </div>
