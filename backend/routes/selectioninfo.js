@@ -12,8 +12,8 @@ const ErrorResponse = require('../utils/Error/ErrorResponse')
  * - open (1 or 0)
  */
 SelectionInfoRouter.post('/', AuthController.isAdmin, async function(req, res) {
-  const { time, open } = req.body
-  SelectionInfoController.updateSelectionInfo(time, open)
+  const { opentime, closetime, open } = req.body
+  SelectionInfoController.updateSelectionInfo(opentime, closetime, open)
     .then(() => res.send({}))
     .catch((e) => {
       logger.error(e.message)

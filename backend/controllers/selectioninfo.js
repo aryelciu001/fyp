@@ -8,14 +8,14 @@ class SelectionInfoController {
    * @param {*} time 
    * @param {*} open 
    */
-  updateSelectionInfo = (time, open) => {
+  updateSelectionInfo = (opentime, closetime, open) => {
     const query = `UPDATE selectioninfo
-      SET selectionopen=${open}, selectionopentime=${time}
+      SET selectionopen=${open}, selectionopentime=${opentime}, selectionclosetime=${closetime}
       WHERE id=1;`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .catch((e) => console.log(e) && reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   }
 
