@@ -2,6 +2,7 @@ const { mysqlQuery } = require('../utils/mysqlQuery')
 const { encrypt } = require('../utils/bcrypt')
 const MyError = require('../utils/Error/Error')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
+const SqlString = require('sqlstring');
 
 class UserController {
   /**
@@ -19,9 +20,10 @@ class UserController {
     // hash password
     password = await encrypt(password)
 
-    const query = `INSERT INTO user 
+    const query = SqlString.format(`INSERT INTO user 
       (email, matriculation_number, password, role, eligible) 
-      VALUES ('${email}', '${studentMatricNumber}', '${password}', '${role}', ${eligible});`
+      VALUES ( ? , ? , ? , ? , ? )`, [email, studentMatricNumber, password, role, eligible])
+      
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
