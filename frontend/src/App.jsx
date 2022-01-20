@@ -38,7 +38,7 @@ function App(props) {
         .then((res) => {
           dispatch(login({ email: res.data.email, role: res.data.role, token, eligible: res.data.eligible }))
           setLoading(false)
-          navigate('/admin')
+          navigate('/')
         })
         .catch((e) => {
           navigate('/login')
