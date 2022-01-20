@@ -116,10 +116,20 @@ UserRouter.post('/csv', upload.single('csvFile'), AuthController.isAdmin, async 
   const users = await csv().fromString(data)
   const promises = []
   let matricNumber = ''
-  users.forEach((user) => {
-    matricNumber = user['matric'] === 'na' ? '' : user['matric']
-    promises.push(UserController.addUser(user['email'], matricNumber, user['password'], user['role'], user['eligible']))
-  })
+  let existingUser
+  try {
+    users.forEach(async (user) => {
+      matricNumber = user['matric'] === 'na' ? '' : user['matric']
+      existingUser = await UserController.getUser(user['email'])
+      if (existingUser) {
+        promises.push(UserController.editUser(user['email'], matricNumber, '', user['role'], user['eligible']))
+      } else {
+        promises.push(UserController.addUser(user['email'], matricNumber, user['password'], user['role'], user['eligible']))
+      }
+    })
+  } catch (e) {
+
+  }
   Promise.allSettled(promises)
     .then(() => res.send())
     .catch((e) => {
