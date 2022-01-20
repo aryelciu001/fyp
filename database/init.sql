@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS selectioninfo (
   id int NOT NULL,
   selectionopen boolean NOT NULL,
   selectionopentime bigint NOT NULL,
+  selectionclosetime bigint NOT NULL,
   PRIMARY KEY (id)
 );
 
