@@ -38,6 +38,7 @@ export default function Login() {
         </div>
         <div className="row">
           <TextField
+            value={email}
             label="Email"
             variant="outlined"
             onChange={(e)=>setEmail(e.target.value)}
@@ -45,6 +46,7 @@ export default function Login() {
         </div>
         <div className="row">
           <TextField
+            value={password}
             label="Password"
             variant="outlined"
             type="password"
