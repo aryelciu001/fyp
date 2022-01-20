@@ -13,12 +13,18 @@ ReservationRouter.get('/', AuthController.isEligibleStudent, async function(req,
 
   ReservationController.getReservation(email)
     .then(async (reservations) => {
+      let reservationsWithInfo = []
+      let reservationWithInfo
       let project
       for (const reservation of reservations) {
+        reservationWithInfo = { ...reservation }
         project = await ProjectController.getOneProject(reservation.projno)
-        reservation['project'] = project[0]
+        project = project[0]
+        if (project.selected) continue
+        reservationWithInfo['project'] = project
+        reservationsWithInfo.push(reservationWithInfo)
       }
-      return res.send(reservations)
+      return res.send(reservationsWithInfo)
     })
     .catch((e) => {
       logger.error(e.message)
