@@ -21,7 +21,7 @@ module.exports = {
   },
   ER_DUP_ENTRY: {
     code: 'ER_DUP_ENTRY',
-    message: 'Duplicate reservation',
+    message: 'Duplicate record',
     statusCode: 409,
   },
   SELECTION_CLOSED: {

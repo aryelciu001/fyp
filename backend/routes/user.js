@@ -6,6 +6,9 @@ const upload = multer()
 const UserController = require('../controllers/user')
 const AuthController = require('../controllers/auth')
 const ErrorResponse = require('../utils/Error/ErrorResponse')
+const { UserType } = require('../utils/interface')
+const MyError = require('../utils/Error/Error')
+const ErrorMessage = require('../utils/Error/ErrorMessage')
 
 /**
  * @description get list of students
@@ -38,6 +41,31 @@ UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
       logger.error(e.message)
       return ErrorResponse(e, res)
     })
+})
+
+/**
+ * @description register
+ * @requestBody
+ * - email
+ * - studentMatricNumber
+ * - studentPassword
+ */
+UserRouter.post('/register', async function(req, res) {
+  const { email, studentMatricNumber, password } = req.body
+  const role = UserType.STUDENT
+  const eligible = 0
+
+  try {
+    let user = await UserController.getUser(email)
+    if (user) {
+      return ErrorResponse(new MyError(ErrorMessage.ER_DUP_ENTRY), res)
+    }
+    await UserController.addUser(email, studentMatricNumber, password, role, eligible)
+    return res.send({})
+  } catch (e) {
+    logger.error(e.message)
+    return ErrorResponse(new MyError(ErrorMessage.SERVER_ERROR), res)
+  }
 })
 
 /**
