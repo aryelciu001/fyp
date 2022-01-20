@@ -17,13 +17,13 @@ CREATE TABLE IF NOT EXISTS project (
   supervisor varchar(256) NOT NULL,
   summary TEXT,
   selected BOOLEAN DEFAULT false,
-  PRIMARY KEY (project_id)
+  PRIMARY KEY (projno)
 );
 
 CREATE TABLE IF NOT EXISTS reservation (
   projno varchar(256) NOT NULL,
   email varchar(256) NOT NULL,
-  FOREIGN KEY (projno) REFERENCES fyp(projno) ON DELETE CASCADE,
+  FOREIGN KEY (projno) REFERENCES project(projno) ON DELETE CASCADE,
   FOREIGN KEY (email) REFERENCES user(email) ON DELETE CASCADE,
   PRIMARY KEY (email, projno)
 );
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS reservation (
 CREATE TABLE IF NOT EXISTS selection (
   projno varchar(256) NOT NULL,
   email varchar(256) NOT NULL,
-  FOREIGN KEY (projno) REFERENCES fyp(projno) ON DELETE CASCADE,
+  FOREIGN KEY (projno) REFERENCES project(projno) ON DELETE CASCADE,
   FOREIGN KEY (email) REFERENCES user(email) ON DELETE CASCADE,
   PRIMARY KEY (email, projno)
 );
@@ -44,5 +44,4 @@ CREATE TABLE IF NOT EXISTS selectioninfo (
   PRIMARY KEY (id)
 );
 
-INSERT INTO user (email, password) VALUES ("admin@admin.com", "$2b$08$/Mkq.4iKSdqteL1CPYEBbusYvf3e7qtm.Ql3ZgBO/6.out.s4xUMq");
-INSERT INTO selectioninfo(id, selectionopen, selectionopentime) values(1,0,0);
+INSERT INTO selectioninfo(id, selectionopen, selectionopentime, selectionclosetime) values(1,0,0,0);
