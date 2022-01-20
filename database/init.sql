@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS project (
   email varchar(256) NOT NULL,
   supervisor varchar(256) NOT NULL,
   summary TEXT,
+  selected BOOLEAN DEFAULT false,
   PRIMARY KEY (project_id)
 );
 
