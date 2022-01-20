@@ -32,6 +32,11 @@ export default function ProjectItemList(props) {
   }
 
   const select = () => {
+    const confirmation = prompt(`Are you sure you want to select project '${title}'? \nType the project number '${projno}' to confirm.`)
+    if (confirmation !== projno) {
+      alert('You have inserted the wrong project number. Selection cancelled')
+      return
+    }
     const payload = {
       email: props.userEmail,
       projno,
