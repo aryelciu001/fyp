@@ -30,9 +30,15 @@ class SelectionController {
         const now = (new Date()).getTime()
         if (selectionInfo.selectionopentime > now) return reject(new MyError(ErrorMessage.SELECTION_CLOSED))
 
+        // insert into selection db
         query = `INSERT INTO selection(projno, email)
           VALUES('${projno}', '${email}');`
         await mysqlQuery(query)
+
+        // update project, set selected to true
+        query = `UPDATE project SET selected=1 WHERE projno='${projno}';`
+        await mysqlQuery(query)
+
         return resolve()
       } catch (e) {
         return reject(new MyError(ErrorMessage.SERVER_ERROR))
