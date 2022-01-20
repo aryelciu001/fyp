@@ -1,4 +1,3 @@
-const logger = require('../utils/logger')
 const SelectionRouter = require('express').Router()
 const AuthController = require('../controllers/auth')
 const SelectionController = require('../controllers/selection')
@@ -16,7 +15,6 @@ SelectionRouter.post('/', AuthController.isEligibleStudent, async function(req, 
   SelectionController.selectProject(projno, email)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })
@@ -29,7 +27,6 @@ SelectionRouter.get('/', AuthController.isUser, async function(req, res) {
   SelectionController.getSelection(authenticatedUser.email)
     .then((selection) => res.send(selection))
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })
@@ -41,7 +38,6 @@ SelectionRouter.get('/all', AuthController.isAdmin, async function(req, res) {
   SelectionController.generateReport()
     .then((data) => res.send(data))
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })

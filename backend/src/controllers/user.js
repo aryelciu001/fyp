@@ -3,6 +3,7 @@ const { encrypt } = require('../utils/bcrypt')
 const MyError = require('../utils/Error/Error')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
 const SqlString = require('sqlstring')
+const { defaultErrorHandler } = require('../utils/Error/ErrorHandler')
 
 class UserController {
   /**
@@ -27,7 +28,7 @@ class UserController {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .catch((e) => defaultErrorHandler(e, reject))
     })
   }
   /**
@@ -60,7 +61,7 @@ class UserController {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .catch((e) => defaultErrorHandler(e, reject))
     })
   }
   /**
@@ -73,7 +74,7 @@ class UserController {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then((student) => resolve(student))
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .catch((e) => defaultErrorHandler(e, reject))
     })
   }
   /**
@@ -85,7 +86,7 @@ class UserController {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then((user) => resolve(user))
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .catch((e) => defaultErrorHandler(e, reject))
     })
   }
   /**
@@ -99,7 +100,7 @@ class UserController {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .catch((e) => defaultErrorHandler(e, reject))
     })
   }
   /**
@@ -114,7 +115,7 @@ class UserController {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then((users) => resolve(users[0]))
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .catch((e) => defaultErrorHandler(e, reject))
     })
   }
 }

@@ -1,4 +1,3 @@
-const logger = require('../utils/logger')
 const csv = require('csvtojson')
 const multer = require('multer')
 const upload = multer()
@@ -16,7 +15,6 @@ ProjectRouter.get('/', AuthController.isUser, function(req, res) {
   ProjectController.getProject()
     .then((project) => res.send(project))
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })
@@ -36,7 +34,6 @@ ProjectRouter.post('/', AuthController.isAdmin, function(req, res) {
   ProjectController.addProject(title, projno, summary, supervisor, email)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })
@@ -56,7 +53,6 @@ ProjectRouter.put('/', AuthController.isAdmin, function(req, res) {
   ProjectController.editProject(title, projno, summary, supervisor, email)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })
@@ -71,7 +67,6 @@ ProjectRouter.delete('/:id', AuthController.isAdmin, function(req, res) {
   ProjectController.deleteProject(id)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })
@@ -93,7 +88,6 @@ ProjectRouter.post('/csv', upload.single('csvFile'), AuthController.isAdmin, asy
   Promise.allSettled(promises)
     .then(() => res.send())
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })

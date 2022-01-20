@@ -1,6 +1,8 @@
 const { mysqlQuery } = require('../utils/mysqlQuery')
 const MyError = require('../utils/Error/Error')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
+const { defaultErrorHandler } = require('../utils/Error/ErrorHandler')
+const SqlString = require('sqlstring')
 
 class ProjectController {
   /**
@@ -12,13 +14,13 @@ class ProjectController {
    * @param email
    */
   addProject = (title, projno, summary, supervisor, email) => {
-    const query = `INSERT INTO project 
+    const query = SqlString.format(`INSERT INTO project 
       (title, projno, summary, email, supervisor) 
-      VALUES ('${title}', '${projno}', '${summary}', '${email}', '${supervisor}');`
+      VALUES ( ? , ? , ? , ? , ? );`, [title, projno, summary, email, supervisor])
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .catch((e) => defaultErrorHandler(e, reject))
     })
   }
 
@@ -31,7 +33,7 @@ class ProjectController {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then((project) => resolve(project))
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .catch((e) => defaultErrorHandler(e, reject))
     })
   }
 
@@ -44,7 +46,7 @@ class ProjectController {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then((project) => resolve(project))
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .catch((e) => defaultErrorHandler(e, reject))
     })
   }
 
@@ -64,7 +66,7 @@ class ProjectController {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .catch((e) => defaultErrorHandler(e, reject))
     })
   }
 
@@ -79,7 +81,7 @@ class ProjectController {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .catch((e) => defaultErrorHandler(e, reject))
     })
   }
 }

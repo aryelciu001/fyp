@@ -1,6 +1,7 @@
 const { mysqlQuery } = require('../utils/mysqlQuery')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
 const MyError = require('../utils/Error/Error')
+const { defaultErrorHandler } = require('../utils/Error/ErrorHandler')
 
 class SelectionController {
   /**
@@ -42,7 +43,7 @@ class SelectionController {
 
         return resolve()
       } catch (e) {
-        return reject(new MyError(ErrorMessage.SERVER_ERROR))
+        return defaultErrorHandler(e, reject)
       }
     })
   }
@@ -68,7 +69,7 @@ class SelectionController {
         selection.project = project
         return resolve([selection])
       } catch (e) {
-        return reject(new MyError(ErrorMessage.SERVER_ERROR))
+        return defaultErrorHandler(e, reject)
       }
     })
   }
@@ -89,7 +90,7 @@ class SelectionController {
         const data = await mysqlQuery(query)
         return resolve(data)
       } catch (e) {
-        return reject(new MyError(ErrorMessage.SERVER_ERROR))
+        return defaultErrorHandler(e, reject)
       }
     })
   }

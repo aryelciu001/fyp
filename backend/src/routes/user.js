@@ -1,4 +1,3 @@
-const logger = require('../utils/logger')
 const csv = require('csvtojson')
 const UserRouter = require('express').Router()
 const multer = require('multer')
@@ -18,7 +17,6 @@ UserRouter.get('/', AuthController.isAdmin, async function(req, res) {
   UserController.getAllUser()
     .then((user) => res.send(user))
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })
@@ -38,7 +36,6 @@ UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
   UserController.addUser(email, studentMatricNumber, password, role, eligible)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })
@@ -63,7 +60,6 @@ UserRouter.post('/register', async function(req, res) {
     await UserController.addUser(email, studentMatricNumber, password, role, eligible)
     return res.send({})
   } catch (e) {
-    logger.error(e.message)
     return ErrorResponse(new MyError(ErrorMessage.SERVER_ERROR), res)
   }
 })
@@ -83,7 +79,6 @@ UserRouter.put('/', AuthController.isAdmin, async function(req, res) {
   UserController.editUser(email, studentMatricNumber, password, role, eligible)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })
@@ -99,7 +94,6 @@ UserRouter.delete('/:id', AuthController.isAdmin, async function(req, res) {
   UserController.deleteUser(id)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })
@@ -133,7 +127,6 @@ UserRouter.post('/csv', upload.single('csvFile'), AuthController.isAdmin, async 
   Promise.allSettled(promises)
     .then(() => res.send())
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })

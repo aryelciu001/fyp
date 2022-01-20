@@ -1,6 +1,5 @@
 const { mysqlQuery } = require('../utils/mysqlQuery')
-const MyError = require('../utils/Error/Error')
-const ErrorMessage = require('../utils/Error/ErrorMessage')
+const { defaultErrorHandler } = require('../utils/Error/ErrorHandler')
 
 class SelectionInfoController {
   /**
@@ -15,7 +14,7 @@ class SelectionInfoController {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
-        .catch((e) => console.log(e) && reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .catch((e) => defaultErrorHandler(e, reject))
     })
   }
 
@@ -28,7 +27,7 @@ class SelectionInfoController {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then((selectionInfo) => resolve(selectionInfo[0]))
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .catch((e) => defaultErrorHandler(e, reject))
     })
   }
 }

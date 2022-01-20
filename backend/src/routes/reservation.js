@@ -1,4 +1,3 @@
-const logger = require('../utils/logger')
 const ReservationRouter = require('express').Router()
 const ReservationController = require('../controllers/reservation')
 const AuthController = require('../controllers/auth')
@@ -27,11 +26,7 @@ ReservationRouter.get('/', AuthController.isUser, async function(req, res) {
       return res.send(reservationsWithInfo)
     })
     .catch((e) => {
-      logger.error(e.message)
-      return res.status(500).send({
-        statusCode: 500,
-        message: 'Something went wrong',
-      })
+      return ErrorResponse(e, res)
     })
 })
 
@@ -48,7 +43,6 @@ ReservationRouter.post('/', AuthController.isUser, async function(req, res) {
   ReservationController.addReservation(email, projno)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })
@@ -65,7 +59,6 @@ ReservationRouter.delete('/:email&:projno', AuthController.isEligibleStudent, as
   ReservationController.deleteReservation(email, projno)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })
@@ -77,7 +70,6 @@ ReservationRouter.get('/all', AuthController.isAdmin, async function(req, res) {
   ReservationController.generateReport()
     .then((data) => res.send(data))
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })

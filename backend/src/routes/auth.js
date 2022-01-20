@@ -1,9 +1,10 @@
-const logger = require('../utils/logger')
 const AuthRouter = require('express').Router()
 const AuthController = require('../controllers/auth')
 const UserController = require('../controllers/user')
 const { verifyToken } = require('../utils/jwt')
 const ErrorResponse = require('../utils/Error/ErrorResponse')
+const MyError = require('../utils/Error/Error')
+const ErrorMessage = require('../utils/Error/ErrorMessage')
 
 /**
  * @description login route
@@ -17,7 +18,6 @@ AuthRouter.post('/login', async function(req, res) {
   AuthController.login(email, password)
     .then((user) => res.status(200).send(user))
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })
@@ -32,9 +32,9 @@ AuthRouter.get('/:token', async function(req, res) {
   try {
     user = verifyToken(token)
     user = await UserController.getUser(user.email)
+    if (!user) return ErrorResponse(new MyError(ErrorMessage.UNAUTHORIZED), res)
     return res.status(200).send(user)
   } catch (e) {
-    logger.error(e.message)
     return ErrorResponse(e, res)
   }
 })

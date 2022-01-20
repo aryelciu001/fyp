@@ -1,6 +1,7 @@
 const { mysqlQuery } = require('../utils/mysqlQuery')
 const MyError = require('../utils/Error/Error')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
+const { defaultErrorHandler } = require('../utils/Error/ErrorHandler')
 
 class ReservationController {
   /**
@@ -24,7 +25,7 @@ class ReservationController {
         await mysqlQuery(query)
         return resolve()
       } catch (e) {
-        return reject(new MyError(ErrorMessage.SERVER_ERROR))
+        return defaultErrorHandler(e, reject)
       }
     })
   }
@@ -41,7 +42,7 @@ class ReservationController {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .catch((e) => defaultErrorHandler(e, reject))
     })
   }
 
@@ -55,7 +56,7 @@ class ReservationController {
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then((reservations) => resolve(reservations))
-        .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
+        .catch((e) => defaultErrorHandler(e, reject))
     })
   }
 
@@ -75,7 +76,7 @@ class ReservationController {
         const data = await mysqlQuery(query)
         return resolve(data)
       } catch (e) {
-        return reject(new MyError(ErrorMessage.SERVER_ERROR))
+        return defaultErrorHandler(e, reject)
       }
     })
   }

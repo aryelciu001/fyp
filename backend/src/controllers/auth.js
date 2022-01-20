@@ -6,6 +6,7 @@ const UserController = require('./user')
 const ErrorResponse = require('../utils/Error/ErrorResponse')
 const MyError = require('../utils/Error/Error')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
+const { defaultErrorHandler } = require('../utils/Error/ErrorHandler')
 
 class AuthController {
   /**
@@ -84,7 +85,7 @@ class AuthController {
           }
         })
         .catch((e) => {
-          reject(new MyError(ErrorMessage.SERVER_ERROR))
+          return defaultErrorHandler(e, reject)
         })
     })
   }

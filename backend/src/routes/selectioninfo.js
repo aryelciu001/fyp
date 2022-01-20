@@ -1,4 +1,3 @@
-const logger = require('../utils/logger')
 const SelectionInfoRouter = require('express').Router()
 const AuthController = require('../controllers/auth')
 const SelectionInfoController = require('../controllers/selectioninfo')
@@ -16,7 +15,6 @@ SelectionInfoRouter.post('/', AuthController.isAdmin, async function(req, res) {
   SelectionInfoController.updateSelectionInfo(opentime, closetime, open)
     .then(() => res.send({}))
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })
@@ -28,7 +26,6 @@ SelectionInfoRouter.get('/', AuthController.isUser, async function(req, res) {
   SelectionInfoController.getSelectionOpenTime()
     .then((selectionInfo) => res.send(selectionInfo))
     .catch((e) => {
-      logger.error(e.message)
       return ErrorResponse(e, res)
     })
 })
