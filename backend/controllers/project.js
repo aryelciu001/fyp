@@ -27,7 +27,7 @@ class ProjectController {
    * @return project[]
    */
   getProject = () => {
-    const query = `SELECT * FROM project;`
+    const query = `SELECT * FROM project WHERE selected=0;`
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then((project) => resolve(project))
