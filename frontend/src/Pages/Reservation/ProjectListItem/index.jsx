@@ -5,12 +5,14 @@ import { ApiRequestType } from 'utils/constant'
 import './index.scss'
 import useAxios from 'hooks/useAxios'
 import { ErrorCode } from 'utils/constant'
+import { useSelector } from 'react-redux'
 
 export default function ProjectItemList(props) {
   const request = useAxios()
   const [openDesc, setOpenDesc] = useState(false)
   const { update, project } = props
   const { title, projno, summary, supervisor, email } = project.project
+  const userEligible = useSelector((state) => state.user.eligible)
 
   const toggleDesc = () => {
     setOpenDesc(!openDesc)
@@ -75,7 +77,7 @@ export default function ProjectItemList(props) {
             props.type === 'reservation' ?
             <>
               <Button onClick={unreserve} variant="contained" color="secondary">Unreserve</Button>
-              <Button onClick={select} variant="contained">Select</Button>
+              { userEligible ? <Button onClick={select} variant="contained">Select</Button> : null}
             </> : null
           }
           <Button onClick={()=>toggleDesc()} variant="contained">{openDesc ? 'close' : 'more'}</Button>

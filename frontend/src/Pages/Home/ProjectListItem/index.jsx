@@ -10,7 +10,7 @@ export default function ProjectItemList(props) {
   const request = useAxios()
   const [openDesc, setOpenDesc] = useState(false)
   const { title, projno, summary, supervisor, email } = props.project
-  const { eligible, role } = useSelector((state) => state.user)
+  const { role } = useSelector((state) => state.user)
   const userEmail = useSelector((state) => state.user.email)
 
   const toggleDesc = () => {
@@ -44,7 +44,7 @@ export default function ProjectItemList(props) {
         <h4>{title}</h4>
         <div className="buttons">
           <Button onClick={()=>toggleDesc()} variant="contained">{openDesc ? 'close' : 'more'}</Button>
-          { eligible && role === UserType.STUDENT ? <Button onClick={reserve} variant="contained">Reserve</Button> : '' }
+          { role === UserType.STUDENT ? <Button onClick={reserve} variant="contained">Reserve</Button> : '' }
         </div>
       </div>
       <div className={`project-list-item-body ${openDesc ? 'open' : 'close'}`}>

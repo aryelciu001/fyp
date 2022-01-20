@@ -22,7 +22,6 @@ const ResponsiveAppBar = () => {
 
   const userEmail = useSelector((state) => state.user.email)
   const userRole = useSelector((state) => state.user.role)
-  const userEligible = useSelector((state) => state.user.eligible)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -112,13 +111,13 @@ const ResponsiveAppBar = () => {
               >
                 <LinkItemMenu name="Home" to="/" renderIf={true}/>
                 <LinkItemMenu name="Admin" to="/admin" renderIf={userRole === UserType.ADMIN}/>
-                <LinkItemMenu name="Reservation" to="/reservation" renderIf={userRole === UserType.STUDENT && userEligible}/>
+                <LinkItemMenu name="Reservation" to="/reservation" renderIf={userRole === UserType.STUDENT}/>
               </Menu>
             </Box>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <LinkItemBox name="Home" to="/" renderIf={true}/>
               <LinkItemBox name="Admin" to="/admin" renderIf={userRole === UserType.ADMIN}/>
-              <LinkItemBox name="Reservation" to="/reservation" renderIf={userRole === UserType.STUDENT && userEligible}/>
+              <LinkItemBox name="Reservation" to="/reservation" renderIf={userRole === UserType.STUDENT}/>
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
