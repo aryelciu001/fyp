@@ -56,7 +56,7 @@ UserRouter.post('/register', async function(req, res) {
   const eligible = 0
 
   try {
-    let user = await UserController.getUser(email)
+    const user = await UserController.getUser(email)
     if (user) {
       return ErrorResponse(new MyError(ErrorMessage.ER_DUP_ENTRY), res)
     }

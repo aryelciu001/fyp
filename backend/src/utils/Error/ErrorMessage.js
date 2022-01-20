@@ -28,5 +28,5 @@ module.exports = {
     code: 'SELECTION_CLOSED',
     message: 'Selection closed',
     statusCode: 401,
-  }
+  },
 }

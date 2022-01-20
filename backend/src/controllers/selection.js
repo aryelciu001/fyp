@@ -5,8 +5,8 @@ const MyError = require('../utils/Error/Error')
 class SelectionController {
   /**
    * @description select project
-   * @param {*} projno 
-   * @param {*} email 
+   * @param {*} projno
+   * @param {*} email
    */
   selectProject = (projno, email) => {
     return new Promise(async (resolve, reject) => {
@@ -49,15 +49,15 @@ class SelectionController {
 
   /**
    * @description get user selection
-   * @param {*} email 
-   * @returns selection by the user with the email 
+   * @param {*} email
+   * @returns selection by the user with the email
    */
   getSelection = (email) => {
     return new Promise(async (resolve, reject) => {
       try {
         let query = `SELECT * FROM selection WHERE email='${email}';`
         let selection = await mysqlQuery(query)
-        
+
         if (!selection.length) return resolve([])
         selection = selection[0]
 

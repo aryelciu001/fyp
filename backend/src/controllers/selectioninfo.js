@@ -5,8 +5,8 @@ const ErrorMessage = require('../utils/Error/ErrorMessage')
 class SelectionInfoController {
   /**
    * @description update time and open/close project selection
-   * @param {*} time 
-   * @param {*} open 
+   * @param {*} time
+   * @param {*} open
    */
   updateSelectionInfo = (opentime, closetime, open) => {
     const query = `UPDATE selectioninfo

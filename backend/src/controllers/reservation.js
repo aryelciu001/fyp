@@ -44,7 +44,7 @@ class ReservationController {
         .catch((e) => reject(new MyError(ErrorMessage.SERVER_ERROR)))
     })
   }
-  
+
   /**
    * @description get user's reservation
    * @param {*} email

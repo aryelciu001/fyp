@@ -13,7 +13,7 @@ ReservationRouter.get('/', AuthController.isUser, async function(req, res) {
 
   ReservationController.getReservation(email)
     .then(async (reservations) => {
-      let reservationsWithInfo = []
+      const reservationsWithInfo = []
       let reservationWithInfo
       let project
       for (const reservation of reservations) {
