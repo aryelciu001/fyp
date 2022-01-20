@@ -4,12 +4,14 @@ const API = process.env.REACT_APP_API
 export function updateSelectionInfo(payload) {
   const uri = `${API}/selectioninfo`
   const {
-    time,
+    opentime,
+    closetime,
     open,
     token,
   } = payload
   const body = {
-    time,
+    opentime,
+    closetime,
     open,
   }
   const config = {

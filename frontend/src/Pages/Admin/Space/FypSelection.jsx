@@ -6,9 +6,11 @@ import { ApiRequestType } from 'utils/constant'
 import axios from 'axios'
 
 export default function FypSelection() {
-  const [value, setValue] = useState(new Date())
+  const [opentime, setOpentime] = useState(new Date())
+  const [closetime, setClosetime] = useState(new Date())
   const [unmounted, setUnmounted] = useState(false)
-  const [selectionInfo, setSelectionInfo] = useState('Selection is closed')
+  const [selectionOpenInfo, setSelectionOpenInfo] = useState('Selection is closed')
+  const [selectionCloseInfo, setSelectionCloseInfo] = useState('')
   const request = useAxios()
 
   useEffect(() => {
@@ -25,27 +27,32 @@ export default function FypSelection() {
       .then((res) => {
         if (unmounted) return
         if (res.data.selectionopen) {
-          let selectionOpenTime = res.data.selectionopentime
-          selectionOpenTime = new Date(selectionOpenTime)
-          selectionOpenTime = selectionOpenTime.toLocaleString()
-          setSelectionInfo(`Selection is open on: ${selectionOpenTime}`)
+          setSelectionOpenInfo(genSelectionInfo('open', res.data.selectionopentime))
+          setSelectionCloseInfo(genSelectionInfo('close', res.data.selectionclosetime))
         } else {
-          setSelectionInfo('Selection is closed')
+          setSelectionOpenInfo('Selection is closed')
+          setSelectionCloseInfo('')
         }
       })
   }
 
   const openSelection = () => {
-    request(ApiRequestType.UPDATE_SELECTION_INFO, { time: value.getTime(), open: 1 })
+    const opentimeInt = opentime.getTime()
+    const closetimeInt = closetime.getTime()
+    if (opentimeInt > closetimeInt) {
+      alert('Closing time cannot be before opening time.')
+      return
+    }
+    request(ApiRequestType.UPDATE_SELECTION_INFO, { opentime: opentimeInt, closetime: closetimeInt, open: 1 })
       .then(() => {
-        alert(`Selection is to be opened on ${value}`)
+        alert(`Selection is to be opened on ${opentime}\nand to be closed on ${closetime}`)
         update()
       })
-      .catch(() => alert('something is wrong'))
+      .catch((e) => console.log(e) && alert('something is wrong'))
   }
 
   const closeSelection = () => {
-    request(ApiRequestType.UPDATE_SELECTION_INFO, { time: 0, open: 0 })
+    request(ApiRequestType.UPDATE_SELECTION_INFO, { opentime: 0, closetime: 0, open: 0 })
       .then(() => {
         alert('Selection is closed')
         update()
@@ -55,7 +62,8 @@ export default function FypSelection() {
 
   return (
     <div className='space-content'>
-      <div>{ selectionInfo }</div>
+      <p>{ selectionOpenInfo }</p>
+      <p>{ selectionCloseInfo }</p>
       <div className='selection-time-buttons'>
         <Button
           className='btn-primary'
@@ -74,11 +82,31 @@ export default function FypSelection() {
       </div>
       <div className='datetimepicker'>
         <DateTimePicker
-          value={value}
-          setValue={setValue}
+          value={opentime}
+          setValue={setOpentime}
           label='Date & time to open selection'
+        />
+      </div>
+      <div className='datetimepicker'>
+        <DateTimePicker
+          value={closetime}
+          setValue={setClosetime}
+          label='Date & time to close selection'
         />
       </div>
     </div>
   )
+}
+
+function genSelectionInfo(type, time) {
+  time = new Date(time)
+  time = time.toLocaleString()
+  switch (type) {
+    case 'open':
+      return `Selection is open on: ${time}`
+    case 'close':
+      return `Selection is closed on: ${time}`
+    default:
+      return ''
+  }
 }
