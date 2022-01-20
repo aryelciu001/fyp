@@ -87,3 +87,18 @@ export function postUserMany(payload) {
   }
   return axios.post(uri, formData, config)
 }
+
+export function register(payload) {
+  const uri = `${API}/user/register`
+  const {
+    email,
+    studentMatricNumber,
+    password,
+  } = payload
+  const body = {
+    email,
+    studentMatricNumber,
+    password,
+  }
+  return axios.post(uri, body)
+}

@@ -29,6 +29,8 @@ export default function useAxios() {
         return Fyp.deleteFyp(payload)
       case ApiRequestType.POST_USER:
         return User.postUser(payload)
+      case ApiRequestType.REGISTER:
+        return User.register(payload)
       case ApiRequestType.PUT_USER:
         return User.putUser(payload)
       case ApiRequestType.POST_USER_MANY:
