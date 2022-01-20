@@ -6,6 +6,7 @@ import EditFyp from 'Pages/Admin/Space/EditFyp'
 import EditUser from 'Pages/Admin/Space/EditUser'
 import FypSelection from 'Pages/Admin/Space/FypSelection'
 import GenerateReport from 'Pages/Admin/Space/GenerateReport'
+import { AdminOptions } from 'utils/constant'
 import './index.scss'
 
 export default function Space(props) {
@@ -21,17 +22,17 @@ export default function Space(props) {
 
 function spaceGenerator(option) {
   switch (option) {
-    case 'Add FYP':
+    case AdminOptions.addFyp:
       return <AddFyp/>
-    case 'Edit FYP':
+    case AdminOptions.editFyp:
       return <EditFyp/>
-    case 'Add User':
+    case AdminOptions.addUser:
       return <AddUser/>
-    case 'Edit User':
+    case AdminOptions.editUser:
       return <EditUser/>
-    case 'FYP Selection':
+    case AdminOptions.fypSelection:
       return <FypSelection/>
-    case 'Generate Report':
+    case AdminOptions.generateReport:
       return <GenerateReport/>
     default:
       return ''

@@ -44,3 +44,12 @@ export const ErrorCode = {
   ER_DUP_ENTRY: 'ER_DUP_ENTRY',
   SELECTION_CLOSED: 'SELECTION_CLOSED',
 }
+
+export const AdminOptions = {
+  addFyp: 'Add FYP',
+  editFyp: 'Edit FYP',
+  addUser: 'Add User',
+  editUser: 'Edit User',
+  fypSelection: 'FYP Selection',
+  generateReport: 'Generate Report',
+}
