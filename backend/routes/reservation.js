@@ -8,7 +8,7 @@ const ErrorResponse = require('../utils/Error/ErrorResponse')
 /**
  * @description get reservation of student
  */
-ReservationRouter.get('/', AuthController.isEligibleStudent, async function(req, res) {
+ReservationRouter.get('/', AuthController.isUser, async function(req, res) {
   const { email } = req.body.authenticatedUser
 
   ReservationController.getReservation(email)
@@ -42,7 +42,7 @@ ReservationRouter.get('/', AuthController.isEligibleStudent, async function(req,
  * - email
  * - projno
  */
-ReservationRouter.post('/', AuthController.isEligibleStudent, async function(req, res) {
+ReservationRouter.post('/', AuthController.isUser, async function(req, res) {
   const { email, projno } = req.body
 
   ReservationController.addReservation(email, projno)

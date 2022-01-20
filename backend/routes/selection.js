@@ -24,7 +24,7 @@ SelectionRouter.post('/', AuthController.isEligibleStudent, async function(req, 
 /**
  * @description get selection of student
  */
-SelectionRouter.get('/', AuthController.isEligibleStudent, async function(req, res) {
+SelectionRouter.get('/', AuthController.isUser, async function(req, res) {
   const { authenticatedUser } = req.body
   SelectionController.getSelection(authenticatedUser.email)
     .then((selection) => res.send(selection))
