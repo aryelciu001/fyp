@@ -1,7 +1,6 @@
 const { mysqlQuery } = require('../utils/mysqlQuery')
 const { encrypt } = require('../utils/bcrypt')
 const SqlString = require('sqlstring')
-const { defaultErrorHandler } = require('../utils/Error/ErrorHandler')
 
 class UserController {
   /**

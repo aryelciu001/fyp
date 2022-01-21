@@ -1,5 +1,4 @@
 const { mysqlQuery } = require('../utils/mysqlQuery')
-const { defaultErrorHandler } = require('../utils/Error/ErrorHandler')
 const SqlString = require('sqlstring')
 
 class SelectionInfoController {
