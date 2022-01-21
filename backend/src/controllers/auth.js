@@ -1,4 +1,3 @@
-const { mysqlQuery } = require('../utils/mysqlQuery')
 const { generateToken, verifyToken } = require('../utils/jwt')
 const { passwordIsCorrect } = require('../utils/bcrypt')
 const Interface = require('../utils/interface')
@@ -6,7 +5,6 @@ const UserController = require('./user')
 const ErrorResponse = require('../utils/Error/ErrorResponse')
 const MyError = require('../utils/Error/Error')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
-const { defaultErrorHandler } = require('../utils/Error/ErrorHandler')
 
 class AuthController {
   /**
