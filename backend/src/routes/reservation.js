@@ -59,7 +59,7 @@ ReservationRouter.post('/', AuthController.isUser, async function(req, res) {
  * - email
  * - projno
  */
-ReservationRouter.delete('/:email&:projno', AuthController.isEligibleStudent, async function(req, res) {
+ReservationRouter.delete('/:email&:projno', AuthController.isUser, async function(req, res) {
   const { email, projno } = req.params
   ReservationController.deleteReservation(email, projno)
     .then(() => res.send())
