@@ -8,28 +8,21 @@ class SelectionInfoController {
    * @param {*} time
    * @param {*} open
    */
-  updateSelectionInfo = (opentime, closetime, open) => {
+  updateSelectionInfo = async (opentime, closetime, open) => {
     const query = SqlString.format(`UPDATE selectioninfo
       SET selectionopen=?, selectionopentime=?, selectionclosetime=?
       WHERE id=1;`, [open, opentime, closetime])
-    return new Promise((resolve, reject) => {
-      mysqlQuery(query)
-        .then(() => resolve())
-        .catch((e) => defaultErrorHandler(e, reject))
-    })
+    return mysqlQuery(query)
   }
 
   /**
    * @description get selectioninfo
    */
-  getSelectionOpenTime = () => {
+  getSelectionInfo = async () => {
     const query = `SELECT * from selectioninfo
       WHERE id=1;`
-    return new Promise((resolve, reject) => {
-      mysqlQuery(query)
-        .then((selectionInfo) => resolve(selectionInfo[0]))
-        .catch((e) => defaultErrorHandler(e, reject))
-    })
+    const info = await mysqlQuery(query)
+    return info[0]
   }
 }
 
