@@ -93,7 +93,7 @@ export default function ProjectItemList(props) {
 }
 
 ProjectItemList.propTypes = {
-  project: PropTypes.objectOf({
+  project: PropTypes.shape({
     title: PropTypes.string,
     projno: PropTypes.string,
     summary: PropTypes.string,
