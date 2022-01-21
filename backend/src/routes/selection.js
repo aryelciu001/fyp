@@ -20,7 +20,7 @@ SelectionRouter.post('/', AuthController.isEligibleStudent, async function(req, 
     const userHasSelected = await SelectionController.getSelectionWithEmail(email)
     if (userHasSelected.length) throw(new MyError(ErrorMessage.USER_HAS_SELECTED))
 
-    let selectionInfo = await SelectionInfoController.getSelectionOpenTime()
+    let selectionInfo = await SelectionInfoController.getSelectionInfo()
 
     if (!selectionInfo.selectionopen) throw(new MyError(ErrorMessage.SELECTION_CLOSED))
 

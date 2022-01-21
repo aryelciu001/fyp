@@ -23,7 +23,7 @@ SelectionInfoRouter.post('/', AuthController.isAdmin, async function(req, res) {
  * @description get selection info
  */
 SelectionInfoRouter.get('/', AuthController.isUser, async function(req, res) {
-  SelectionInfoController.getSelectionOpenTime()
+  SelectionInfoController.getSelectionInfo()
     .then((selectionInfo) => res.send(selectionInfo))
     .catch((e) => {
       return ErrorResponse(e, res)
