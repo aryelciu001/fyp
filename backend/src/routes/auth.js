@@ -2,8 +2,8 @@ const AuthRouter = require('express').Router()
 const AuthController = require('../controllers/auth')
 const UserController = require('../controllers/user')
 const { verifyToken } = require('../utils/jwt')
-const ErrorResponse = require('../utils/Error/ErrorResponse')
 const MyError = require('../utils/Error/Error')
+const ErrorResponse = require('../utils/Error/ErrorResponse')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
 
 /**

@@ -4,9 +4,9 @@ const SqlString = require('sqlstring')
 class ReservationController {
   /**
    * @description get one reservation
-   * @param {*} email 
-   * @param {*} projno 
-   * @returns 
+   * @param {*} email
+   * @param {*} projno
+   * @returns
    */
   getReservation = async (email, projno) => {
     const query = SqlString.format(`SELECT * FROM reservation
@@ -14,7 +14,7 @@ class ReservationController {
     const reservation = await mysqlQuery(query)
     return reservation[0]
   }
-  
+
   /**
    * @description add reservation
    * @param {*} email

@@ -1,8 +1,8 @@
 const ReservationRouter = require('express').Router()
 const ReservationController = require('../controllers/reservation')
 const AuthController = require('../controllers/auth')
-const ErrorResponse = require('../utils/Error/ErrorResponse')
 const MyError = require('../utils/Error/Error')
+const ErrorResponse = require('../utils/Error/ErrorResponse')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
 
 /**
@@ -28,7 +28,7 @@ ReservationRouter.post('/', AuthController.isUser, async function(req, res) {
   try {
     const { email, projno } = req.body
     const reservation = await ReservationController.getReservation(email, projno)
-    if (reservation) throw(new MyError(ErrorMessage.ER_DUP_ENTRY))
+    if (reservation) throw (new MyError(ErrorMessage.ER_DUP_ENTRY))
     await ReservationController.addReservation(email, projno)
     return res.send()
   } catch (e) {

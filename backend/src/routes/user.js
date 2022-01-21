@@ -4,10 +4,10 @@ const multer = require('multer')
 const upload = multer()
 const UserController = require('../controllers/user')
 const AuthController = require('../controllers/auth')
-const ErrorResponse = require('../utils/Error/ErrorResponse')
-const { UserType } = require('../utils/interface')
 const MyError = require('../utils/Error/Error')
+const ErrorResponse = require('../utils/Error/ErrorResponse')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
+const { UserType } = require('../utils/interface')
 const { encrypt } = require('../utils/bcrypt')
 
 /**
@@ -33,10 +33,10 @@ UserRouter.get('/', AuthController.isAdmin, async function(req, res) {
  */
 UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
   try {
-    const { email, studentMatricNumber, password, role, eligible } = req.body
+    let { email, studentMatricNumber, password, role, eligible } = req.body
 
-    const user = UserController.getUser(email)
-    if (user) throw(new MyError(ErrorMessage.ER_DUP_ENTRY))
+    const user = await UserController.getUser(email)
+    if (user) throw (new MyError(ErrorMessage.ER_DUP_ENTRY))
 
     // lowercase everything
     email = email.toLowerCase()
@@ -48,8 +48,8 @@ UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
     await UserController.addUser(email, studentMatricNumber, password, role, eligible)
     return res.send()
   } catch (e) {
-    return ErrorResponse(new MyError(ErrorMessage.SERVER_ERROR), res)
-  } 
+    return ErrorResponse(e, res)
+  }
 })
 
 /**
@@ -60,7 +60,7 @@ UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
  * - studentPassword
  */
 UserRouter.post('/register', async function(req, res) {
-  const { email, studentMatricNumber, password } = req.body
+  let { email, studentMatricNumber, password } = req.body
   const role = UserType.STUDENT
   const eligible = 0
 
@@ -69,6 +69,14 @@ UserRouter.post('/register', async function(req, res) {
     if (user) {
       return ErrorResponse(new MyError(ErrorMessage.ER_DUP_ENTRY), res)
     }
+    
+    // lowercase everything
+    email = email.toLowerCase()
+    studentMatricNumber = studentMatricNumber.toLowerCase()
+
+    // hash password
+    password = await encrypt(password)
+
     await UserController.addUser(email, studentMatricNumber, password, role, eligible)
     return res.send()
   } catch (e) {
@@ -86,8 +94,8 @@ UserRouter.post('/register', async function(req, res) {
  * - role
  */
 UserRouter.put('/', AuthController.isAdmin, async function(req, res) {
-  const { email, studentMatricNumber, password, role, eligible } = req.body
-  
+  let { email, studentMatricNumber, password, role, eligible } = req.body
+
   // lowercase everything
   email = email.toLowerCase()
   studentMatricNumber = studentMatricNumber.toLowerCase()
@@ -126,15 +134,28 @@ UserRouter.post('/csv', upload.single('csvFile'), AuthController.isAdmin, async 
     const data = file.toString()
     const users = await csv().fromString(data)
     const promises = []
+    let email, password, role, eligible
     let matricNumber = ''
     let existingUser
     users.forEach(async (user) => {
       matricNumber = user['matric'] === 'na' ? '' : user['matric']
       existingUser = await UserController.getUser(user['email'])
+      email = user['email']
+      password = user['password']
+      role = user['role']
+      eligible = user['eligible']
+
+      // lowercase everything
+      email = email.toLowerCase()
+      matricNumber = matricNumber.toLowerCase()
+
+      // hash password
+      password = await encrypt(password)
+
       if (existingUser) {
-        promises.push(UserController.editUser(user['email'], matricNumber, '', user['role'], user['eligible']))
+        promises.push(UserController.editUser(email, matricNumber, '', role, eligible))
       } else {
-        promises.push(UserController.addUser(user['email'], matricNumber, user['password'], user['role'], user['eligible']))
+        promises.push(UserController.addUser(email, matricNumber, password, role, eligible))
       }
     })
     await Promise.allSettled(promises)

@@ -3,7 +3,9 @@ const AuthController = require('../controllers/auth')
 const ProjecController = require('../controllers/project')
 const SelectionController = require('../controllers/selection')
 const SelectionInfoController = require('../controllers/selectioninfo')
+const MyError = require('../utils/Error/Error')
 const ErrorResponse = require('../utils/Error/ErrorResponse')
+const ErrorMessage = require('../utils/Error/ErrorMessage')
 
 /**
  * @description select project
@@ -15,20 +17,20 @@ SelectionRouter.post('/', AuthController.isEligibleStudent, async function(req, 
   try {
     const { projno, email } = req.body
     const projectSelected = await SelectionController.getSelectionWithProjno(projno)
-    if (projectSelected.length) throw(new MyError(ErrorMessage.PROJECT_SELECTED))
+    if (projectSelected.length) throw (new MyError(ErrorMessage.PROJECT_SELECTED))
 
     const userHasSelected = await SelectionController.getSelectionWithEmail(email)
-    if (userHasSelected.length) throw(new MyError(ErrorMessage.USER_HAS_SELECTED))
+    if (userHasSelected.length) throw (new MyError(ErrorMessage.USER_HAS_SELECTED))
 
-    let selectionInfo = await SelectionInfoController.getSelectionInfo()
+    const selectionInfo = await SelectionInfoController.getSelectionInfo()
 
-    if (!selectionInfo.selectionopen) throw(new MyError(ErrorMessage.SELECTION_CLOSED))
+    if (!selectionInfo.selectionopen) throw (new MyError(ErrorMessage.SELECTION_CLOSED))
 
     const now = (new Date()).getTime()
-    if (selectionInfo.selectionopentime > now) throw(new MyError(ErrorMessage.SELECTION_CLOSED))
-    if (selectionInfo.selectionclosetime < now) throw(new MyError(ErrorMessage.SELECTION_CLOSED))
+    if (selectionInfo.selectionopentime > now) throw (new MyError(ErrorMessage.SELECTION_CLOSED))
+    if (selectionInfo.selectionclosetime < now) throw (new MyError(ErrorMessage.SELECTION_CLOSED))
 
-    await SelectionController.selectProject()
+    await SelectionController.selectProject(projno, email)
     await ProjecController.selectProject(projno)
     return res.send()
   } catch (e) {

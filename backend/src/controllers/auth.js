@@ -70,11 +70,11 @@ class AuthController {
   login = async (email, password) => {
     const user = await UserController.getUser(email)
 
-    if (!user) throw(new MyError(ErrorMessage.UNAUTHORIZED))
+    if (!user) throw (new MyError(ErrorMessage.UNAUTHORIZED))
 
     const passwordCorrect = await passwordIsCorrect(password, user.password)
 
-    if (!passwordCorrect) throw(new MyError(ErrorMessage.UNAUTHORIZED))
+    if (!passwordCorrect) throw (new MyError(ErrorMessage.UNAUTHORIZED))
 
     const token = generateToken({ email: user.email, role: user.role })
     return { token, email: user.email, role: user.role, eligible: user.eligible }
