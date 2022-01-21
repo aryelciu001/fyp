@@ -31,7 +31,7 @@ class ProjectController {
    * @description get one project
    * @return project[]
    */
-  getOneProject = (projno) => {
+  getOneProject = async (projno) => {
     const query = SqlString.format(`SELECT * FROM project WHERE projno=?;`, [projno])
     return mysqlQuery(query)
   }
@@ -55,9 +55,15 @@ class ProjectController {
    * @description delete project
    * @param projno
    */
-  deleteProject = (projno) => {
+  deleteProject = async (projno) => {
     const query = SqlString.format(`DELETE FROM project 
       WHERE projno=?;`, [projno])
+    return mysqlQuery(query)
+  }
+
+  // TODO: docs
+  selectProject = async (projno) => {
+    const query = SqlString.format(`UPDATE project SET selected=1 WHERE projno=?;`, [projno])
     return mysqlQuery(query)
   }
 }
