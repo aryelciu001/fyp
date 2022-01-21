@@ -1,3 +1,5 @@
+// TODO: remove this
+
 const logger = require('../logger')
 const MyError = require('./Error')
 const ErrorMessage = require('./ErrorMessage')
