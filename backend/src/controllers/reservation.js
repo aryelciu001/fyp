@@ -2,6 +2,7 @@ const { mysqlQuery } = require('../utils/mysqlQuery')
 const MyError = require('../utils/Error/Error')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
 const { defaultErrorHandler } = require('../utils/Error/ErrorHandler')
+const SqlString = require('sqlstring')
 
 class ReservationController {
   /**
@@ -12,16 +13,16 @@ class ReservationController {
   addReservation = (email, projno) => {
     return new Promise(async (resolve, reject) => {
       try {
-        let query = `SELECT * FROM reservation
-          where email='${email}' AND projno='${projno}';`
+        let query = SqlString.format(`SELECT * FROM reservation
+          where email=? AND projno=?;`, [email, projno])
         const duplicateReservation = await mysqlQuery(query)
         if (duplicateReservation.length) {
           return reject(new MyError(ErrorMessage.ER_DUP_ENTRY))
         }
 
-        query = `INSERT INTO reservation 
+        query = SqlString.format(`INSERT INTO reservation 
           (email, projno) 
-          VALUES ('${email}', '${projno}');`
+          VALUES (?, ?);`, [email, projno])
         await mysqlQuery(query)
         return resolve()
       } catch (e) {
@@ -36,9 +37,8 @@ class ReservationController {
    * @param {*} projno
    */
   deleteReservation = (email, projno) => {
-    const query = `DELETE FROM reservation 
-      WHERE email='${email}' AND projno='${projno}';
-    `
+    const query = SqlString.format(`DELETE FROM reservation 
+      WHERE email=? AND projno=?;`, [email, projno])
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
@@ -51,8 +51,8 @@ class ReservationController {
    * @param {*} email
    * @returns reservations
    */
-  getReservation = (email) => {
-    const query = `SELECT * FROM reservation WHERE email='${email}';`
+  getUserReservation = (email) => {
+    const query = SqlString.format(`SELECT * FROM reservation WHERE email=?;`, [email])
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then((reservations) => resolve(reservations))
@@ -64,7 +64,7 @@ class ReservationController {
    * @description return a table to be used for report
    * @returns query
    */
-  generateReport = () => {
+  getReservationReportData = () => {
     return new Promise(async (resolve, reject) => {
       try {
         const query = `SELECT u.email as student_email, u.matriculation_number, p.projno, p.supervisor, p.email as supervisor_email, p.title

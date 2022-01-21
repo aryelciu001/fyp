@@ -78,7 +78,7 @@ class SelectionController {
    * @description return a table to be used for report
    * @returns query
    */
-  generateReport = () => {
+   getSelectionReportData = () => {
     return new Promise(async (resolve, reject) => {
       try {
         const query = `SELECT u.email as student_email, u.matriculation_number, p.projno, p.supervisor, p.email as supervisor_email, p.title

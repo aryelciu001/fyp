@@ -35,7 +35,7 @@ SelectionRouter.get('/', AuthController.isUser, async function(req, res) {
  * @description get all selection
  */
 SelectionRouter.get('/all', AuthController.isAdmin, async function(req, res) {
-  SelectionController.generateReport()
+  SelectionController.getSelectionReportData()
     .then((data) => res.send(data))
     .catch((e) => {
       return ErrorResponse(e, res)

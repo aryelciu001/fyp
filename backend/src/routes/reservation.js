@@ -10,7 +10,7 @@ const ErrorResponse = require('../utils/Error/ErrorResponse')
 ReservationRouter.get('/', AuthController.isUser, async function(req, res) {
   const { email } = req.body.authenticatedUser
 
-  ReservationController.getReservation(email)
+  ReservationController.getUserReservation(email)
     .then(async (reservations) => {
       const reservationsWithInfo = []
       let reservationWithInfo
@@ -40,6 +40,8 @@ ReservationRouter.get('/', AuthController.isUser, async function(req, res) {
 ReservationRouter.post('/', AuthController.isUser, async function(req, res) {
   const { email, projno } = req.body
 
+  ReservationController.
+
   ReservationController.addReservation(email, projno)
     .then(() => res.send({}))
     .catch((e) => {
@@ -67,7 +69,7 @@ ReservationRouter.delete('/:email&:projno', AuthController.isEligibleStudent, as
  * @description get all reservation
  */
 ReservationRouter.get('/all', AuthController.isAdmin, async function(req, res) {
-  ReservationController.generateReport()
+  ReservationController.getReservationReportData()
     .then((data) => res.send(data))
     .catch((e) => {
       return ErrorResponse(e, res)
