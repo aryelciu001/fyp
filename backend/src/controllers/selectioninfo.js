@@ -1,5 +1,6 @@
 const { mysqlQuery } = require('../utils/mysqlQuery')
 const { defaultErrorHandler } = require('../utils/Error/ErrorHandler')
+const SqlString = require('sqlstring')
 
 class SelectionInfoController {
   /**
@@ -8,9 +9,9 @@ class SelectionInfoController {
    * @param {*} open
    */
   updateSelectionInfo = (opentime, closetime, open) => {
-    const query = `UPDATE selectioninfo
-      SET selectionopen=${open}, selectionopentime=${opentime}, selectionclosetime=${closetime}
-      WHERE id=1;`
+    const query = SqlString.format(`UPDATE selectioninfo
+      SET selectionopen=?, selectionopentime=?, selectionclosetime=?
+      WHERE id=1;`, [open, opentime, closetime])
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())

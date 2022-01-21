@@ -11,6 +11,7 @@ class SelectionController {
    * @param {*} email
    */
   selectProject = (projno, email) => {
+    // TODO: HANDLE DUPLICATE AND STUFF IN ROUTER
     return new Promise(async (resolve, reject) => {
       try {
         let query = SqlString.format(`SELECT * FROM selection WHERE projno=?;`, [projno])
@@ -56,6 +57,7 @@ class SelectionController {
    */
   getSelection = (email) => {
     return new Promise(async (resolve, reject) => {
+      // TODO: DIRECTLY POPULATE DATA WITH JOIN
       try {
         let query = SqlString.format(`SELECT * FROM selection WHERE email=?;`, [email])
         let selection = await mysqlQuery(query)
