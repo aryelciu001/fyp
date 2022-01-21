@@ -32,7 +32,7 @@ ProjectRouter.get('/', AuthController.isUser, function(req, res) {
 ProjectRouter.post('/', AuthController.isAdmin, function(req, res) {
   const { title, projno, summary, supervisor, email } = req.body
   ProjectController.addProject(title, projno, summary, supervisor, email)
-    .then(() => res.send({}))
+    .then(() => res.send())
     .catch((e) => {
       return ErrorResponse(e, res)
     })
@@ -51,7 +51,7 @@ ProjectRouter.post('/', AuthController.isAdmin, function(req, res) {
 ProjectRouter.put('/', AuthController.isAdmin, function(req, res) {
   const { title, projno, summary, supervisor, email } = req.body
   ProjectController.editProject(title, projno, summary, supervisor, email)
-    .then(() => res.send({}))
+    .then(() => res.send())
     .catch((e) => {
       return ErrorResponse(e, res)
     })
@@ -65,7 +65,7 @@ ProjectRouter.put('/', AuthController.isAdmin, function(req, res) {
 ProjectRouter.delete('/:id', AuthController.isAdmin, function(req, res) {
   const { id } = req.params
   ProjectController.deleteProject(id)
-    .then(() => res.send({}))
+    .then(() => res.send())
     .catch((e) => {
       return ErrorResponse(e, res)
     })
