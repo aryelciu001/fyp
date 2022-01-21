@@ -10,8 +10,10 @@ class SelectionController {
    * @param {*} projno
    * @param {*} email
    */
+  // TODO: use SQLstring
   selectProject = (projno, email) => {
     // TODO: HANDLE DUPLICATE AND STUFF IN ROUTER
+    // TODO: use async to wrap return value
     return new Promise(async (resolve, reject) => {
       try {
         let query = SqlString.format(`SELECT * FROM selection WHERE projno=?;`, [projno])
@@ -56,46 +58,26 @@ class SelectionController {
    * @returns selection by the user with the email
    */
   getSelection = (email) => {
-    return new Promise(async (resolve, reject) => {
-      // TODO: DIRECTLY POPULATE DATA WITH JOIN
-      try {
-        let query = SqlString.format(`SELECT * FROM selection WHERE email=?;`, [email])
-        let selection = await mysqlQuery(query)
-
-        if (!selection.length) return resolve([])
-        selection = selection[0]
-
-        query = SqlString.format(`SELECT * FROM project WHERE projno=?;`, [selection.projno])
-        let project = await mysqlQuery(query)
-        project = project[0]
-
-        selection.project = project
-        return resolve([selection])
-      } catch (e) {
-        return defaultErrorHandler(e, reject)
-      }
-    })
+    const query = SqlString.format(`SELECT p.title, p.projno, p.email as supervisorEmail, p.supervisor as supervisorName, p.summary
+      FROM selection as s
+      JOIN project as p
+      ON s.projno = p.projno
+      WHERE s.email = ?;`, [email])
+    return mysqlQuery(query)
   }
 
   /**
    * @description return a table to be used for report
-   * @returns query
+   * @returns query `
    */
-   getSelectionReportData = () => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const query = `SELECT u.email as student_email, u.matriculation_number, p.projno, p.supervisor, p.email as supervisor_email, p.title
-          FROM selection as s
-          JOIN user as u
-          ON s.email = u.email
-          JOIN project as p
-          ON s.projno = p.projno;`
-        const data = await mysqlQuery(query)
-        return resolve(data)
-      } catch (e) {
-        return defaultErrorHandler(e, reject)
-      }
-    })
+   getSelectionReportData = async () => {
+    const query = `SELECT u.email as student_email, u.matriculation_number, p.projno, p.supervisor, p.email as supervisor_email, p.title
+      FROM selection as s
+      JOIN user as u
+      ON s.email = u.email
+      JOIN project as p
+      ON s.projno = p.projno;`
+    return mysqlQuery(query)
   }
 }
 

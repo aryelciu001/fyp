@@ -45,8 +45,11 @@ class ReservationController {
    * @returns reservations
    */
   getUserReservation = async (email) => {
-    // TODO: use join to directly populate data
-    const query = SqlString.format(`SELECT * FROM reservation WHERE email=?;`, [email])
+    const query = SqlString.format(`SELECT p.title, p.projno, p.email as supervisorEmail, p.supervisor as supervisorName, p.summary
+      FROM reservation as r
+      JOIN project as p
+      ON r.projno = p.projno
+      WHERE r.email = ?;`, [email])
     return mysqlQuery(query)
   }
 
