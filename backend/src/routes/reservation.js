@@ -3,6 +3,8 @@ const ReservationController = require('../controllers/reservation')
 const AuthController = require('../controllers/auth')
 const ProjectController = require('../controllers/project')
 const ErrorResponse = require('../utils/Error/ErrorResponse')
+const MyError = require('../utils/Error/Error')
+const ErrorMessage = require('../utils/Error/ErrorMessage')
 
 /**
  * @description get reservation of student
@@ -10,6 +12,7 @@ const ErrorResponse = require('../utils/Error/ErrorResponse')
 ReservationRouter.get('/', AuthController.isUser, async function(req, res) {
   const { email } = req.body.authenticatedUser
 
+  // TODO: remove this and use join in query
   ReservationController.getUserReservation(email)
     .then(async (reservations) => {
       const reservationsWithInfo = []
@@ -38,13 +41,15 @@ ReservationRouter.get('/', AuthController.isUser, async function(req, res) {
  * - projno
  */
 ReservationRouter.post('/', AuthController.isUser, async function(req, res) {
-  const { email, projno } = req.body
-
-  ReservationController.addReservation(email, projno)
-    .then(() => res.send({}))
-    .catch((e) => {
-      return ErrorResponse(e, res)
-    })
+  try {
+    const { email, projno } = req.body
+    const reservation = await ReservationController.getReservation(email, projno)
+    if (reservation) throw(new MyError(ErrorMessage.ER_DUP_ENTRY))
+    await ReservationController.addReservation(email, projno)
+    return res.send()
+  } catch (e) {
+    return ErrorResponse(e, res)
+  }
 })
 
 /**
@@ -57,7 +62,7 @@ ReservationRouter.post('/', AuthController.isUser, async function(req, res) {
 ReservationRouter.delete('/:email&:projno', AuthController.isEligibleStudent, async function(req, res) {
   const { email, projno } = req.params
   ReservationController.deleteReservation(email, projno)
-    .then(() => res.send({}))
+    .then(() => res.send())
     .catch((e) => {
       return ErrorResponse(e, res)
     })
