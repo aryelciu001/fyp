@@ -2,6 +2,7 @@ const { mysqlQuery } = require('../utils/mysqlQuery')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
 const MyError = require('../utils/Error/Error')
 const { defaultErrorHandler } = require('../utils/Error/ErrorHandler')
+const SqlString = require('sqlstring')
 
 class SelectionController {
   /**
@@ -12,12 +13,12 @@ class SelectionController {
   selectProject = (projno, email) => {
     return new Promise(async (resolve, reject) => {
       try {
-        let query = `SELECT * FROM selection WHERE projno='${projno}'`
+        let query = SqlString.format(`SELECT * FROM selection WHERE projno=?;`, [projno])
         const projectSelected = await mysqlQuery(query)
 
         if (projectSelected.length) return reject(new MyError(ErrorMessage.PROJECT_SELECTED))
 
-        query = `SELECT * FROM selection WHERE email='${email}'`
+        query = SqlString.format(`SELECT * FROM selection WHERE email=?;`, [email])
         const userHasSelected = await mysqlQuery(query)
 
         if (userHasSelected.length) return reject(new MyError(ErrorMessage.USER_HAS_SELECTED))
@@ -33,12 +34,12 @@ class SelectionController {
         if (selectionInfo.selectionclosetime < now) return reject(new MyError(ErrorMessage.SELECTION_CLOSED))
 
         // insert into selection db
-        query = `INSERT INTO selection(projno, email)
-          VALUES('${projno}', '${email}');`
+        query = SqlString.format(`INSERT INTO selection(projno, email)
+          VALUES(?, ?);`, [projno, email])
         await mysqlQuery(query)
 
         // update project, set selected to true
-        query = `UPDATE project SET selected=1 WHERE projno='${projno}';`
+        query = SqlString.format(`UPDATE project SET selected=1 WHERE projno=?;`, [projno])
         await mysqlQuery(query)
 
         return resolve()
@@ -56,13 +57,13 @@ class SelectionController {
   getSelection = (email) => {
     return new Promise(async (resolve, reject) => {
       try {
-        let query = `SELECT * FROM selection WHERE email='${email}';`
+        let query = SqlString.format(`SELECT * FROM selection WHERE email=?;`, [email])
         let selection = await mysqlQuery(query)
 
         if (!selection.length) return resolve([])
         selection = selection[0]
 
-        query = `SELECT * FROM project WHERE projno='${selection.projno}';`
+        query = SqlString.format(`SELECT * FROM project WHERE projno=?;`, [selection.projno])
         let project = await mysqlQuery(query)
         project = project[0]
 
