@@ -8,6 +8,7 @@ const MyError = require('../utils/Error/Error')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
 const { defaultErrorHandler } = require('../utils/Error/ErrorHandler')
 
+// TODO: use async instead of return new Promise
 class AuthController {
   /**
    * @description express middleware to authenticate admin

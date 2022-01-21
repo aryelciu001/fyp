@@ -1,7 +1,5 @@
 const { mysqlQuery } = require('../utils/mysqlQuery')
 const { encrypt } = require('../utils/bcrypt')
-const MyError = require('../utils/Error/Error')
-const ErrorMessage = require('../utils/Error/ErrorMessage')
 const SqlString = require('sqlstring')
 const { defaultErrorHandler } = require('../utils/Error/ErrorHandler')
 
@@ -14,6 +12,7 @@ class UserController {
    * @param role
    */
   addUser = async (email, studentMatricNumber, password, role, eligible) => {
+    // TODO: prepare data in router
     // lowercase everything
     email = email.toLowerCase()
     studentMatricNumber = studentMatricNumber.toLowerCase()
@@ -43,20 +42,20 @@ class UserController {
     // lowercase everything
     email = email.toLowerCase()
     studentMatricNumber = studentMatricNumber.toLowerCase()
-
+    
     if (!password.length) { // if no new password
-      query = `UPDATE user 
-        SET matriculation_number='${studentMatricNumber}', role='${role}', eligible=${eligible}
-        WHERE email='${email}';`
+      query = SqlString.format(`UPDATE user 
+        SET matriculation_number=?, role=?, eligible=?
+        WHERE email=?;`, [studentMatricNumber, role, eligible, email])
     } else { // if new password is inserted
       // hash password
       password = await encrypt(password)
-      query = `UPDATE user 
-        SET matriculation_number='${studentMatricNumber}', 
-        password='${password}', 
-        role='${role}',
-        eligible=${eligible}
-        WHERE email='${email}';`
+      query = SqlString.format(`UPDATE user 
+        SET matriculation_number=?, 
+        password=?, 
+        role=?,
+        eligible=?
+        WHERE email=?;`, [studentMatricNumber, password, role, eligible, email])
     }
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
@@ -70,7 +69,7 @@ class UserController {
    * @return user[]
    */
   getUserBasedOnRole = (role) => {
-    const query = `SELECT * FROM user WHERE role="${role}";`
+    const query = SqlString.format(`SELECT * FROM user WHERE role=?;`, [role])
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then((student) => resolve(student))
@@ -94,9 +93,8 @@ class UserController {
    * @param id (email for user)
    */
   deleteUser = (email) => {
-    const query = `DELETE FROM user 
-      WHERE email='${email}';
-    `
+    const query = SqlString.format(`DELETE FROM user 
+      WHERE email=?;`, [email])
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
@@ -109,9 +107,8 @@ class UserController {
    * @returns user
    */
   getUser = (email) => {
-    const query = `SELECT * FROM user 
-      WHERE email='${email}';
-    `
+    const query = SqlString.format(`SELECT * FROM user 
+      WHERE email=?;`, [email])
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then((users) => resolve(users[0]))
