@@ -11,28 +11,20 @@ class ProjectController {
    * @param supervisor
    * @param email
    */
-  addProject = (title, projno, summary, supervisor, email) => {
+  addProject = async (title, projno, summary, supervisor, email) => {
     const query = SqlString.format(`INSERT INTO project 
       (title, projno, summary, email, supervisor) 
       VALUES ( ? , ? , ? , ? , ? );`, [title, projno, summary, email, supervisor])
-    return new Promise((resolve, reject) => {
-      mysqlQuery(query)
-        .then(() => resolve())
-        .catch((e) => defaultErrorHandler(e, reject))
-    })
+    return await mysqlQuery(query)
   }
 
   /**
    * @description function to read project[] from db
    * @return project[]
    */
-  getProject = () => {
+  getProject = async () => {
     const query = `SELECT * FROM project WHERE selected=0;`
-    return new Promise((resolve, reject) => {
-      mysqlQuery(query)
-        .then((project) => resolve(project))
-        .catch((e) => defaultErrorHandler(e, reject))
-    })
+    return await mysqlQuery(query)
   }
 
   /**
@@ -41,11 +33,7 @@ class ProjectController {
    */
   getOneProject = (projno) => {
     const query = SqlString.format(`SELECT * FROM project WHERE projno=?;`, [projno])
-    return new Promise((resolve, reject) => {
-      mysqlQuery(query)
-        .then((project) => resolve(project))
-        .catch((e) => defaultErrorHandler(e, reject))
-    })
+    return mysqlQuery(query)
   }
 
   /**
@@ -56,15 +44,11 @@ class ProjectController {
    * @param supervisor
    * @param email
    */
-  editProject = (title, projno, summary, supervisor, email) => {
+  editProject = async (title, projno, summary, supervisor, email) => {
     const query = SqlString.format(`UPDATE project
       SET title=?, projno=?, summary=?, email=?, supervisor=?
       WHERE projno=?;`, [title, projno, summary, email, supervisor, projno])
-    return new Promise((resolve, reject) => {
-      mysqlQuery(query)
-        .then(() => resolve())
-        .catch((e) => defaultErrorHandler(e, reject))
-    })
+    return mysqlQuery(query)
   }
 
   /**
@@ -74,11 +58,7 @@ class ProjectController {
   deleteProject = (projno) => {
     const query = SqlString.format(`DELETE FROM project 
       WHERE projno=?;`, [projno])
-    return new Promise((resolve, reject) => {
-      mysqlQuery(query)
-        .then(() => resolve())
-        .catch((e) => defaultErrorHandler(e, reject))
-    })
+    return mysqlQuery(query)
   }
 }
 
