@@ -8,7 +8,6 @@ const MyError = require('../utils/Error/Error')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
 const { defaultErrorHandler } = require('../utils/Error/ErrorHandler')
 
-// TODO: use async instead of return new Promise
 class AuthController {
   /**
    * @description express middleware to authenticate admin
@@ -70,25 +69,17 @@ class AuthController {
    * - email
    * - role
    */
-  login = (email, password) => {
-    return new Promise((resolve, reject) => {
-      const query = `SELECT * FROM user WHERE email="${email}"`
-      mysqlQuery(query)
-        .then(async (user) => {
-          if (!user.length) return reject(new MyError(ErrorMessage.UNAUTHORIZED))
-          user = user[0]
-          // compare password
-          if (await passwordIsCorrect(password, user.password)) {
-            const token = generateToken({ email: user.email, role: user.role })
-            return resolve({ token, email: user.email, role: user.role, eligible: user.eligible })
-          } else {
-            reject(new MyError(ErrorMessage.UNAUTHORIZED))
-          }
-        })
-        .catch((e) => {
-          return defaultErrorHandler(e, reject)
-        })
-    })
+  login = async (email, password) => {
+    const user = await UserController.getUser(email)
+
+    if (!user) throw(new MyError(ErrorMessage.UNAUTHORIZED))
+
+    const passwordCorrect = await passwordIsCorrect(password, user.password)
+
+    if (!passwordCorrect) throw(new MyError(ErrorMessage.UNAUTHORIZED))
+
+    const token = generateToken({ email: user.email, role: user.role })
+    return { token, email: user.email, role: user.role, eligible: user.eligible }
   }
 }
 
