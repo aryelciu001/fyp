@@ -23,12 +23,7 @@ class UserController {
     const query = SqlString.format(`INSERT INTO user 
       (email, matriculation_number, password, role, eligible) 
       VALUES ( ? , ? , ? , ? , ? )`, [email, studentMatricNumber, password, role, eligible])
-
-    return new Promise((resolve, reject) => {
-      mysqlQuery(query)
-        .then(() => resolve())
-        .catch((e) => defaultErrorHandler(e, reject))
-    })
+    return mysqlQuery(query)
   }
   /**
    * @description edit user
@@ -68,52 +63,37 @@ class UserController {
    * @param role
    * @return user[]
    */
-  getUserBasedOnRole = (role) => {
+  getUserBasedOnRole = async (role) => {
     const query = SqlString.format(`SELECT * FROM user WHERE role=?;`, [role])
-    return new Promise((resolve, reject) => {
-      mysqlQuery(query)
-        .then((student) => resolve(student))
-        .catch((e) => defaultErrorHandler(e, reject))
-    })
+    return mysqlQuery(query)
   }
   /**
    * @description get all user
    * @return user[]
    */
-  getAllUser = () => {
+  getAllUser = async () => {
     const query = `SELECT * FROM user;`
-    return new Promise((resolve, reject) => {
-      mysqlQuery(query)
-        .then((user) => resolve(user))
-        .catch((e) => defaultErrorHandler(e, reject))
-    })
+    return mysqlQuery(query)
   }
   /**
    * @description delete user with specified email
    * @param id (email for user)
    */
-  deleteUser = (email) => {
+  deleteUser = async (email) => {
     const query = SqlString.format(`DELETE FROM user 
       WHERE email=?;`, [email])
-    return new Promise((resolve, reject) => {
-      mysqlQuery(query)
-        .then(() => resolve())
-        .catch((e) => defaultErrorHandler(e, reject))
-    })
+    return mysqlQuery(query)
   }
   /**
    * @description get a user using primary key (email)
    * @param {*} email
    * @returns user
    */
-  getUser = (email) => {
+  getUser = async (email) => {
     const query = SqlString.format(`SELECT * FROM user 
       WHERE email=?;`, [email])
-    return new Promise((resolve, reject) => {
-      mysqlQuery(query)
-        .then((users) => resolve(users[0]))
-        .catch((e) => defaultErrorHandler(e, reject))
-    })
+    const user = await mysqlQuery(query)
+    return user[0]
   }
 }
 
