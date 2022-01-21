@@ -1,6 +1,8 @@
 const SelectionRouter = require('express').Router()
 const AuthController = require('../controllers/auth')
+const ProjecController = require('../controllers/project')
 const SelectionController = require('../controllers/selection')
+const SelectionInfoController = require('../controllers/selectioninfo')
 const ErrorResponse = require('../utils/Error/ErrorResponse')
 
 /**
@@ -10,13 +12,28 @@ const ErrorResponse = require('../utils/Error/ErrorResponse')
  * - email
  */
 SelectionRouter.post('/', AuthController.isEligibleStudent, async function(req, res) {
-  const { projno, email } = req.body
+  try {
+    const { projno, email } = req.body
+    const projectSelected = await SelectionController.getSelectionWithProjno(projno)
+    if (projectSelected.length) throw(new MyError(ErrorMessage.PROJECT_SELECTED))
 
-  SelectionController.selectProject(projno, email)
-    .then(() => res.send({}))
-    .catch((e) => {
-      return ErrorResponse(e, res)
-    })
+    const userHasSelected = await SelectionController.getSelectionWithEmail(email)
+    if (userHasSelected.length) throw(new MyError(ErrorMessage.USER_HAS_SELECTED))
+
+    let selectionInfo = await SelectionInfoController.getSelectionOpenTime()
+
+    if (!selectionInfo.selectionopen) throw(new MyError(ErrorMessage.SELECTION_CLOSED))
+
+    const now = (new Date()).getTime()
+    if (selectionInfo.selectionopentime > now) throw(new MyError(ErrorMessage.SELECTION_CLOSED))
+    if (selectionInfo.selectionclosetime < now) throw(new MyError(ErrorMessage.SELECTION_CLOSED))
+
+    await SelectionController.selectProject()
+    await ProjecController.selectProject(projno)
+    return res.send()
+  } catch (e) {
+    return ErrorResponse(e, res)
+  }
 })
 
 /**
@@ -24,7 +41,7 @@ SelectionRouter.post('/', AuthController.isEligibleStudent, async function(req, 
  */
 SelectionRouter.get('/', AuthController.isUser, async function(req, res) {
   const { authenticatedUser } = req.body
-  SelectionController.getSelection(authenticatedUser.email)
+  SelectionController.getUserSelection(authenticatedUser.email)
     .then((selection) => res.send(selection))
     .catch((e) => {
       return ErrorResponse(e, res)
