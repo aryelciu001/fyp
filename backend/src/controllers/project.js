@@ -1,6 +1,4 @@
 const { mysqlQuery } = require('../utils/mysqlQuery')
-const MyError = require('../utils/Error/Error')
-const ErrorMessage = require('../utils/Error/ErrorMessage')
 const { defaultErrorHandler } = require('../utils/Error/ErrorHandler')
 const SqlString = require('sqlstring')
 
@@ -42,7 +40,7 @@ class ProjectController {
    * @return project[]
    */
   getOneProject = (projno) => {
-    const query = `SELECT * FROM project WHERE projno='${projno}';`
+    const query = SqlString.format(`SELECT * FROM project WHERE projno=?;`, [projno])
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then((project) => resolve(project))
@@ -59,10 +57,9 @@ class ProjectController {
    * @param email
    */
   editProject = (title, projno, summary, supervisor, email) => {
-    const query = `UPDATE project 
-      SET title='${title}', projno='${projno}', summary='${summary}', email='${email}', supervisor='${supervisor}'
-      WHERE projno='${projno}';
-    `
+    const query = SqlString.format(`UPDATE project
+      SET title=?, projno=?, summary=?, email=?, supervisor=?
+      WHERE projno=?;`, [title, projno, summary, email, supervisor, projno])
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
@@ -75,9 +72,8 @@ class ProjectController {
    * @param projno
    */
   deleteProject = (projno) => {
-    const query = `DELETE FROM project 
-      WHERE projno='${projno}';
-    `
+    const query = SqlString.format(`DELETE FROM project 
+      WHERE projno=?;`, [projno])
     return new Promise((resolve, reject) => {
       mysqlQuery(query)
         .then(() => resolve())
