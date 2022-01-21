@@ -11,7 +11,7 @@ export default function ProjectItemList(props) {
   const request = useAxios()
   const [openDesc, setOpenDesc] = useState(false)
   const { update, project } = props
-  const { title, projno, summary, supervisor, email } = project.project
+  const { title, projno, summary, supervisorName, supervisorEmail } = project
   const userEligible = useSelector((state) => state.user.eligible)
 
   const toggleDesc = () => {
@@ -84,8 +84,8 @@ export default function ProjectItemList(props) {
         </div>
       </div>
       <div className={`project-list-item-body ${openDesc ? 'open' : 'close'}`}>
-        <p>Supervisor: {supervisor}</p><br/>
-        <p>Email: {email}</p><br/>
+        <p>Supervisor: {supervisorName}</p><br/>
+        <p>Email: {supervisorEmail}</p><br/>
         <p>{summary}</p>
       </div>
     </div>
@@ -93,7 +93,13 @@ export default function ProjectItemList(props) {
 }
 
 ProjectItemList.propTypes = {
-  project: PropTypes.object,
+  project: PropTypes.objectOf({
+    title: PropTypes.string,
+    projno: PropTypes.string,
+    summary: PropTypes.string,
+    supervisorName: PropTypes.string,
+    supervisorEmail: PropTypes.string,
+  }),
   userEmail: PropTypes.string,
   update: PropTypes.func,
   type: PropTypes.string,
