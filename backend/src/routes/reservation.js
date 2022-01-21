@@ -40,8 +40,6 @@ ReservationRouter.get('/', AuthController.isUser, async function(req, res) {
 ReservationRouter.post('/', AuthController.isUser, async function(req, res) {
   const { email, projno } = req.body
 
-  ReservationController.
-
   ReservationController.addReservation(email, projno)
     .then(() => res.send({}))
     .catch((e) => {
