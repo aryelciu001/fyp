@@ -8,6 +8,7 @@ const ErrorResponse = require('../utils/Error/ErrorResponse')
 const { UserType } = require('../utils/interface')
 const MyError = require('../utils/Error/Error')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
+const { encrypt } = require('../utils/bcrypt')
 
 /**
  * @description get list of students
@@ -31,13 +32,24 @@ UserRouter.get('/', AuthController.isAdmin, async function(req, res) {
  * - role
  */
 UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
-  const { email, studentMatricNumber, password, role, eligible } = req.body
+  try {
+    const { email, studentMatricNumber, password, role, eligible } = req.body
 
-  UserController.addUser(email, studentMatricNumber, password, role, eligible)
-    .then(() => res.send({}))
-    .catch((e) => {
-      return ErrorResponse(e, res)
-    })
+    const user = UserController.getUser(email)
+    if (user) throw(new MyError(ErrorMessage.ER_DUP_ENTRY))
+
+    // lowercase everything
+    email = email.toLowerCase()
+    studentMatricNumber = studentMatricNumber.toLowerCase()
+
+    // hash password
+    password = await encrypt(password)
+
+    await UserController.addUser(email, studentMatricNumber, password, role, eligible)
+    return res.send()
+  } catch (e) {
+    return ErrorResponse(new MyError(ErrorMessage.SERVER_ERROR), res)
+  } 
 })
 
 /**
@@ -58,9 +70,9 @@ UserRouter.post('/register', async function(req, res) {
       return ErrorResponse(new MyError(ErrorMessage.ER_DUP_ENTRY), res)
     }
     await UserController.addUser(email, studentMatricNumber, password, role, eligible)
-    return res.send({})
+    return res.send()
   } catch (e) {
-    return ErrorResponse(new MyError(ErrorMessage.SERVER_ERROR), res)
+    return ErrorResponse(e, res)
   }
 })
 
@@ -75,9 +87,13 @@ UserRouter.post('/register', async function(req, res) {
  */
 UserRouter.put('/', AuthController.isAdmin, async function(req, res) {
   const { email, studentMatricNumber, password, role, eligible } = req.body
+  
+  // lowercase everything
+  email = email.toLowerCase()
+  studentMatricNumber = studentMatricNumber.toLowerCase()
 
   UserController.editUser(email, studentMatricNumber, password, role, eligible)
-    .then(() => res.send({}))
+    .then(() => res.send())
     .catch((e) => {
       return ErrorResponse(e, res)
     })
@@ -92,7 +108,7 @@ UserRouter.delete('/:id', AuthController.isAdmin, async function(req, res) {
   const { id } = req.params
 
   UserController.deleteUser(id)
-    .then(() => res.send({}))
+    .then(() => res.send())
     .catch((e) => {
       return ErrorResponse(e, res)
     })
@@ -105,13 +121,13 @@ UserRouter.delete('/:id', AuthController.isAdmin, async function(req, res) {
  * - csv file
  */
 UserRouter.post('/csv', upload.single('csvFile'), AuthController.isAdmin, async function(req, res) {
-  const file = req.file.buffer
-  const data = file.toString()
-  const users = await csv().fromString(data)
-  const promises = []
-  let matricNumber = ''
-  let existingUser
   try {
+    const file = req.file.buffer
+    const data = file.toString()
+    const users = await csv().fromString(data)
+    const promises = []
+    let matricNumber = ''
+    let existingUser
     users.forEach(async (user) => {
       matricNumber = user['matric'] === 'na' ? '' : user['matric']
       existingUser = await UserController.getUser(user['email'])
@@ -121,14 +137,11 @@ UserRouter.post('/csv', upload.single('csvFile'), AuthController.isAdmin, async 
         promises.push(UserController.addUser(user['email'], matricNumber, user['password'], user['role'], user['eligible']))
       }
     })
+    await Promise.allSettled(promises)
+    return res.send()
   } catch (e) {
-
+    return ErrorResponse(e, res)
   }
-  Promise.allSettled(promises)
-    .then(() => res.send())
-    .catch((e) => {
-      return ErrorResponse(e, res)
-    })
 })
 
 module.exports = UserRouter

@@ -12,14 +12,6 @@ class UserController {
    * @param role
    */
   addUser = async (email, studentMatricNumber, password, role, eligible) => {
-    // TODO: prepare data in router
-    // lowercase everything
-    email = email.toLowerCase()
-    studentMatricNumber = studentMatricNumber.toLowerCase()
-
-    // hash password
-    password = await encrypt(password)
-
     const query = SqlString.format(`INSERT INTO user 
       (email, matriculation_number, password, role, eligible) 
       VALUES ( ? , ? , ? , ? , ? )`, [email, studentMatricNumber, password, role, eligible])
@@ -34,10 +26,6 @@ class UserController {
    */
   editUser = async (email, studentMatricNumber, password, role, eligible) => {
     let query
-    // lowercase everything
-    email = email.toLowerCase()
-    studentMatricNumber = studentMatricNumber.toLowerCase()
-    
     if (!password.length) { // if no new password
       query = SqlString.format(`UPDATE user 
         SET matriculation_number=?, role=?, eligible=?
@@ -52,11 +40,7 @@ class UserController {
         eligible=?
         WHERE email=?;`, [studentMatricNumber, password, role, eligible, email])
     }
-    return new Promise((resolve, reject) => {
-      mysqlQuery(query)
-        .then(() => resolve())
-        .catch((e) => defaultErrorHandler(e, reject))
-    })
+    return mysqlQuery(query)
   }
   /**
    * @description get user[] with a specific role
