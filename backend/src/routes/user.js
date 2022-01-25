@@ -9,6 +9,9 @@ const ErrorResponse = require('../utils/Error/ErrorResponse')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
 const { UserType } = require('../utils/interface')
 const { encrypt } = require('../utils/bcrypt')
+const Mailer = require('../utils/Mailer/Mailer')
+const { verifyEmail } = require('../utils/Mailer/messageGenerator')
+const { randomCodeGen } = require('../utils/Mailer/codeGenerator')
 
 /**
  * @description get list of students
@@ -50,6 +53,15 @@ UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
   } catch (e) {
     return ErrorResponse(e, res)
   }
+})
+
+UserRouter.post('/verifyemail', async function(req, res) {
+  let { email } = req.body
+  const code = randomCodeGen()
+  const emailPayload = verifyEmail(code)
+  Mailer.sendEmail(email, emailPayload)
+    .then(() => res.send())
+    .catch((e) => ErrorResponse(e, res))
 })
 
 /**
