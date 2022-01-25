@@ -29,4 +29,9 @@ module.exports = {
     message: 'Selection closed',
     statusCode: 401,
   },
+  WRONG_VERIFICATION_CODE: {
+    code: 'WRONG_VERIFICATION_CODE',
+    message: 'wrong verification code',
+    statusCode: 401
+  }
 }
