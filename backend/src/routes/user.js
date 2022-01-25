@@ -4,6 +4,7 @@ const multer = require('multer')
 const upload = multer()
 const UserController = require('../controllers/user')
 const AuthController = require('../controllers/auth')
+const VerificationcodeController = require('../controllers/verificationcode')
 const MyError = require('../utils/Error/Error')
 const ErrorResponse = require('../utils/Error/ErrorResponse')
 const ErrorMessage = require('../utils/Error/ErrorMessage')
@@ -55,9 +56,19 @@ UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
   }
 })
 
+/**
+ * @description get code to verify email address
+ * @requestBody 
+ * - email
+ */
 UserRouter.post('/verifyemail', async function(req, res) {
   let { email } = req.body
-  const code = randomCodeGen()
+  let code = randomCodeGen()
+  try {
+    await VerificationcodeController.addCode(email, code)
+  } catch (e) {
+    code = await VerificationcodeController.getCode(email)
+  }
   const emailPayload = verifyEmail(code)
   Mailer.sendEmail(email, emailPayload)
     .then(() => res.send())
@@ -71,12 +82,17 @@ UserRouter.post('/verifyemail', async function(req, res) {
  * - studentMatricNumber
  * - studentPassword
  */
+// TODO: use registered_matric_number for register
 UserRouter.post('/register', async function(req, res) {
-  let { email, studentMatricNumber, password } = req.body
+  let { email, studentMatricNumber, password, verificationCode } = req.body
   const role = UserType.STUDENT
   const eligible = 0
 
   try {
+    // check verification code 
+    const codeIsCorrect = await VerificationcodeController.verifyCode(email, verificationCode)
+    if (!codeIsCorrect) return ErrorResponse(new MyError(ErrorMessage.WRONG_VERIFICATION_CODE), res)
+
     const user = await UserController.getUser(email)
     if (user) {
       return ErrorResponse(new MyError(ErrorMessage.ER_DUP_ENTRY), res)
@@ -90,6 +106,7 @@ UserRouter.post('/register', async function(req, res) {
     password = await encrypt(password)
 
     await UserController.addUser(email, studentMatricNumber, password, role, eligible)
+    await VerificationcodeController.deleteCode(email)
     return res.send()
   } catch (e) {
     return ErrorResponse(e, res)
