@@ -94,11 +94,24 @@ export function register(payload) {
     email,
     studentMatricNumber,
     password,
+    verificationCode,
   } = payload
   const body = {
     email,
     studentMatricNumber,
     password,
+    verificationCode,
+  }
+  return axios.post(uri, body)
+}
+
+export function getVerificationCode(payload) {
+  const uri = `${API}/user/verifyemail`
+  const {
+    email,
+  } = payload
+  const body = {
+    email,
   }
   return axios.post(uri, body)
 }

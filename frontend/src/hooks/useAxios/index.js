@@ -57,6 +57,8 @@ export default function useAxios() {
         return Selection.getAllSelection(payload)
       case ApiRequestType.GET_ALL_RESERVATION:
         return Reservation.getAllReservation(payload)
+      case ApiRequestType.GET_VERIFICATION_CODE:
+        return User.getVerificationCode(payload)
       default:
         return
     }
