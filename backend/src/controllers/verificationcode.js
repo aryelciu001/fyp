@@ -1,4 +1,6 @@
 const { mysqlQuery } = require('../utils/mysqlQuery')
+const MyError = require('../utils/Error/Error')
+const ErrorMessage = require('../utils/Error/ErrorMessage')
 const SqlString = require('sqlstring')
 
 class VerificationcodeController {
@@ -8,13 +10,17 @@ class VerificationcodeController {
   }
 
   verifyCode = async (email, code) => {
-    const query = SqlString.format('SELECT * FROM verificationcode WHERE email=?;', [email])
-    let correctCode = await mysqlQuery(query)
-    correctCode = correctCode[0].code
-    if (code === correctCode) {
-      return true
+    try {
+      const query = SqlString.format('SELECT * FROM verificationcode WHERE email=?;', [email])
+      let correctCode = await mysqlQuery(query)
+      correctCode = correctCode[0].code
+      if (code === correctCode) {
+        return true
+      }
+      return false
+    } catch (e) {
+      throw new MyError(ErrorMessage.WRONG_VERIFICATION_CODE)
     }
-    return false
   }
 
   deleteCode = async (email) => {
@@ -23,10 +29,14 @@ class VerificationcodeController {
   }
 
   getCode = async (email) => {
-    const query = SqlString.format('SELECT * FROM verificationcode WHERE email=?;', [email])
-    let correctCode = await mysqlQuery(query)
-    correctCode = correctCode[0].code
-    return correctCode
+    try {
+      const query = SqlString.format('SELECT * FROM verificationcode WHERE email=?;', [email])
+      let correctCode = await mysqlQuery(query)
+      correctCode = correctCode[0].code
+      return correctCode
+    } catch (e) {
+      throw new MyError(ErrorMessage.WRONG_VERIFICATION_CODE)
+    }
   }
 }
 

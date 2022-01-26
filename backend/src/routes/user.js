@@ -61,14 +61,24 @@ UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
  * @requestBody 
  * - email
  */
+// TODO: check duplicate email record
+// TODO: check if email is valid (handle code not found)
 UserRouter.post('/verifyemail', async function(req, res) {
   let { email } = req.body
   let code = randomCodeGen()
-  try {
+
+  // check if email has been registered
+  const user = await UserController.getUser(email)
+  if (user) {
+    return ErrorResponse(new MyError(ErrorMessage.ER_DUP_ENTRY), res)
+  }
+
+  try { // if new email
     await VerificationcodeController.addCode(email, code)
-  } catch (e) {
+  } catch (e) { // if email is already recorded
     code = await VerificationcodeController.getCode(email)
   }
+
   const emailPayload = verifyEmail(code)
   Mailer.sendEmail(email, emailPayload)
     .then(() => res.send())
@@ -89,7 +99,6 @@ UserRouter.post('/register', async function(req, res) {
   const eligible = 0
 
   try {
-    // check verification code 
     const codeIsCorrect = await VerificationcodeController.verifyCode(email, verificationCode)
     if (!codeIsCorrect) return ErrorResponse(new MyError(ErrorMessage.WRONG_VERIFICATION_CODE), res)
 
