@@ -12,7 +12,8 @@ export default function ProjectItemList(props) {
   const [openDesc, setOpenDesc] = useState(false)
   const { update, project } = props
   const { title, projno, summary, supervisorName, supervisorEmail } = project
-  const userEligible = useSelector((state) => state.user.eligible)
+  const user = useSelector((s) => s.user)
+  const userEligible = user.eligible
 
   const toggleDesc = () => {
     setOpenDesc(!openDesc)
@@ -33,36 +34,50 @@ export default function ProjectItemList(props) {
       })
   }
 
-  const select = () => {
-    const confirmation = prompt(`Are you sure you want to select project '${title}'? \nType the project number '${projno}' to confirm.`)
-    if (confirmation !== projno) {
-      alert('You have inserted the wrong project number. Selection cancelled')
-      return
-    }
-    const payload = {
-      email: props.userEmail,
-      projno,
-    }
-    request(ApiRequestType.SELECT, payload)
-      .then((res) => {
-        alert('Project selected')
-        update()
-      })
-      .catch((e) => {
-        switch (e.response.data.code) {
-          case ErrorCode.SELECTION_CLOSED:
-            alert('You cannot select your project yet')
-            break
-          case ErrorCode.PROJECT_SELECTED:
-            alert('Project has been selected by another user')
-            break
-          case ErrorCode.USER_HAS_SELECTED:
-            alert('You have selected a project')
-            break
-          default:
-            alert('something is wrong')
+  const select = async () => {
+    try {
+      // confirm project number
+      const confirmation = prompt(`Are you sure you want to select project '${title}'? \nType the project number '${projno}' to confirm.`)
+      if (confirmation !== projno) {
+        alert('You have inserted the wrong project number. Selection cancelled')
+        return
+      }
+
+      // confirm matric number (if different)
+      const registeredMatric = user.registered_matriculation_number
+      const validMatric = user.matriculation_number
+      if (registeredMatric !== validMatric) {
+        const input = prompt('Your registered matriculation number is different from your real NTU matriculation number. Please insert your real NTU matriculation number to proceed')
+        if (input.toLowerCase() !== validMatric.toLowerCase()) {
+          alert('Invalid matriculation number. Aborting.')
+          return
         }
-      })
+      }
+
+      const payload = {
+        email: props.userEmail,
+        projno,
+      }
+
+      await request(ApiRequestType.SELECT, payload)
+      alert('Project selected')
+      update()
+    } catch (e) {
+      console.log(e)
+      switch (e.response.data.code) {
+        case ErrorCode.SELECTION_CLOSED:
+          alert('You cannot select your project yet')
+          break
+        case ErrorCode.PROJECT_SELECTED:
+          alert('Project has been selected by another user')
+          break
+        case ErrorCode.USER_HAS_SELECTED:
+          alert('You have selected a project')
+          break
+        default:
+          alert('something is wrong')
+      }
+    }
   }
 
   return (
