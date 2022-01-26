@@ -4,8 +4,8 @@ USE fyp_lists_project;
 CREATE TABLE IF NOT EXISTS user (
   email varchar(256) NOT NULL,
   password varchar(256),
-  registered_matriculation_number varchar(20),
-  matriculation_number varchar(20),
+  registered_matriculation_number varchar(10),
+  matriculation_number varchar(10),
   role varchar (20) NOT NULL,
   eligible boolean default false,
   PRIMARY KEY (email)
