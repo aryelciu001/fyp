@@ -43,7 +43,7 @@ export const UserSchema = [
     type: 'string',
   },
   {
-    text: 'Eligible to reserve',
+    text: 'Eligible to select',
     key: 'eligible',
     type: 'boolean',
   },
