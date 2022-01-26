@@ -77,7 +77,14 @@ class AuthController {
     if (!passwordCorrect) throw (new MyError(ErrorMessage.UNAUTHORIZED))
 
     const token = generateToken({ email: user.email, role: user.role })
-    return { token, email: user.email, role: user.role, eligible: user.eligible }
+    return { 
+      token,
+      email: user.email,
+      role: user.role,
+      eligible: user.eligible,
+      registered_matriculation_number: user.registered_matriculation_number,
+      matriculation_number: user.matriculation_number,
+    }
   }
 }
 
