@@ -78,9 +78,12 @@ UserRouter.post('/verifyemail', async function(req, res) {
   }
 
   const emailPayload = verifyEmail(code)
+  
   Mailer.sendEmail(email, emailPayload)
-    .then(() => res.send())
     .catch((e) => ErrorResponse(e, res))
+
+  // finish even before email is sent, so the loading isnt long
+  return res.send()
 })
 
 /**
