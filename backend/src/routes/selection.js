@@ -18,10 +18,6 @@ SelectionRouter.post('/', AuthController.isEligibleStudent, async function(req, 
   try {
     const { projno, email } = req.body
 
-    // check if registered matric number is valid
-    const registeredMatricNumberIsValid = await UserController.verifyMatricNumber(email)
-    if (!registeredMatricNumberIsValid) throw (new MyError(ErrorMessage.DIFFERENT_REGISTERED_MATRIC_NUMBER))
-
     // check if project has been selected
     const projectSelected = await SelectionController.getSelectionWithProjno(projno)
     if (projectSelected.length) throw (new MyError(ErrorMessage.PROJECT_SELECTED))
