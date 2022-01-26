@@ -125,10 +125,10 @@ export default function UserForm(props) {
       </div>
       <div className='form-content-row'>
         <FormControl fullWidth>
-          <InputLabel>Eligible to reserve</InputLabel>
+          <InputLabel>Eligible to select</InputLabel>
           <Select
             value={eligible}
-            label='Eligible to reserve'
+            label='Eligible to select'
             onChange={(e)=>setEligible(e.target.value)}
           >
             <MenuItem value={1}>true</MenuItem>
