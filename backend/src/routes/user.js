@@ -58,11 +58,11 @@ UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
 
 /**
  * @description get code to verify email address
- * @requestBody 
+ * @requestBody
  * - email
  */
 UserRouter.post('/verifyemail', async function(req, res) {
-  let { email } = req.body
+  const { email } = req.body
   let code = randomCodeGen()
 
   // check if email has been registered
@@ -104,7 +104,7 @@ UserRouter.post('/register', async function(req, res) {
     if (user) {
       return ErrorResponse(new MyError(ErrorMessage.ER_DUP_ENTRY), res)
     }
-    
+
     // lowercase everything
     email = email.toLowerCase()
     studentMatricNumber = studentMatricNumber.toLowerCase()
@@ -170,7 +170,7 @@ UserRouter.post('/csv', upload.single('csvFile'), AuthController.isAdmin, async 
     const data = file.toString()
     const users = await csv().fromString(data)
     const promises = []
-    let email, password, role, eligible
+    let email; let password; let role; let eligible
     let matricNumber = ''
     let existingUser
     users.forEach(async (user) => {

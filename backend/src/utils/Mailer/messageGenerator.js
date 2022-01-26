@@ -7,7 +7,7 @@ module.exports = {
     return {
       subject,
       text,
-      html
+      html,
     }
-  } 
+  },
 }

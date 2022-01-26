@@ -7,5 +7,5 @@ module.exports = {
       code += String(n)
     }
     return code
-  }
+  },
 }

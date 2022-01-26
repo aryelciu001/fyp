@@ -32,6 +32,6 @@ module.exports = {
   WRONG_VERIFICATION_CODE: {
     code: 'WRONG_VERIFICATION_CODE',
     message: 'wrong verification code',
-    statusCode: 401
-  }
+    statusCode: 401,
+  },
 }

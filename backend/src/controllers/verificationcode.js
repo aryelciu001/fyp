@@ -5,10 +5,10 @@ const SqlString = require('sqlstring')
 
 class VerificationcodeController {
   /**
-   * @description add verification code to db 
-   * @param {*} email 
-   * @param {*} code 
-   * @returns 
+   * @description add verification code to db
+   * @param {*} email
+   * @param {*} code
+   * @returns
    */
   addCode = async (email, code) => {
     const query = SqlString.format('INSERT INTO verificationcode (email, code) VALUES (?,?);', [email, code])
@@ -17,9 +17,9 @@ class VerificationcodeController {
 
   /**
    * @description verify code with code in db
-   * @param {*} email 
-   * @param {*} code 
-   * @returns 
+   * @param {*} email
+   * @param {*} code
+   * @returns
    */
   verifyCode = async (email, code) => {
     try {
@@ -37,8 +37,8 @@ class VerificationcodeController {
 
   /**
    * @description delete verification code
-   * @param {*} email 
-   * @returns 
+   * @param {*} email
+   * @returns
    */
   deleteCode = async (email) => {
     const query = SqlString.format('DELETE FROM verificationcode WHERE email=?;', [email])
@@ -47,8 +47,8 @@ class VerificationcodeController {
 
   /**
    * @description get verification code using email
-   * @param {*} email 
-   * @returns 
+   * @param {*} email
+   * @returns
    */
   getCode = async (email) => {
     try {

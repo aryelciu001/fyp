@@ -29,8 +29,8 @@ class SelectionController {
 
   /**
    * @description get selection using projno
-   * @param {*} projno 
-   * @returns 
+   * @param {*} projno
+   * @returns
    */
   getSelectionWithProjno = async (projno) => {
     const query = SqlString.format(`SELECT * FROM selection WHERE projno=?;`, [projno])
@@ -39,8 +39,8 @@ class SelectionController {
 
   /**
    * @description get selection using email
-   * @param {*} email 
-   * @returns 
+   * @param {*} email
+   * @returns
    */
   getSelectionWithEmail = async (email) => {
     const query = SqlString.format(`SELECT * FROM selection WHERE email=?;`, [email])

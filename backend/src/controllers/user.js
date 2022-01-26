@@ -16,7 +16,7 @@ class UserController {
       VALUES ( ? , ? , ? , ? , ? )`, [email, studentMatricNumber, password, role, eligible])
     return mysqlQuery(query)
   }
-  
+
   /**
    * @description edit user
    * @param email

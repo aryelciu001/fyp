@@ -62,8 +62,8 @@ class ProjectController {
 
   /**
    * @description set project to selected
-   * @param {*} projno 
-   * @returns 
+   * @param {*} projno
+   * @returns
    */
   selectProject = async (projno) => {
     const query = SqlString.format(`UPDATE project SET selected=1 WHERE projno=?;`, [projno])
