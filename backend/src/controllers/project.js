@@ -60,7 +60,11 @@ class ProjectController {
     return mysqlQuery(query)
   }
 
-  // TODO: docs
+  /**
+   * @description set project to selected
+   * @param {*} projno 
+   * @returns 
+   */
   selectProject = async (projno) => {
     const query = SqlString.format(`UPDATE project SET selected=1 WHERE projno=?;`, [projno])
     return mysqlQuery(query)

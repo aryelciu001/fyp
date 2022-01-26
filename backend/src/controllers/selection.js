@@ -27,12 +27,21 @@ class SelectionController {
     return mysqlQuery(query)
   }
 
-  // TODO: docs
+  /**
+   * @description get selection using projno
+   * @param {*} projno 
+   * @returns 
+   */
   getSelectionWithProjno = async (projno) => {
     const query = SqlString.format(`SELECT * FROM selection WHERE projno=?;`, [projno])
     return mysqlQuery(query)
   }
 
+  /**
+   * @description get selection using email
+   * @param {*} email 
+   * @returns 
+   */
   getSelectionWithEmail = async (email) => {
     const query = SqlString.format(`SELECT * FROM selection WHERE email=?;`, [email])
     return mysqlQuery(query)

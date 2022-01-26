@@ -16,6 +16,7 @@ class UserController {
       VALUES ( ? , ? , ? , ? , ? )`, [email, studentMatricNumber, password, role, eligible])
     return mysqlQuery(query)
   }
+  
   /**
    * @description edit user
    * @param email
@@ -41,6 +42,7 @@ class UserController {
     }
     return mysqlQuery(query)
   }
+
   /**
    * @description get user[] with a specific role
    * @param role
@@ -50,6 +52,7 @@ class UserController {
     const query = SqlString.format(`SELECT * FROM user WHERE role=?;`, [role])
     return mysqlQuery(query)
   }
+
   /**
    * @description get all user
    * @return user[]
@@ -58,6 +61,7 @@ class UserController {
     const query = `SELECT * FROM user;`
     return mysqlQuery(query)
   }
+
   /**
    * @description delete user with specified email
    * @param id (email for user)
@@ -67,6 +71,7 @@ class UserController {
       WHERE email=?;`, [email])
     return mysqlQuery(query)
   }
+
   /**
    * @description get a user using primary key (email)
    * @param {*} email

@@ -61,8 +61,6 @@ UserRouter.post('/', AuthController.isAdmin, async function(req, res) {
  * @requestBody 
  * - email
  */
-// TODO: check duplicate email record
-// TODO: check if email is valid (handle code not found)
 UserRouter.post('/verifyemail', async function(req, res) {
   let { email } = req.body
   let code = randomCodeGen()
