@@ -1,6 +1,8 @@
 const { mysqlQuery } = require('../utils/mysqlQuery')
 const { encrypt } = require('../utils/bcrypt')
 const SqlString = require('sqlstring')
+const MyError = require('../utils/Error/Error')
+const ErrorMessage = require('../utils/Error/ErrorMessage')
 
 class UserController {
   /**
@@ -96,6 +98,19 @@ class UserController {
       WHERE email=?;`, [email])
     const user = await mysqlQuery(query)
     return user[0]
+  }
+
+  /**
+   * @description check if registered matric number is valid (from admin)
+   * @param {*} email 
+   * @returns 
+   */
+  verifyMatricNumber = async (email) => {
+    const user = await this.getUser(email)
+    const registeredMatric = user.registered_matriculation_number
+    const validMatric = user.matriculation_number
+    if (registeredMatric === validMatric) return true
+    return false
   }
 }
 

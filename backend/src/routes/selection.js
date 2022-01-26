@@ -1,5 +1,6 @@
 const SelectionRouter = require('express').Router()
 const AuthController = require('../controllers/auth')
+const UserController = require('../controllers/user')
 const ProjecController = require('../controllers/project')
 const SelectionController = require('../controllers/selection')
 const SelectionInfoController = require('../controllers/selectioninfo')
@@ -16,22 +17,34 @@ const ErrorMessage = require('../utils/Error/ErrorMessage')
 SelectionRouter.post('/', AuthController.isEligibleStudent, async function(req, res) {
   try {
     const { projno, email } = req.body
+
+    // check if registered matric number is valid
+    const registeredMatricNumberIsValid = await UserController.verifyMatricNumber(email)
+    if (!registeredMatricNumberIsValid) throw (new MyError(ErrorMessage.DIFFERENT_REGISTERED_MATRIC_NUMBER))
+
+    // check if project has been selected
     const projectSelected = await SelectionController.getSelectionWithProjno(projno)
     if (projectSelected.length) throw (new MyError(ErrorMessage.PROJECT_SELECTED))
 
+    // check if user has selected
     const userHasSelected = await SelectionController.getSelectionWithEmail(email)
     if (userHasSelected.length) throw (new MyError(ErrorMessage.USER_HAS_SELECTED))
 
+    // check if selection time is open
     const selectionInfo = await SelectionInfoController.getSelectionInfo()
-
     if (!selectionInfo.selectionopen) throw (new MyError(ErrorMessage.SELECTION_CLOSED))
 
+    // check if current time is within open period
     const now = (new Date()).getTime()
     if (selectionInfo.selectionopentime > now) throw (new MyError(ErrorMessage.SELECTION_CLOSED))
     if (selectionInfo.selectionclosetime < now) throw (new MyError(ErrorMessage.SELECTION_CLOSED))
 
+    // add selection to db
     await SelectionController.selectProject(projno, email)
+
+    // set project as selected
     await ProjecController.selectProject(projno)
+
     return res.send()
   } catch (e) {
     return ErrorResponse(e, res)

@@ -34,4 +34,9 @@ module.exports = {
     message: 'wrong verification code',
     statusCode: 401,
   },
+  DIFFERENT_REGISTERED_MATRIC_NUMBER: {
+    code: 'DIFFERENT_REGISTERED_MATRIC_NUMBER',
+    message: 'valid matric number is different from registered matric number',
+    statusCode: 400,
+  }
 }
