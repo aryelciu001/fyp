@@ -4,7 +4,7 @@ const SqlString = require('sqlstring')
 
 class UserController {
   /**
-   * @description add user to db
+   * @description add user to db for admin
    * @param email
    * @param studentMatricNumber
    * @param password
@@ -13,6 +13,20 @@ class UserController {
   addUser = async (email, studentMatricNumber, password, role, eligible) => {
     const query = SqlString.format(`INSERT INTO user 
       (email, matriculation_number, password, role, eligible) 
+      VALUES ( ? , ? , ? , ? , ? )`, [email, studentMatricNumber, password, role, eligible])
+    return mysqlQuery(query)
+  }
+
+  /**
+   * @description for user public registration
+   * @param email
+   * @param studentMatricNumber
+   * @param password
+   * @param role
+   */
+   register = async (email, studentMatricNumber, password, role, eligible) => {
+    const query = SqlString.format(`INSERT INTO user 
+      (email, registered_matriculation_number, password, role, eligible) 
       VALUES ( ? , ? , ? , ? , ? )`, [email, studentMatricNumber, password, role, eligible])
     return mysqlQuery(query)
   }

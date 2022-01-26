@@ -90,7 +90,6 @@ UserRouter.post('/verifyemail', async function(req, res) {
  * - studentMatricNumber
  * - studentPassword
  */
-// TODO: use registered_matric_number for register
 UserRouter.post('/register', async function(req, res) {
   let { email, studentMatricNumber, password, verificationCode } = req.body
   const role = UserType.STUDENT
@@ -112,7 +111,7 @@ UserRouter.post('/register', async function(req, res) {
     // hash password
     password = await encrypt(password)
 
-    await UserController.addUser(email, studentMatricNumber, password, role, eligible)
+    await UserController.register(email, studentMatricNumber, password, role, eligible)
     await VerificationcodeController.deleteCode(email)
     return res.send()
   } catch (e) {
