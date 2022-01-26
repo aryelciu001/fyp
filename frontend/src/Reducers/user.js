@@ -7,6 +7,8 @@ export const userSlice = createSlice({
     role: '',
     token: '',
     eligible: 0,
+    matriculation_number: '',
+    registered_matriculation_number: '',
   },
   reducers: {
     login: (state, action) => {
@@ -17,6 +19,8 @@ export const userSlice = createSlice({
         role: action.payload.role,
         token: action.payload.token,
         eligible: action.payload.eligible,
+        matriculation_number: action.payload.matriculation_number,
+        registered_matriculation_number: action.payload.registered_matriculation_number,
       }
     },
     logout: (state) => {
@@ -27,6 +31,8 @@ export const userSlice = createSlice({
         role: '',
         token: '',
         eligible: false,
+        matriculation_number: '',
+        registered_matriculation_number: '',
       }
     },
   },

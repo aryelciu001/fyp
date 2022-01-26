@@ -36,7 +36,7 @@ function App(props) {
     } else {
       request(ApiRequestType.GET_USER_INFO, { token })
         .then((res) => {
-          dispatch(login({ email: res.data.email, role: res.data.role, token, eligible: res.data.eligible }))
+          dispatch(login({ token, ...res.data }))
           setLoading(false)
           navigate('/')
         })
