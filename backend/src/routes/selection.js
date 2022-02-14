@@ -41,6 +41,9 @@ SelectionRouter.post('/', AuthController.isEligibleStudent, async function(req, 
     // set project as selected
     await ProjecController.selectProject(projno)
 
+    // update student matric number according to admin-supplied matric number
+    await UserController.updateMatricNumber(email)
+
     return res.send()
   } catch (e) {
     return ErrorResponse(e, res)

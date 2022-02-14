@@ -28,8 +28,8 @@ class UserController {
    */
    register = async (email, studentMatricNumber, password, role, eligible) => {
     const query = SqlString.format(`INSERT INTO user 
-      (email, registered_matriculation_number, password, role, eligible) 
-      VALUES ( ? , ? , ? , ? , ? )`, [email, studentMatricNumber, password, role, eligible])
+      (email, registered_matriculation_number, password, role, eligible, matriculation_number) 
+      VALUES (?, ?, ?, ?, ?, ?)`, [email, studentMatricNumber, password, role, eligible, ''])
     return mysqlQuery(query)
   }
 
@@ -56,6 +56,16 @@ class UserController {
         eligible=?
         WHERE email=?;`, [studentMatricNumber, password, role, eligible, email])
     }
+    return mysqlQuery(query)
+  }
+
+  /**
+   * @description update matric number with admin-supplied matric number
+   * @param email
+   */
+  updateMatricNumber = async (email) => {
+    const query = SqlString.format(`UPDATE user
+      SET registered_matriculation_number=matriculation_number WHERE email=?;`, [email])
     return mysqlQuery(query)
   }
 
