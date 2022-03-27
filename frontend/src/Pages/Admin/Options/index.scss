@@ -13,7 +13,7 @@ $border-selected: 5px solid $theme-blue;
     border-top: 0px;
     padding: 7.5px 15px;
     text-align: left;
-    transition: .25s;
+    transition: 0.25s;
     cursor: pointer;
     &:first-of-type {
       border-top: $border;

@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 export const selectionSlice = createSlice({
-  name: 'selection',
+  name: "selection",
   initialState: {
     list: [],
   },
@@ -10,11 +10,11 @@ export const selectionSlice = createSlice({
       return {
         ...state,
         list: action.payload.selection,
-      }
+      };
     },
   },
-})
+});
 
-export const { updateSelection } = selectionSlice.actions
+export const { updateSelection } = selectionSlice.actions;
 
-export default selectionSlice.reducer
+export default selectionSlice.reducer;

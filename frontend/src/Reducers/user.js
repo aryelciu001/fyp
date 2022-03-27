@@ -1,18 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState: {
-    email: '',
-    role: '',
-    token: '',
+    email: "",
+    role: "",
+    token: "",
     eligible: 0,
-    matriculation_number: '',
-    registered_matriculation_number: '',
+    matriculation_number: "",
+    registered_matriculation_number: "",
   },
   reducers: {
     login: (state, action) => {
-      localStorage.setItem('token', action.payload.token)
+      localStorage.setItem("token", action.payload.token);
       return {
         ...state,
         email: action.payload.email,
@@ -20,24 +20,25 @@ export const userSlice = createSlice({
         token: action.payload.token,
         eligible: action.payload.eligible,
         matriculation_number: action.payload.matriculation_number,
-        registered_matriculation_number: action.payload.registered_matriculation_number,
-      }
+        registered_matriculation_number:
+          action.payload.registered_matriculation_number,
+      };
     },
     logout: (state) => {
-      localStorage.removeItem('token')
+      localStorage.removeItem("token");
       return {
         ...state,
-        email: '',
-        role: '',
-        token: '',
+        email: "",
+        role: "",
+        token: "",
         eligible: false,
-        matriculation_number: '',
-        registered_matriculation_number: '',
-      }
+        matriculation_number: "",
+        registered_matriculation_number: "",
+      };
     },
   },
-})
+});
 
-export const { login, logout } = userSlice.actions
+export const { login, logout } = userSlice.actions;
 
-export default userSlice.reducer
+export default userSlice.reducer;

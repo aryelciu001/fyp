@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 export const dialogFormSlice = createSlice({
-  name: 'dialogform',
+  name: "dialogform",
   initialState: {
     formType: null,
     data: null,
@@ -12,18 +12,18 @@ export const dialogFormSlice = createSlice({
         ...state,
         data: action.payload.data,
         formType: action.payload.formType,
-      }
+      };
     },
     closeDialogForm: (state) => {
       return {
         ...state,
         formType: null,
         data: null,
-      }
+      };
     },
   },
-})
+});
 
-export const { openDialogForm, closeDialogForm } = dialogFormSlice.actions
+export const { openDialogForm, closeDialogForm } = dialogFormSlice.actions;
 
-export default dialogFormSlice.reducer
+export default dialogFormSlice.reducer;

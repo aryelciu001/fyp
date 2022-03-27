@@ -1,4 +1,4 @@
-@import '../../../CSS/variables.scss';
+@import "../../../CSS/variables.scss";
 
 .project-list-item {
   width: 100%;
@@ -18,7 +18,7 @@
         background-color: $theme-blue;
         color: white;
         font-size: $button-font-size;
-        transition: .1s;
+        transition: 0.1s;
         &:hover {
           background-color: $theme-blue-lighter;
         }

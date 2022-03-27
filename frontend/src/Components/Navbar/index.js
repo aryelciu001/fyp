@@ -1,78 +1,78 @@
-import * as React from 'react'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import Menu from '@mui/material/Menu'
-import MenuIcon from '@mui/icons-material/Menu'
-import Container from '@mui/material/Container'
-import Button from '@mui/material/Button'
-import Tooltip from '@mui/material/Tooltip'
-import MenuItem from '@mui/material/MenuItem'
-import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { logout } from 'Reducers/user'
-import './index.scss'
-import { UserType } from 'utils/constant'
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "Reducers/user";
+import "./index.scss";
+import { UserType } from "utils/constant";
 
 const ResponsiveAppBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null)
-  const [anchorElUser, setAnchorElUser] = React.useState(null)
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const userEmail = useSelector((state) => state.user.email)
-  const userRole = useSelector((state) => state.user.role)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const userEmail = useSelector((state) => state.user.email);
+  const userRole = useSelector((state) => state.user.role);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget)
-  }
+    setAnchorElNav(event.currentTarget);
+  };
   const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget)
-  }
+    setAnchorElUser(event.currentTarget);
+  };
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav(null)
-  }
+    setAnchorElNav(null);
+  };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null)
-  }
+    setAnchorElUser(null);
+  };
 
   const handleSettingClick = (setting) => {
     switch (setting.toLowerCase()) {
-      case 'logout':
-        dispatch(logout())
-        navigate('/login')
-        break
+      case "logout":
+        dispatch(logout());
+        navigate("/login");
+        break;
       default:
-        break
+        break;
     }
-  }
+  };
 
   /* eslint-disable */
-  const LinkItemBox = ({ name, to, renderIf }) => (
-    renderIf ? <Link key={name} className="navbar-link" to={to}>
-      <Button
-        key={name}
-        onClick={handleCloseNavMenu}
-        sx={{ my: 2, color: 'white', display: 'block' }}
-      >
-        {name}
-      </Button>
-    </Link> : null
-  )
-
-  const LinkItemMenu = ({ name, to, renderIf }) => (
-    renderIf ? <Link key={name} className="navbar-link" to={to}>
-      <MenuItem key={name}>
-        <Typography textAlign="center">
+  const LinkItemBox = ({ name, to, renderIf }) =>
+    renderIf ? (
+      <Link key={name} className="navbar-link" to={to}>
+        <Button
+          key={name}
+          onClick={handleCloseNavMenu}
+          sx={{ my: 2, color: "white", display: "block" }}
+        >
           {name}
-        </Typography>
-      </MenuItem>
-    </Link> : null
-  )
+        </Button>
+      </Link>
+    ) : null;
+
+  const LinkItemMenu = ({ name, to, renderIf }) =>
+    renderIf ? (
+      <Link key={name} className="navbar-link" to={to}>
+        <MenuItem key={name}>
+          <Typography textAlign="center">{name}</Typography>
+        </MenuItem>
+      </Link>
+    ) : null;
   /* eslint-enable */
 
   return (
@@ -80,7 +80,7 @@ const ResponsiveAppBar = () => {
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -95,57 +95,76 @@ const ResponsiveAppBar = () => {
                 id="menu-appbar"
                 anchorEl={anchorElNav}
                 anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
+                  vertical: "bottom",
+                  horizontal: "left",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
+                  vertical: "top",
+                  horizontal: "left",
                 }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
                 sx={{
-                  display: { xs: 'block', md: 'none' },
+                  display: { xs: "block", md: "none" },
                 }}
               >
-                <LinkItemMenu name="Home" to="/" renderIf={true}/>
-                <LinkItemMenu name="Admin" to="/admin" renderIf={userRole === UserType.ADMIN}/>
-                <LinkItemMenu name="Reservation" to="/reservation" renderIf={userRole === UserType.STUDENT}/>
+                <LinkItemMenu name="Home" to="/" renderIf={true} />
+                <LinkItemMenu
+                  name="Admin"
+                  to="/admin"
+                  renderIf={userRole === UserType.ADMIN}
+                />
+                <LinkItemMenu
+                  name="Reservation"
+                  to="/reservation"
+                  renderIf={userRole === UserType.STUDENT}
+                />
               </Menu>
             </Box>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <LinkItemBox name="Home" to="/" renderIf={true}/>
-              <LinkItemBox name="Admin" to="/admin" renderIf={userRole === UserType.ADMIN}/>
-              <LinkItemBox name="Reservation" to="/reservation" renderIf={userRole === UserType.STUDENT}/>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <LinkItemBox name="Home" to="/" renderIf={true} />
+              <LinkItemBox
+                name="Admin"
+                to="/admin"
+                renderIf={userRole === UserType.ADMIN}
+              />
+              <LinkItemBox
+                name="Reservation"
+                to="/reservation"
+                renderIf={userRole === UserType.STUDENT}
+              />
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, fontSize: '0.8em' }}>
-                  { userEmail }
+                <IconButton
+                  onClick={handleOpenUserMenu}
+                  sx={{ p: 0, fontSize: "0.8em" }}
+                >
+                  {userEmail}
                 </IconButton>
               </Tooltip>
               <Menu
-                sx={{ mt: '45px' }}
+                sx={{ mt: "45px" }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem key='logout' onClick={handleCloseNavMenu}>
+                <MenuItem key="logout" onClick={handleCloseNavMenu}>
                   <Typography
                     textAlign="center"
-                    onClick={()=>handleSettingClick('logout')}
+                    onClick={() => handleSettingClick("logout")}
                   >
                     Logout
                   </Typography>
@@ -156,6 +175,6 @@ const ResponsiveAppBar = () => {
         </Container>
       </AppBar>
     </div>
-  )
-}
-export default ResponsiveAppBar
+  );
+};
+export default ResponsiveAppBar;

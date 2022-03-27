@@ -1,59 +1,61 @@
-import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { TextField, Button } from '@mui/material'
-import { ApiRequestType } from 'utils/constant'
-import './index.scss'
-import useAxios from 'hooks/useAxios'
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { TextField, Button } from "@mui/material";
+import { ApiRequestType } from "utils/constant";
+import "./index.scss";
+import useAxios from "hooks/useAxios";
 
 export default function FypForm(props) {
-  const request = useAxios()
-  const [title, setTitle] = useState(props.data ? props.data.title : '')
-  const [projno, setProjno] = useState(props.data ? props.data.projno : '')
-  const [summary, setSummary] = useState(props.data ? props.data.summary : '')
-  const [supervisor, setSupervisor] = useState(props.data ? props.data.supervisor : '')
-  const [email, setEmail] = useState(props.data ? props.data.email : '')
-  const [apiRequestType, setApiRequestType] = useState('')
-  const [apiResponseString, setApiResponseString] = useState('')
-  const [buttonString, setButtonString] = useState('')
-  const { formType } = props
+  const request = useAxios();
+  const [title, setTitle] = useState(props.data ? props.data.title : "");
+  const [projno, setProjno] = useState(props.data ? props.data.projno : "");
+  const [summary, setSummary] = useState(props.data ? props.data.summary : "");
+  const [supervisor, setSupervisor] = useState(
+    props.data ? props.data.supervisor : ""
+  );
+  const [email, setEmail] = useState(props.data ? props.data.email : "");
+  const [apiRequestType, setApiRequestType] = useState("");
+  const [apiResponseString, setApiResponseString] = useState("");
+  const [buttonString, setButtonString] = useState("");
+  const { formType } = props;
 
   useEffect(() => {
     switch (formType) {
-      case 'addFyp':
-        setApiRequestType(ApiRequestType.POST_FYP)
-        setApiResponseString('FYP Created!')
-        setButtonString('Add Fyp')
-        break
-      case 'editFyp':
-        setApiRequestType(ApiRequestType.PUT_FYP)
-        setApiResponseString('FYP Edited!')
-        setButtonString('Edit Fyp')
-        break
+      case "addFyp":
+        setApiRequestType(ApiRequestType.POST_FYP);
+        setApiResponseString("FYP Created!");
+        setButtonString("Add Fyp");
+        break;
+      case "editFyp":
+        setApiRequestType(ApiRequestType.PUT_FYP);
+        setApiResponseString("FYP Edited!");
+        setButtonString("Edit Fyp");
+        break;
       default:
-        return
+        return;
     }
-  }, [formType])
+  }, [formType]);
 
   const submit = () => {
     if (!title) {
-      alert('Project title is empty!')
-      return
+      alert("Project title is empty!");
+      return;
     }
     if (!projno) {
-      alert('Project ID is empty!')
-      return
+      alert("Project ID is empty!");
+      return;
     }
     if (!summary) {
-      alert('Project info is empty!')
-      return
+      alert("Project info is empty!");
+      return;
     }
     if (!supervisor) {
-      alert('Supervisor name is empty!')
-      return
+      alert("Supervisor name is empty!");
+      return;
     }
     if (!email) {
-      alert('Supervisor ID is empty!')
-      return
+      alert("Supervisor ID is empty!");
+      return;
     }
 
     const payload = {
@@ -62,27 +64,27 @@ export default function FypForm(props) {
       summary,
       supervisor,
       email,
-    }
+    };
 
     request(apiRequestType, payload)
       .then(() => {
-        alert(apiResponseString)
-        setTitle('')
-        setProjno('')
-        setSummary('')
-        setSupervisor('')
-        setEmail('')
+        alert(apiResponseString);
+        setTitle("");
+        setProjno("");
+        setSummary("");
+        setSupervisor("");
+        setEmail("");
       })
       .catch((e) => {
         switch (e.response.data.code) {
-          case 'ER_DUP_ENTRY':
-            alert('Duplicate entry with the same ID')
-            break
+          case "ER_DUP_ENTRY":
+            alert("Duplicate entry with the same ID");
+            break;
           default:
-            alert('Something is wrong')
+            alert("Something is wrong");
         }
-      })
-  }
+      });
+  };
 
   return (
     <div className="form-content">
@@ -128,13 +130,13 @@ export default function FypForm(props) {
         />
       </div>
       <div className="form-content-row">
-        <Button onClick={submit}>{ buttonString }</Button>
+        <Button onClick={submit}>{buttonString}</Button>
       </div>
     </div>
-  )
+  );
 }
 
 FypForm.propTypes = {
   data: PropTypes.object,
   formType: PropTypes.string,
-}
+};
