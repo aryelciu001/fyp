@@ -1,9 +1,9 @@
 class MyError extends Error {
   constructor(errorObject) {
-    super(errorObject.message)
-    this.code = errorObject.code
-    this.statusCode = errorObject.statusCode
+    super(errorObject.message);
+    this.code = errorObject.code;
+    this.statusCode = errorObject.statusCode;
   }
 }
 
-module.exports = MyError
+module.exports = MyError;

@@ -1,5 +1,5 @@
-const bcrypt = require('bcrypt')
-const saltRounds = 8
+const bcrypt = require("bcrypt");
+const saltRounds = 8;
 
 module.exports = {
   /**
@@ -7,8 +7,8 @@ module.exports = {
    * @param pw
    * @returns promise (hashed password when resolved)
    */
-  encrypt: function(pw) {
-    return bcrypt.hash(pw, saltRounds)
+  encrypt: function (pw) {
+    return bcrypt.hash(pw, saltRounds);
   },
   /**
    * @description check password is correct
@@ -16,7 +16,7 @@ module.exports = {
    * @param hashed
    * @returns promise (true/false when resolved)
    */
-  passwordIsCorrect: function(plain, hashed) {
-    return bcrypt.compare(plain, hashed)
+  passwordIsCorrect: function (plain, hashed) {
+    return bcrypt.compare(plain, hashed);
   },
-}
+};

@@ -1,7 +1,7 @@
-const { mysqlQuery } = require('../utils/mysqlQuery')
-const MyError = require('../utils/Error/Error')
-const ErrorMessage = require('../utils/Error/ErrorMessage')
-const SqlString = require('sqlstring')
+const { mysqlQuery } = require("../utils/mysqlQuery");
+const MyError = require("../utils/Error/Error");
+const ErrorMessage = require("../utils/Error/ErrorMessage");
+const SqlString = require("sqlstring");
 
 class VerificationcodeController {
   /**
@@ -11,9 +11,12 @@ class VerificationcodeController {
    * @returns
    */
   addCode = async (email, code) => {
-    const query = SqlString.format('INSERT INTO verificationcode (email, code) VALUES (?,?);', [email, code])
-    return mysqlQuery(query)
-  }
+    const query = SqlString.format(
+      "INSERT INTO verificationcode (email, code) VALUES (?,?);",
+      [email, code]
+    );
+    return mysqlQuery(query);
+  };
 
   /**
    * @description verify code with code in db
@@ -23,17 +26,20 @@ class VerificationcodeController {
    */
   verifyCode = async (email, code) => {
     try {
-      const query = SqlString.format('SELECT * FROM verificationcode WHERE email=?;', [email])
-      let correctCode = await mysqlQuery(query)
-      correctCode = correctCode[0].code
+      const query = SqlString.format(
+        "SELECT * FROM verificationcode WHERE email=?;",
+        [email]
+      );
+      let correctCode = await mysqlQuery(query);
+      correctCode = correctCode[0].code;
       if (code === correctCode) {
-        return true
+        return true;
       }
-      return false
+      return false;
     } catch (e) {
-      throw new MyError(ErrorMessage.WRONG_VERIFICATION_CODE)
+      throw new MyError(ErrorMessage.WRONG_VERIFICATION_CODE);
     }
-  }
+  };
 
   /**
    * @description delete verification code
@@ -41,9 +47,12 @@ class VerificationcodeController {
    * @returns
    */
   deleteCode = async (email) => {
-    const query = SqlString.format('DELETE FROM verificationcode WHERE email=?;', [email])
-    return mysqlQuery(query)
-  }
+    const query = SqlString.format(
+      "DELETE FROM verificationcode WHERE email=?;",
+      [email]
+    );
+    return mysqlQuery(query);
+  };
 
   /**
    * @description get verification code using email
@@ -52,14 +61,17 @@ class VerificationcodeController {
    */
   getCode = async (email) => {
     try {
-      const query = SqlString.format('SELECT * FROM verificationcode WHERE email=?;', [email])
-      let correctCode = await mysqlQuery(query)
-      correctCode = correctCode[0].code
-      return correctCode
+      const query = SqlString.format(
+        "SELECT * FROM verificationcode WHERE email=?;",
+        [email]
+      );
+      let correctCode = await mysqlQuery(query);
+      correctCode = correctCode[0].code;
+      return correctCode;
     } catch (e) {
-      throw new MyError(ErrorMessage.WRONG_VERIFICATION_CODE)
+      throw new MyError(ErrorMessage.WRONG_VERIFICATION_CODE);
     }
-  }
+  };
 }
 
-module.exports = new VerificationcodeController()
+module.exports = new VerificationcodeController();

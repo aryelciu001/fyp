@@ -1,5 +1,5 @@
-const { mysqlQuery } = require('../utils/mysqlQuery')
-const SqlString = require('sqlstring')
+const { mysqlQuery } = require("../utils/mysqlQuery");
+const SqlString = require("sqlstring");
 
 class SelectionController {
   /**
@@ -8,10 +8,13 @@ class SelectionController {
    * @param {*} email
    */
   selectProject = async (projno, email) => {
-    const query = SqlString.format(`INSERT INTO selection(projno, email)
-      VALUES(?, ?);`, [projno, email])
-    return mysqlQuery(query)
-  }
+    const query = SqlString.format(
+      `INSERT INTO selection(projno, email)
+      VALUES(?, ?);`,
+      [projno, email]
+    );
+    return mysqlQuery(query);
+  };
 
   /**
    * @description get user selection
@@ -19,13 +22,16 @@ class SelectionController {
    * @returns selection by the user with the email
    */
   getUserSelection = (email) => {
-    const query = SqlString.format(`SELECT p.title, p.projno, p.email as supervisorEmail, p.supervisor as supervisorName, p.summary
+    const query = SqlString.format(
+      `SELECT p.title, p.projno, p.email as supervisorEmail, p.supervisor as supervisorName, p.summary
       FROM selection as s
       JOIN project as p
       ON s.projno = p.projno
-      WHERE s.email = ?;`, [email])
-    return mysqlQuery(query)
-  }
+      WHERE s.email = ?;`,
+      [email]
+    );
+    return mysqlQuery(query);
+  };
 
   /**
    * @description get selection using projno
@@ -33,9 +39,11 @@ class SelectionController {
    * @returns
    */
   getSelectionWithProjno = async (projno) => {
-    const query = SqlString.format(`SELECT * FROM selection WHERE projno=?;`, [projno])
-    return mysqlQuery(query)
-  }
+    const query = SqlString.format(`SELECT * FROM selection WHERE projno=?;`, [
+      projno,
+    ]);
+    return mysqlQuery(query);
+  };
 
   /**
    * @description get selection using email
@@ -43,9 +51,11 @@ class SelectionController {
    * @returns
    */
   getSelectionWithEmail = async (email) => {
-    const query = SqlString.format(`SELECT * FROM selection WHERE email=?;`, [email])
-    return mysqlQuery(query)
-  }
+    const query = SqlString.format(`SELECT * FROM selection WHERE email=?;`, [
+      email,
+    ]);
+    return mysqlQuery(query);
+  };
 
   /**
    * @description return a table to be used for report
@@ -57,9 +67,9 @@ class SelectionController {
       JOIN user as u
       ON s.email = u.email
       JOIN project as p
-      ON s.projno = p.projno;`
-    return mysqlQuery(query)
-  }
+      ON s.projno = p.projno;`;
+    return mysqlQuery(query);
+  };
 }
 
-module.exports = new SelectionController()
+module.exports = new SelectionController();

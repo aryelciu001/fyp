@@ -1,5 +1,5 @@
-const { mysqlQuery } = require('../utils/mysqlQuery')
-const SqlString = require('sqlstring')
+const { mysqlQuery } = require("../utils/mysqlQuery");
+const SqlString = require("sqlstring");
 
 class SelectionInfoController {
   /**
@@ -8,21 +8,24 @@ class SelectionInfoController {
    * @param {*} open
    */
   updateSelectionInfo = async (opentime, closetime, open) => {
-    const query = SqlString.format(`UPDATE selectioninfo
+    const query = SqlString.format(
+      `UPDATE selectioninfo
       SET selectionopen=?, selectionopentime=?, selectionclosetime=?
-      WHERE id=1;`, [open, opentime, closetime])
-    return mysqlQuery(query)
-  }
+      WHERE id=1;`,
+      [open, opentime, closetime]
+    );
+    return mysqlQuery(query);
+  };
 
   /**
    * @description get selectioninfo
    */
   getSelectionInfo = async () => {
     const query = `SELECT * from selectioninfo
-      WHERE id=1;`
-    const info = await mysqlQuery(query)
-    return info[0]
-  }
+      WHERE id=1;`;
+    const info = await mysqlQuery(query);
+    return info[0];
+  };
 }
 
-module.exports = new SelectionInfoController()
+module.exports = new SelectionInfoController();

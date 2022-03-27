@@ -1,18 +1,18 @@
-const nodemailer = require('nodemailer')
+const nodemailer = require("nodemailer");
 
 class Mailer {
-  transporter
-  email
+  transporter;
+  email;
 
   constructor() {
-    this.email = process.env.MAILER_EMAIL
+    this.email = process.env.MAILER_EMAIL;
     this.transporter = nodemailer.createTransport({
-      service: 'gmail',
+      service: "gmail",
       auth: {
         user: this.email,
         pass: process.env.MAILER_PASSWORD,
       },
-    })
+    });
   }
 
   sendEmail = (to, payload) => {
@@ -20,9 +20,9 @@ class Mailer {
       from: `NTU FYP Mailer <${this.email}>`,
       to,
       ...payload,
-    }
-    return this.transporter.sendMail(message)
-  }
+    };
+    return this.transporter.sendMail(message);
+  };
 }
 
-module.exports = new Mailer()
+module.exports = new Mailer();

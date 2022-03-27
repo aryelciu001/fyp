@@ -1,6 +1,6 @@
 module.exports = {
   UserType: {
-    ADMIN: 'admin',
-    STUDENT: 'student',
+    ADMIN: "admin",
+    STUDENT: "student",
   },
-}
+};

@@ -1,5 +1,5 @@
-const { mysqlQuery } = require('../utils/mysqlQuery')
-const SqlString = require('sqlstring')
+const { mysqlQuery } = require("../utils/mysqlQuery");
+const SqlString = require("sqlstring");
 
 class ReservationController {
   /**
@@ -9,11 +9,14 @@ class ReservationController {
    * @returns
    */
   getReservation = async (email, projno) => {
-    const query = SqlString.format(`SELECT * FROM reservation
-      where email=? AND projno=?;`, [email, projno])
-    const reservation = await mysqlQuery(query)
-    return reservation[0]
-  }
+    const query = SqlString.format(
+      `SELECT * FROM reservation
+      where email=? AND projno=?;`,
+      [email, projno]
+    );
+    const reservation = await mysqlQuery(query);
+    return reservation[0];
+  };
 
   /**
    * @description add reservation
@@ -21,11 +24,14 @@ class ReservationController {
    * @param {*} projno
    */
   addReservation = async (email, projno) => {
-    const query = SqlString.format(`INSERT INTO reservation 
+    const query = SqlString.format(
+      `INSERT INTO reservation 
       (email, projno) 
-      VALUES (?, ?);`, [email, projno])
-    return mysqlQuery(query)
-  }
+      VALUES (?, ?);`,
+      [email, projno]
+    );
+    return mysqlQuery(query);
+  };
 
   /**
    * @description delete reservation
@@ -33,10 +39,13 @@ class ReservationController {
    * @param {*} projno
    */
   deleteReservation = async (email, projno) => {
-    const query = SqlString.format(`DELETE FROM reservation 
-      WHERE email=? AND projno=?;`, [email, projno])
-    return mysqlQuery(query)
-  }
+    const query = SqlString.format(
+      `DELETE FROM reservation 
+      WHERE email=? AND projno=?;`,
+      [email, projno]
+    );
+    return mysqlQuery(query);
+  };
 
   /**
    * @description get user's reservation
@@ -44,13 +53,16 @@ class ReservationController {
    * @returns reservations
    */
   getUserReservation = async (email) => {
-    const query = SqlString.format(`SELECT p.title, p.projno, p.email as supervisorEmail, p.supervisor as supervisorName, p.summary
+    const query = SqlString.format(
+      `SELECT p.title, p.projno, p.email as supervisorEmail, p.supervisor as supervisorName, p.summary
       FROM reservation as r
       JOIN project as p
       ON r.projno = p.projno
-      WHERE r.email = ?;`, [email])
-    return mysqlQuery(query)
-  }
+      WHERE r.email = ?;`,
+      [email]
+    );
+    return mysqlQuery(query);
+  };
 
   /**
    * @description return a table to be used for report
@@ -62,9 +74,9 @@ class ReservationController {
       JOIN user as u
       ON r.email = u.email
       JOIN project as p
-      ON r.projno = p.projno;`
-    return mysqlQuery(query)
-  }
+      ON r.projno = p.projno;`;
+    return mysqlQuery(query);
+  };
 }
 
-module.exports = new ReservationController()
+module.exports = new ReservationController();

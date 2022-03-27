@@ -1,7 +1,7 @@
-const SelectionInfoRouter = require('express').Router()
-const AuthController = require('../controllers/auth')
-const SelectionInfoController = require('../controllers/selectioninfo')
-const ErrorResponse = require('../utils/Error/ErrorResponse')
+const SelectionInfoRouter = require("express").Router();
+const AuthController = require("../controllers/auth");
+const SelectionInfoController = require("../controllers/selectioninfo");
+const ErrorResponse = require("../utils/Error/ErrorResponse");
 
 /**
  * @description open/close selection time
@@ -10,24 +10,28 @@ const ErrorResponse = require('../utils/Error/ErrorResponse')
  * - time (int)
  * - open (1 or 0)
  */
-SelectionInfoRouter.post('/', AuthController.isAdmin, async function(req, res) {
-  const { opentime, closetime, open } = req.body
-  SelectionInfoController.updateSelectionInfo(opentime, closetime, open)
-    .then(() => res.send({}))
-    .catch((e) => {
-      return ErrorResponse(e, res)
-    })
-})
+SelectionInfoRouter.post(
+  "/",
+  AuthController.isAdmin,
+  async function (req, res) {
+    const { opentime, closetime, open } = req.body;
+    SelectionInfoController.updateSelectionInfo(opentime, closetime, open)
+      .then(() => res.send({}))
+      .catch((e) => {
+        return ErrorResponse(e, res);
+      });
+  }
+);
 
 /**
  * @description get selection info
  */
-SelectionInfoRouter.get('/', AuthController.isUser, async function(req, res) {
+SelectionInfoRouter.get("/", AuthController.isUser, async function (req, res) {
   SelectionInfoController.getSelectionInfo()
     .then((selectionInfo) => res.send(selectionInfo))
     .catch((e) => {
-      return ErrorResponse(e, res)
-    })
-})
+      return ErrorResponse(e, res);
+    });
+});
 
-module.exports = SelectionInfoRouter
+module.exports = SelectionInfoRouter;
