@@ -248,6 +248,7 @@ UserRouter.get("/migrate", async (req, res) => {
     await UserController.addUser(email, "", password, "admin", false);
     return res.send({ msg: "Admin account has been succesfully added 👍" });
   } catch (e) {
+    console.log(e);
     return res.send({ msg: "Admin account has been added 💾" });
   }
 });

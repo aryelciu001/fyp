@@ -6,11 +6,11 @@ app.use(bodyParser.json());
 const connection = require("./db");
 // const logger = require('./utils/logger')
 
-try {
-  connection.connect(() => console.log("Connected to DB"));
-} catch (e) {
-  console.log(e);
-}
+connection.on("connection", function (connection) {
+  connection.on("error", function (err) {
+    console.error(new Date(), "MySQL error", err.code);
+  });
+});
 
 // Routing
 app.get("/", (req, res) => {
