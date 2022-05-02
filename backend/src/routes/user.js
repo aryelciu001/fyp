@@ -196,13 +196,13 @@ UserRouter.post(
       const data = file.toString();
       const users = await csv().fromString(data);
       const promises = [];
-      let email;
-      let password;
-      let role;
-      let eligible;
-      let matricNumber = "";
-      let existingUser;
       users.forEach(async (user) => {
+        let email;
+        let password;
+        let role;
+        let eligible;
+        let matricNumber = "";
+        let existingUser;
         matricNumber = user["matric"] === "na" ? "" : user["matric"];
         existingUser = await UserController.getUser(user["email"]);
         email = user["email"];
@@ -216,6 +216,8 @@ UserRouter.post(
 
         // hash password
         password = await encrypt(password);
+
+        console.log(email, existingUser)
 
         if (existingUser) {
           promises.push(
