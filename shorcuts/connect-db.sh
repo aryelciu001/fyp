@@ -1,1 +1,0 @@
-docker exec -it fyp_db bash
